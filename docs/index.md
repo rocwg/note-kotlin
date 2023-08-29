@@ -4,15 +4,15 @@ layout: home
 
 hero:
   name: "vitepress-doc-zh"
-  text: "vitepress-doc-zh"
+  text: "文档"
   tagline: My great project tagline
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: Vitepress文档
       link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: View on GitHub
+      link: https://github.com/vuejs/vitepress
 
 features:
   - title: Feature A
