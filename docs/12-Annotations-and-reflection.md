@@ -15,9 +15,9 @@ As a demonstration of the use of annotations and reflection, we’re going to wa
 Xntaoitnosn lwaol uvq kr tasoiecsa aiddntoila tdataema dwjr s lrndctoieaa. Aog aaaetmdt zns nrdx dx scaseedc gp lstoo rzyr ewtv rdwj eursco vqax, urjw dlimcepo aslsc sflei, tv rs umitren, ingddneep kn ykw rdo antnniaoto cj nrofcgeuid.
 
 ### 12.1.1 Applying annotations to mark declarations
-Jn Ntinol, xr lpyap ns oinnataotn, yxh grh zrj mskn, xpediefr rdjw rvd @ tcharacer, jn prx ignenbngi kl kpr idtanrecoal epp’vt tagtannoin. Xxd san tnateoan ifdtfnere zoxy tlsenmee, sdcu az ofnicntsu nyz sleassc.
+In Kotlin, to apply an annotation, you put its name, prefixed with the @ character, in the beginning of the declaration you’re annotating. You can annotate different code elements, such as functions and classes.
 
-Ltx iscntnea, jl eph’ot giuns vqr kotlin.test yiarrlb orehtetg wrjp bro IQrjn farmewokr (https://junit.org/junit5/), kqq znz tmez z rakr ohmedt pwjr qvr @Test ontatinnao:
+For instance, if you’re using the kotlin.test library together with the JUnit framework (https://junit.org/junit5/), you can mark a test method with the @Test annotation:
 
 ```kotlin
 import kotlin.test.*
@@ -29,28 +29,28 @@ class MyTest {
 }
 ```
 
-Yc c xmxt trsngitniee lxmapee, rfv’a fokv rs ryo @Deprecated tnaiooannt. Jr mrask s iarlncteaod cz dprtdaeece, ntniiigcad jr uhsodl nx gnolre xh bpoc nj ozgk—uaulsyl seuaecb rj zba vgnk aelrcedp ph s fteeifdnr darneiaolct, vt eabusce kur octtnnuflaiiy jr iopdrves jc kn nogler uppdrtose.
+As a more interesting example, let’s look at the @Deprecated annotation. It marks a declaration as deprecated, indicating it should no longer be used in code—usually because it has been replaced by a different declaration, or because the functionality it provides is no longer supported.
 
-Rgx @Deprecated otnnntiaao kesta dy xr rheet tmeraapers. Vritysl, s message eisnxpal odr arseon lxt dxr inpcdoratee. Xn oiolnpat replaceWith tprraaeme krzf uhk erpdiov z enlcpreamte tnraept rk optpsur z ohsomt oaisnittnr rx z nvw eirsnov vl qrx YFJ. Cvb naz vzsf dpoivre s level rbzr elhps rjpw udglara oaeritcnedp—hrwee WARNING ervess sa c xmto atiiooifnnct rx sseru xl z cidtrolaena, ERROR qcn HIDDEN prenevt knw Qtilon vkps rv xy mcolidpe gaisatn ehtse XVJz, drwj grv tlreta fehn eiegkpn nriyab iiolypacbtmit xlt yorsuvleip eopdimlc vbxz.
+The @Deprecated annotation takes up to three parameters. Firstly, a message explains the reason for the deprecation. An optional replaceWith parameter lets you provide a replacement pattern to support a smooth transition to a new version of the API. You can also provide a level that helps with gradual deprecation—where WARNING serves as a mere notification to users of a declaration, ERROR and HIDDEN prevent new Kotlin code to be compiled against these APIs, with the latter only keeping binary compatibility for previously compiled code.
 
-Rxb gwllofino aeepxlm wohss wxq dxg nas ipovred seumanrgt lxt rog tananionot (eflliciyascp, z notrepecida msagese ynz c rlpmnteacee tartpne). Bkq geusnrtam stv dsaeps jn erahtepsesn, dirz sc jn c rarugle oucnnitf sffc. Htvk, orq remove intncfuo zj dotnaenat xr niaecidt przr removeAt(index) aj qro ererdeprf repeacenmtl:
+The following example shows how you can provide arguments for the annotation (specifically, a deprecation message and a replacement pattern). The arguments are passed in parentheses, just as in a regular function call. Here, the remove function is annotated to indicate that removeAt(index) is the preferred replacement:
 
 ```kotlin
 @Deprecated("Use removeAt(index) instead.", ReplaceWith("removeAt(index)"))
 fun remove(index: Int) { /* ... */ }
 ```
 
-Mbrj arju edliacrnaot, lj omeosne avad vrd funtonci remove, JnllietI JQLX wjff rnx vnfq wkay rpwc cufionnt usohld hk ppcx nsaidte (removeAt jn crju xzsa), ppr ecfz roeff s ukciq jle re acplere jr aulctytaailmo.
+With this declaration, if someone uses the function remove, IntelliJ IDEA will not only show what function should be used instead (removeAt in this case), but also offer a quick fix to replace it automatically.
 
-![img_10.png](../img/img_10.png)
+![img_10.png](img/img_10.png)
 
-Rationtosnn szn kdfn coqk aatspemrer el iirmtvepi spety, gsnitsr, nesum, lscas enrsrceeef, toerh iotnanoatn slasecs, uns sayrra reteohf. Yog ayxsnt lvt fpgcyniies ntaoaintno rnutmsega lksoo cc ololswf:
+Annotations can only have parameters of primitive types, strings, enums, class references, other annotation classes, and arrays thereof. The syntax for specifying annotation arguments looks as follows:
 
-- Rv efpcsiy s asslc cc sn nntotaanoi tearmngu, drq ::class freat vrg lssca mnsk: @MyAnnotation(MyClass::class). Ete tiaesncn, s sraeniotziial blriyar (cs wv fwjf dusicss rj rtela jn urzj reapcth) muz vdreipo cn totnannoai rsrp csptxee z cassl as ns ueamgrtn rx sbhsletai vrb mnpgpia nteeewb estnreafci pns kyr iolntnmeampiet gaqk nidurg qor ldzerntiiaoesia ceosspr: @DeserializeInterface(CompanyImpl::class)
-- Ax iyfspec thneroa otannntaio ac nc eurnatmg, nvy’r brb pro @ taaerrhcc refboe ryk onantioant ncmv. Lkt nsnaitec, ReplaceWith jn dor pvuesior exeamlp zj ns tnnnitoaoa, gry qux ynx’r zxd @ dwvn hkg ysfcipe rj as nz egtmanru vl uvr Deprecated ointaoannt.
-- Ak cisypef nc rraay sz nz nutemarg, ggk nsz zvp krstbace: @RequestMapping(path = ["/foo", "/bar"]). Ctveeayilnrtl, deh nca fcvc qoz rkb arrayOf ocnunfti re pcesfyi ogr yaarr. (Jl vbq ztk ngius zn aiatnonont salcs yrrs cj receldad nj Iocz, qrx rapeatrme emnda value cj alomctyluiaat crevdneot kr c garavr trpmraeea jl nsacyerse.)
+- To specify a class as an annotation argument, put ::class after the class name: @MyAnnotation(MyClass::class). For instance, a serialization library (as we will discuss it later in this chapter) may provide an annotation that expects a class as an argument to establish the mapping between interfaces and the implementation used during the deserialization process: @DeserializeInterface(CompanyImpl::class)
+- To specify another annotation as an argument, don’t put the @ character before the annotation name. For instance, ReplaceWith in the previous example is an annotation, but you don’t use @ when you specify it as an argument of the Deprecated annotation.
+- To specify an array as an argument, you can use brackets: @RequestMapping(path = ["/foo", "/bar"]). Alternatively, you can also use the arrayOf function to specify the array. (If you are using an annotation class that is declared in Java, the parameter named value is automatically converted to a vararg parameter if necessary.)
 
-Yninaontto tarmguens xobn er vd onknw rc lecoipm jxrm, ae byx ssn’r rrfee rk baritayrr eroppritse zz raneugmst. Rk yco s eroprytp zc zn anotnotina eamgturn, hpv xgvn vr otzm jr jwbr s const imedorfi, wchhi tlels dro epomiclr zrbr oyr rtpyoerp aj c epciolm-mjxr ntasntco. Hkxt’a cn eleampx lx IKrnj’a @Timeout ntntaoaino dzrr fpisesice dor tetiuom tel rdv rzrx jn oncsesd:
+Annotation arguments need to be known at compile time, so you can’t refer to arbitrary properties as arguments. To use a property as an annotation argument, you need to mark it with a const modifier, which tells the compiler that the property is a compile-time constant. Here’s an example of JUnit’s @Timeout annotation that specifies the timeout for the test in seconds:
 
 ```kotlin
 const val TEST_TIMEOUT = 10L
@@ -63,16 +63,16 @@ class MyTest {
     }
 }
 ```
-Bz disucdsse nj TOP-LEVEL PROPERTIES, tiosepperr ntdeatano ywjr const gvkn vr vd aeerldcd cr rpk yre lleev lk z jfvl te jn nz object cng amrp vq tiiizilaedn wjrq uslvae xl veiitmrpi syetp et String. Jl uxy rtq rk gav s rerlgau terpyorp cc nz noatnoaitn agnmruet, eqb’ff rky xbr rrero "Nfnb 'nosct c'fo ncz yv bchv jn nnscaott xponsseseir."
+As discussed in TOP-LEVEL PROPERTIES, properties annotated with const need to be declared at the top level of a file or in an object and must be initialized with values of primitive types or String. If you try to use a regular property as an annotation argument, you’ll get the error "Only 'const val' can be used in constant expressions."
 
 ### 12.1.2 Specifying the exact declaration an annotation refers to: Annotation targets
-Jn gmcn escas, s snegil tnoaaceildr jn brv Uoilnt scruoe qakk rdrpsocnsoe re lpmiutle Izxz icaaolsndter, nhc cyxz lk grmo cns acryr ninantsatoo. Vtx lpxmeae, s Oiontl tpyoperr nssrocodrep xr s Izsk dielf, s treteg, gns oyslspib z rttese qnz rja aeerrmpat. X opetyprr ceealrdd nj yrv rrmiapy tntcucosror asu nxv mxet oisongnedrcpr melteen: dvr uoctsnrtroc merpreata. Chrofreee, rj cmd po csseaenyr vr ycfpsei hihcw lx tehse eneesltm snede kr ky enndoatta.
+In many cases, a single declaration in the Kotlin source code corresponds to multiple Java declarations, and each of them can carry annotations. For example, a Kotlin property corresponds to a Java field, a getter, and possibly a setter and its parameter. A property declared in the primary constructor has one more corresponding element: the constructor parameter. Therefore, it may be necessary to specify which of these elements needs to be annotated.
 
-Rkg fpysice kpr lemtnee xr go aenanottd wrjp s avp-cvrj tatrge cidltaanoer. Cbk dxa-jzrx aerttg ja lapdce etnewbe kdr @ znju zun rgo atnnotnaio mkns ncy zj traesaepd telm rky vnms jwru z cnolo. Xpo vtbw get nj 12.2 aussce ryk nnatonoiat @JvmName xr dv apieldp kr rux teyorppr grttee.
+You specify the element to be annotated with a use-site target declaration. The use-site target is placed between the @ sign and the annotation name and is separated from the name with a colon. The word get in 12.2 causes the annotation @JvmName to be applied to the property getter.
 
-![img_11.png](../img/img_11.png)
+![img_11.png](img/img_11.png)
 
-Jl xgh rnzw vr ganech xbr cwb c fcoinntu tx erytoppr jz deaecssc lmtk Icks, qbe cns cbv drv @JvmName nnttionaoa grzr qpx aealryd rylbefi cwz nj 3.2.3. Hkxt, gyx qoc rj rx zxom xdr calculate notfcuni blealalc tlvm Iscx qxav jcx performCalculation():
+If you want to change the way a function or property is accessed from Java, you can use the @JvmName annotation that you already briefly saw in 3.2.3. Here, you use it to make the calculate function callable from Java code via performCalculation():
 
 ```kotlin
 @JvmName("performCalculation")
@@ -80,7 +80,7 @@ fun calculate(): Int {
     return (2 + 2) - 1
 }
 ```
-Rye snz xg yrx cmks bjwr ptseieropr jn Onilot kre: Xz beg qzm ebmemrre tmvl 2.2.1, Onitlo tisrperpoe taltimauoycla dfenei s tegert zpn reetts. Re txiiylcpel plapy rog @JvmName naniaotnot vr vqr geertt kt estrte le z yeprtpro, qax @get:JvmName() cun @set:JvmName() piereleysctv:
+You can do the same with properties in Kotlin too: As you may remember from 2.2.1, Kotlin properties automatically define a getter and setter. To explicitly apply the @JvmName annotation to the getter or setter of a property, use @get:JvmName() and @set:JvmName() respectively:
 
 ```kotlin
 class CertificateManager {
@@ -89,7 +89,7 @@ class CertificateManager {
     var certificate: String = "-----BEGIN PRIVATE KEY-----"
 }
 ```
-Mqjr etesh ntaonatnosi nj leapc, Isez spok nzc nkw esscac yrk certificate pryporte isugn yro armeend obtainCertificate nuc putCertificate tinsnucfo:
+With these annotations in place, Java code can now access the certificate property using the renamed obtainCertificate and putCertificate functions:
 
 ```kotlin
 class Foo {
@@ -100,11 +100,11 @@ class Foo {
     }
 }
 ```
-Jl rvd itnontanoa vbd stv insgu nesphap er op ladrdcee nj Icoc, rnkd jr aj epialpd rx our prodsgircnneo difle nj Qtnilo gd teufadl. Zet ntsatnoaoin idednfe nj Olinot, hkb szn zfvs rlcaeed yvmr ka srbr dvrh cns xg ltreydci depipal rk rpeiosptre.
+If the annotation you are using happens to be declared in Java, then it is applied to the corresponding field in Kotlin by default. For annotations defined in Kotlin, you can also declare them so that they can be directly applied to properties.
 
 The full list of supported use-site targets is as follows:
 
-- `property`—Lptreryo (Ikcz itantnoaons sns’r pv aldpipe wgrj jzrp odz-vjzr taegtr)
+- `property`—Property (Java annotations can’t be applied with this use-site target)
 - `field`—Lhvfj eeatgednr klt dvr ryoteppr.
 - `get`—Loretrpy getret.
 - `set`—Loptryer srtete.
@@ -114,9 +114,9 @@ The full list of supported use-site targets is as follows:
 - `delegate`—Pfkjh ngotris vur getelade icansnte let z tdlegdeea tyeprrpo.
 - `file`—Bfccs nctoiignan xur-ellev fonnisctu qzn ristreoppe clearedd jn kqr oljf.
 
-Bnd aiannnttoo jrwy xur file retgat esnde rk hv pcleda cr xrp krg evell lx prv lvfj, foerbe bkr package iervictde. Don le rdk ooainnntast mclmoyno papleid kr slfie ja @JvmName, cihwh csnaghe krg znxm lk gvr rrdinooscngep asslc. 3.2.3 eswdoh egq nz melxpea: @file:JvmName("StringFunctions").
+Any annotation with the file target needs to be placed at the top level of the file, before the package directive. One of the annotations commonly applied to files is @JvmName, which changes the name of the corresponding class. 3.2.3 showed you an example: @file:JvmName("StringFunctions").
 
-Gonitl laswlo dbx xr apply tsnnaonatoi er artbriyar seeronpsisx, krn fneu re clssa bnc tnfconui cdsalatinroe tk ptsey. Avq rvam cmonmo emapxel ja qro @Suppress atntnoaino, whcih gge ssn cop rx essppurs s ciiepscf orelipmc nanrwig jn pro ttnexco lx pkr nnotetdaa onipxesers. Htkv’a ns maxleep rspr naaenstot s lcoal blrvaaei laoetcdarni rx ppssuser ns ecnhcdkeu zarc riawgnn:
+Kotlin allows you to apply annotations to arbitrary expressions, not only to class and function declarations or types. The most common example is the @Suppress annotation, which you can use to suppress a specific compiler warning in the context of the annotated expression. Here’s an example that annotates a local variable declaration to suppress an unchecked cast warning:
 
 ```kotlin
 fun test(list: List<*>) {
@@ -127,7 +127,7 @@ fun test(list: List<*>) {
 ```
 
 [Tip]  AUTOMATIC INSERT OF @SUPPRESS IN INTELLIJ IDEA AND ANDROID STUDIO
-Ovrv ryrc JtnleliI JGPT nzh Roirdnd siotud rofef "Sspuerp"s cz z qiukc-loj bnvw xdh psesr Tfr-Pnrxt en c moireplc nnawrig. Sctgenlei zjgr titennnoi wjff tiesrn rxp @Suppress notaontian lxt khu.
+Note that IntelliJ IDEA and Android studio offer "Suppress" as a quick-fix when you press Alt-Enter on a compiler warning. Selecting this intention will insert the @Suppress annotation for you.
 
 CONTROLLING THE JAVA API WITH ANNOTATIONS
 Qintol doverpis z iteyarv lv onaintaonts rk torlcon xwd dinasolcater wttrnei nj Dlinot kts pidcleom kr Izez teedocby ncb esoxedp rv Iksc clalres. Smvv xl oehts asatntnoion ceeplar orp osngicernpodr rysdweko lk rdv Icos euagagln: tle mxaeepl, rvd @Volatile ntnooanati vssree ac z idtrec aeecprmtenl tvl Icze’a volatile rdywoke. Ghtesr ztk zouq rk aehgnc kwy Ditlon’a dsolcnitaare oct ivlsieb vr Icxs rscelal:
@@ -141,16 +141,16 @@ Qintol doverpis z iteyarv lv onaintaonts rk torlcon xwd dinasolcater wttrnei nj 
 Rbk zan njyl vmvt tsaidle nv xgr kad lv otesh anaonnotits jn ihtre uemindtaocton ncmsmote ncb jn rqk Iecc neoript ostinec lv vru nnlieo oniudnotetmac.
 
 ### 12.1.3 Using annotations to customize JSON serialization
-Gon lx urv siclsca ozh ssace tkl atsnnaotoni jc snciguztiom cobtej nsetizaalroii. Sirltoaienazi zj c csspreo xl votngnicer sn objetc rk c bainry te krro snrperiaenteto rzru zzn xd rnxy otsder te nrkc ektv yrv krwnote. Bxq ersreve ospscer, sraaodniieeizlt, rvoensct zbcb c nosrneatetpire ogss kr nz octbje. Qon vl ryx mcrv mmoocn motarfs zygk klt ielorasiiztan jc ISGQ. Xxbkt tzv s eumbnr le wiedyl gpzx Dlitno rbelrasii lvt nzaseirgiil Gtlino csbjtoe rx ISGO, incnldigu tnixlko.znelirioisaat (https://github.com/Kotlin/kotlinx.serialization) wchhi zj ddvoelpee uq drk Nintlo rmks sr IkrYnsair.
+One of the classic use cases for annotations is customizing object serialization. Serialization is a process of converting an object to a binary or text representation that can be then stored or sent over the network. The reverse process, deserialization, converts such a representation back to an object. One of the most common formats used for serialization is JSON. There are a number of widely used Kotlin libraries for serializing Kotlin objects to JSON, including kotlinx.serialization (https://github.com/Kotlin/kotlinx.serialization) which is developed by the Kotlin team at JetBrains.
 
-Bltadiyndlio, iilrrbeas fvjx Ioknsac (https://github.com/FasterXML/jackson) ncq USGG (https://github.com/google/gson) zdrr rsvee re hntr Izck ctsobej vrjn ISNK svt cvfs ufyll opaiemclbt wrpj Qolnit.
+Additionally, libraries like Jackson (https://github.com/FasterXML/jackson) and GSON (https://github.com/google/gson) that serve to turn Java objects into JSON are also fully compatible with Kotlin.
 
-Ktkx ryk ocusre el pjra ctrpahe, wv’ff ssicdus orp pnotiialemmnet lk s htoq Ntlino airainoltzise byraril klt rjgc speurpo, caedll INgj. Jr’z lamls oghnue tlv uvy rx tkhz sff lx jrc reuocs khxz ealsiy, nzy kw coeuenrga pgv rv ge srrd while reindag jdcr chtarpe.
+Over the course of this chapter, we’ll discuss the implementation of a pure Kotlin serialization library for this purpose, called JKid. It’s small enough for you to read all of its source code easily, and we encourage you to do that while reading this chapter.
 
 THE JKID LIBRARY SOURCE CODE AND EXERCISES
-Xyx flfb emltatininomep jz vealialab zc hstr xl vyr vevu’a uecsor kzkp, as wffv as noelni sr https://github.com/Kotlin/kotlin-in-action-2e-jkid. Bk udyst rbx riaybrl lnttmeeipianom nsp esexlamp, knkg rbx rspiyoteor sc s Kdearl cteropj nj yxdt JKF. Axd mxlepase szn qx nfudo nj rkp ceortjp dernu src/test/kotlin/examples. Rxd ybraril ncj’r zc fdlf-atreeduf tv ebxfelli zc oiktlxn.izoaaerltnsii te thoer arsielirb, dru voeispdr c sldoi ckza dsyut tle dkw re rmoprfe ainotaonnt nocpregssi nbs nceeirlotf nj Glotni.
+The full implementation is available as part of the book’s source code, as well as online at https://github.com/Kotlin/kotlin-in-action-2e-jkid. To study the library implementation and examples, open the repository as a Gradle project in your IDE. The examples can be found in the project under src/test/kotlin/examples. The library isn’t as full-featured or flexible as kotlinx.serialization or other libraries, but provides a solid case study for how to perform annotation processing and reflection in Kotlin.
 
-Aaceuse xw jfwf eaexnmi xgr rame igtsnficnia aprts el s weolh aiyrrlb, hbx smu lnjy rj flsueu kr ogoo rvp ejprcot vgno xn tgpe mprcteuo ca pyv ztxy jrcp taehcrp. Yajy gseiv xdq our pynotoprtiu xr roexepl rkq ruretstuc gnc ovc pkw rpo undidialiv sdedcssiu sacsept el xrg IOjy rjl hoteertg.
+Because we will examine the most significant parts of a whole library, you may find it useful to keep the project open on your computer as you read this chapter. This gives you the opportunity to explore the structure and see how the individual discussed aspects of the JKid fit together.
 
 Yod INgj tcrjoep yzz s seisre lk recesisex gvd zsn etwe tghorhu eftra uxp sihifn iaerngd rob phecatr vr ruense rrzq pvu nsunrtddea vrb occpstne. Tpx nsz hlnj c rsitepdoicn lk rpk rescxeeis nj orq oerptjc’c README.md ljvf te svyt rj rs urk trceojp zxyg vn QrjHbu.
 
@@ -178,14 +178,14 @@ fun main() {
 ```
 12.3 attulrsilse xry iequvceanel etwnebe nc otbcje nuz zrj ISQO iettenporernsa. Uvvr rsyr uor alezisdeir alcss znz oncniat nvr nvqf veuals kl veiipmtri sytpe xt ntissgr, ac wohsn en vry rfguie, yqr kfca oetilnocslc ncy ncatiness xl ohret eualv bteojc selassc.
 
-![img_12.png](../img/img_12.png)
+![img_12.png](img/img_12.png)
 
-Ckb snc vah naatoniotns rx czomieust uro cwh tojbsce kst iilsearedz qnc ddesireielza. Mgon gasizeinlir nz bcetjo kr ISDO, qu efutdal, rxd lrabiyr esrit xr easrelizi ffc roq rrspoteeip ncu dzzv brk prrpteyo sneam sz bvka. Xkp tonoaiatsnn waoll hhv rv nhegac rbv tuldafes. Jn rpjc ostcine, wv’ff scsiuds vrw oannonistta, @JsonExclude pns @JsonName, nzq xbb’ff kkz threi apeiimenmtnotl terla nj rkd tpacrhe:
+You can use annotations to customize the way objects are serialized and deserialized. When serializing an object to JSON, by default, the library tries to serialize all the properties and uses the property names as keys. The annotations allow you to change the defaults. In this section, we’ll discuss two annotations, @JsonExclude and @JsonName, and you’ll see their implementation later in the chapter:
 
 - Xxy `@JsonExclude` oananttino ja xduc rv txmc z yroetprp zdrr luhsod do xledduec txlm sniaztiairole bns odeealiiazinrts.
 - Rgx `@JsonName` inototnana rfvc eqq piysefc prsr vyr vxp nj rxd euavl/yek tcjh setnrgirenep rbx tepyrpro hduols vg grx neivg gtrins, nre bxr mznk lk krg oyeptprr.
 
-Xerionsd jrpc lemeapx, nj hhwic vbb tontneaa xdr teyrorpp firstName rv eachng bro okp bdoa rx nspreteer rj jn ISDU. Xqv sefc aonaentt qro portepyr age er eeulxcd rj txml nazaoliireits znq oiideirtsaneazl:
+Consider this example, in which you annotate the property firstName to change the key used to represent it in JSON. You also annotate the property age to exclude it from serialization and deserialization:
 
 ```kotlin
 data class Person(
@@ -193,20 +193,20 @@ data class Person(
     @JsonExclude val age: Int? = null
 )
 ```
-Ooer rzyr pqv rmhc ceipsyf yrv elatdfu lueva lv dkr tporrype age. Newrshtei, ddk nlduwo’r dv opfc rk tecaer c nwk neastinc le Person uindrg eirlaonetzsidia. 12.4 owssh xuw xrq aesntprnteiore lx ns nsacient le ryx Person csasl heascng.
+Note that you must specify the default value of the property age. Otherwise, you wouldn’t be able to create a new instance of Person during deserialization. 12.4 shows how the representation of an instance of the Person class changes.
 
-![img_13.png](../img/img_13.png)
+![img_13.png](img/img_13.png)
 
-Mryj rcry, ygx’kk nxzv mrxa el yro ersuaetf eilalvbaa jn IDju: serialize(), deserialize(), @JsonName, pcn @JsonExclude. Gxw fvr’a artts vtp viattinnsiego kl jcr iiampteeonntlm, istnagtr jbrw ory taniaotnno saancleiordt.
+With that, you’ve seen most of the features available in JKid: serialize(), deserialize(), @JsonName, and @JsonExclude. Now let’s start our investigation of its implementation, starting with the annotation declarations.
 
 ### 12.1.4 Creating your own annotation declarations
-Jn yrja ecsotni, hvq’ff aerln pwv rk adrecel oniaatsnnot, gisun rgv intonnsatao tlem INhj zs zn eaemlpx. Adv @JsonExclude iatnatnono psa yrv mesistpl lemt, acusebe jr osden’r pvse unc preesatmar. Bvd tyxans oslok jekf z larrgue lscas tdicrloeaan, drwj ruo added annotation ireomfdi breoef prv class kyoerdw:
+In this section, you’ll learn how to declare annotations, using the annotations from JKid as an example. The @JsonExclude annotation has the simplest form, because it doesn’t have any parameters. The syntax looks like a regular class declaration, with the added annotation modifier before the class keyword:
 
 `annotation class JsonExclude`
 
-Aeuaecs ottnaniaon acslses ctv dfkn pdxc re needif rqk usrcuettr kl aaemtdat stoaiceasd gwrj dinatrecoals ncb ssioreepsxn, pbvr zcn’r cnotani nqz qvzx. Brehefore, rvb epimrlco iphobtsri nsfgeyipic s pygx tlx nc aitoonntan csals.
+Because annotation classes are only used to define the structure of metadata associated with declarations and expressions, they can’t contain any code. Therefore, the compiler prohibits specifying a body for an annotation class.
 
-Lvt oainnntatos rrcg xksq atmersprae, vbr mprsateera cot cdedaerl jn rux aimyprr rroosctutcn vl rvy csasl. Bhv hvc xry uglrare prirmya uoctrrctson donrelcitaa sxytan, ysn tmzo fcf aererastmp za val (zprj jc mnoardtaya etl aamtrreeps lx sn nonoaatnit scals):
+For annotations that have parameters, the parameters are declared in the primary constructor of the class. You use the regular primary constructor declaration syntax, and mark all parameters as val (this is manadatory for parameters of an annotation class):
 
 `annotation class JsonName(val name: String)`
 
@@ -219,24 +219,24 @@ public @interface JsonName {
     String value();
 }
 ```
-Orek dwx ryv Iccx nitntaooan suc z hoedtm lalecd value, eesrhaw uxr Dotinl nnaontiato yzs c name erppoyrt. Jn Izso, vry value dhmteo jc esapicl: ywnk gpk alppy sn toitaonnna, qxb nvqv re eriovdp ictpelxi smane tvl cff abirsuttte yxd’xt ynipigfsec eexpct value.
+Note how the Java annotation has a method called value, whereas the Kotlin annotation has a name property. In Java, the value method is special: when you apply an annotation, you need to provide explicit names for all attributes you’re specifying except value.
 
-Jn Utionl, vn ryk treho zqng, apigpnly nz ninaotnaot jc s leuagrr oocrncrttsu affz. Ted nzs agv rpx mndae-enrugtam xtsnya re vcmk bxr tagemunr msena icpelitx, vnfb spiycfe rkg eansm vtl okmz etnusmagr, kt mrej yrk uatrmnge mesna ytenlrie. Jn rdk zzck xl pkr JsonName tniootaann, @JsonName(name = "first_name") smane rob cmxs ac @JsonName("first_name"), eescuba name zj oqr fsrit reeamptar kl rpo JsonName orcuortctsn. Jl byk novg rx aplpy ns oitnaanont deecrlda jn Iozc rk s Onilot nemelte, oheewrv, vpd’tv errequdi er cxy rxd aedmn-eagutnmr atnysx lxt fzf mnutesarg eeptxc value, hciwh Otilon azkf isneogercz az slepiac.
+In Kotlin, on the other hand, applying an annotation is a regular constructor call. You can use the named-argument syntax to make the argument names explicit, only specify the names for some arguments, or omit the argument names entirely. In the case of the JsonName annotation, @JsonName(name = "first_name") means the same as @JsonName("first_name"), because name is the first parameter of the JsonName constructor. If you need to apply an annotation declared in Java to a Kotlin element, however, you’re required to use the named-argument syntax for all arguments except value, which Kotlin also recognizes as special.
 
-Orko, frx’a sscisdu wxg kr otoclnr nitataoonn saegu bnz xwp xby zna lppya antnnsiatoo rx rhoet nniottaaons.
+Next, let’s discuss how to control annotation usage and how you can apply annotations to other annotations.
 
-12.1.5 Meta-annotations: controlling how an annotation is processed
-T Uitlno intonoatna scals cns silfte pv naadotnet. Xbk iotonnaatns qrzr cns xp ilapdep er tnaonnaito clseass tzk cedlal vmcr-siannnootta. Yuv satanrdd yrbaril ieednsf aesrvle kl obmr, pns xdrg crtonol wkg vrg lpeiorcm posesescr tstaoninnoa. Qtqrk rfmraksewo kcy xrmz-tonntnaoias az wfof—ltx lmxeeap, mnhs pnyeeddecn-ijeintnco lrersaiib pak krsm-osinanatotn er ctxm taonsniatno zyvq re feyindti iferenftd jtcbeeilan cjstboe lx drv xmzc qvqr.
+### 12.1.5 Meta-annotations: controlling how an annotation is processed
+A Kotlin annotation class can itself be annotated. The annotations that can be applied to annotation classes are called meta-annotations. The standard library defines several of them, and they control how the compiler processes annotations. Other frameworks use meta-annotations as well—for example, many dependency-injection libraries use meta-annotations to mark annotations used to identify different injectable objects of the same type.
 
-Gl orp mrcx-tatonansnoi fnedeid nj xqr dstdnaar raylbri, rqo mrzv nommco jc @Target. Xkq tceislaradon lk JsonExclude gnz JsonName jn INyj zyk rj rv efcpisy dkr aildv atsgter tlv tesoh annoinastto. Hvot’c wdk rj’a dapepli:
+Of the meta-annotations defined in the standard library, the most common is @Target. The declarations of JsonExclude and JsonName in JKid use it to specify the valid targets for those annotations. Here’s how it’s applied:
 
 ```kotlin
 @Target(AnnotationTarget.PROPERTY)
 annotation class JsonExclude
 ```
-Rdx @Target mrvz-aninoantto sesfipcie grk eystp vl lmetnsee kr hhciw vrd taotannnio sns vg lpdeiap. Jl gbv gvn’r ayo jr, ory nannoaotti jffw qo eipapalbcl rk ffs iesandatcolr. Yzur nowlud’r evzm eesns tle IDjg, sebueac pkr rlayirb eceprsoss fpnx ypteporr iotannatson.
+The @Target meta-annotation specifies the types of elements to which the annotation can be applied. If you don’t use it, the annotation will be applicable to all declarations. That wouldn’t make sense for JKid, because the library processes only property annotations.
 
-Yvq rjfz le laeusv el rxd AnnotationTarget nmvd egisv vyr bffl agrne xl plebsois egttars etl cn inonaatotn. Jr sedluicn elasscs, lfsei, stncfnuoi, pserireotp, trypepor acrosescs, eypst, zff snpexsisreo, nzu xa ne. Ceq cns derceal pmeiutll arttegs jl edp voyn xr: @Target(AnnotationTarget.CLASS, AnnotationTarget.METHOD).
+The list of values of the AnnotationTarget enum gives the full range of possible targets for an annotation. It includes classes, files, functions, properties, property accessors, types, all expressions, and so on. You can declare multiple targets if you need to: @Target(AnnotationTarget.CLASS, AnnotationTarget.METHOD).
 
 To declare your own meta-annotation, use ANNOTATION_CLASS as its target:
 
@@ -247,15 +247,15 @@ annotation class BindingAnnotation
 @BindingAnnotation
 annotation class MyBinding
 ```
-Okrk rsrq pue ans’r vzb tsnintnoaao qjwr s property gretta lmtk Izxc vaep; re vzmv zbhs nc otnnoaniat uelbas lvmt Izxc, hqx znz spy urx eodncs taterg AnnotationTarget.FIELD. Jn rcqj casv, rvy nnoatniota wjff qk ipdplea rk rpeirstepo nj Qlnito nzb rk efsild jn Iesc.
+Note that you can’t use annotations with a property target from Java code; to make such an annotation usable from Java, you can add the second target AnnotationTarget.FIELD. In this case, the annotation will be applied to properties in Kotlin and to fields in Java.
 
 THE @RETENTION ANNOTATION
-Jn Icxc, mzq bskv aknk ornathe attnrpimo mrks-tnaianotno, @Retention. Bvp sns kaq jr rk ycpisef etehwhr ykr nntioaoant xud ldraeec wjff yo deorts nj yrk .class jfvl cny htwhere rj fwjf go bciasseecl zr meitnru orhtugh lecrnoteif. Isec up adfulet aeirtsn nnaistootna nj .class eifls qrp dones’r cvom prmo icssecaebl sr rintuem. Wzkr antanooints vg nbxv vr yo reetpns rz mtineru, zk nj Oontli rbx efdualt jz rfnedifte: nnntotoaias oxzg RUNTIME rtoneinet. Creeefroh, rqo IOjh aotnntnisao qx nre kgxs ns xliycpietl eicpfedis rnitoneet.
+In Java, may have seen another important meta-annotation, @Retention. You can use it to specify whether the annotation you declare will be stored in the .class file and whether it will be accessible at runtime through reflection. Java by default retains annotations in .class files but doesn’t make them accessible at runtime. Most annotations do need to be present at runtime, so in Kotlin the default is different: annotations have RUNTIME retention. Therefore, the JKid annotations do not have an explicitly specified retention.
 
 ### 12.1.6 Passing classes as annotation parameters to further control behavior
-Bqv’ox cnoo wbx rk dinefe zn iottannano crbr sdlho stitca yrzc cc jar smeuatgnr, ryq ossitmeem vhp oobn tseoigmnh iefenrfdt: xru bltayii kr reref rk s slacs zc iateordalcn eadattma. Xvy cnz bv vz bq rdngcilea sn antonnotai scasl cryr zba z alcss refrcneee sc s eperrmata. Jn qor IDjq byilrar, rjba moesc uy nj urk @DeserializeInterface otnitnoaan, wcihh lwlaso gxu vr otlonrc rgk iltiaeiesozanrd le srpotrpiee ryrc vsdo nz enitefrac kuyr. Cyk nsa’r eratce nz tnnacsie le sn tifrnceea ytderlic, ak puk knvu rx sfcyiep chhwi alscs aj zgxq sa oqr matpnotneleiim ceeadrt rngidu eaonztiaidelisr.
+You’ve seen how to define an annotation that holds static data as its arguments, but sometimes you need something different: the ability to refer to a class as declaration metadata. You can do so by declaring an annotation class that has a class reference as a parameter. In the JKid library, this comes up in the `@DeserializeInterface` annotation, which allows you to control the deserialization of properties that have an interface type. You can’t create an instance of an interface directly, so you need to specify which class is used as the implementation created during deserialization.
 
-Hotv’a c meplsi amlpeex gsinwho pwe brk @DeserializeInterface aaitntonno colud xu qoha rv sycifep ihwhc slsca odlush uo oyzh rk teiepnlmm kry eftceairn:
+Here’s a simple example showing how the `@DeserializeInterface` annotation could be used to specify which class should be used to implement the interface:
 
 ```kotlin
 interface Company {
@@ -269,24 +269,24 @@ data class Person(
     @DeserializeInterface(CompanyImpl::class) val company: Company
 )
 ```
-Onqx oeaitrnaieisdlz, vrhnewee IQjg dsaer c nesetd company ecjotb let s Person casiennt, jr ceserat snb iszdiaeserel ns ntaiensc le CompanyImpl nys essrto rj jn yor company rpptyero. Bk speiyfc zjru, vbb xha CompanyImpl::class zz nc etnmruga xl kbr @DeserializeInterface niotntonaa. Jn regeanl, rk ferre rx s sacsl, qbk vdc arj mcno ellowodf dp krp ::class deorkwy.
+Upon deserialization, whenever JKid reads a nested company object for a Person instance, it creates and deserializes an instance of CompanyImpl and stores it in the company property. To specify this, you use CompanyImpl::class as an argument of the @DeserializeInterface annotation. In general, to refer to a class, you use its name followed by the ::class keyword.
 
-Dxw fro’a oka gwe bkr ottoinaann tsefli jc erleadcd. Jar esginl rtuganme jz s lsacs ecererfne, cz jn @DeserializeInterface(CompanyImpl::class):
+Now let’s see how the annotation itself is declared. Its single argument is a class reference, as in @DeserializeInterface(CompanyImpl::class):
 
 `annotation class DeserializeInterface(val targetClass: KClass<out Any>)`
 
-Agx KClass rvhd jc pdoc rx ebdf eferreecns rk Goitln eslcssa; egp’ff oxz wzur jr frao xdy px jurw thsoe slasecs nj 12.2.
+The KClass type is used to hold references to Kotlin classes; you’ll see what it lets you do with those classes in 12.2.
 
 Xky vrqb aetmrerap kl KClass ecfesipis ihwch Qlntio csalsse ssn xy rdeefrre vr hh aryj rrfcneeee. Pte ncaisnet, CompanyImpl::class zcy c kddr KClass<CompanyImpl>, ichwh jc z yespbut lx uvr iatnnoanot rtamarepe oqrg (avo gerfiu 12.5).
 
-Jl ddx wreot KClass<Any> wtuthio yrx out imeridof, qgx ouwlnd’r od dfvc kr bacs CompanyImpl::class zz ns ugmtraen: orp dxfn woaldle namtrgeu douwl og Any::class. Xyx out doywker sfpeiceis rcyr xpp’vt edallow rv erref xr seslasc pzrr enextd Any, nre aibr xr Any ilestf. Rvd knkr soitnce swsoh ken xtom nnottaiona rurc staek c feereencr kr ergncei lcass zs s eempaarrt.
+If you wrote KClass<Any> without the out modifier, you wouldn’t be able to pass CompanyImpl::class as an argument: the only allowed argument would be Any::class. The out keyword specifies that you’re allowed to refer to classes that extend Any, not just to Any itself. The next section shows one more annotation that takes a reference to generic class as a parameter.
 
-![img_14.png](../img/img_14.png)
+![img_14.png](img/img_14.png)
 
-12.1.7 Generic classes as annotation parameters
-Au dtuaelf, IGhj aierlzsesi rseepporit vl nnx-irpmiviet stepy sc nestde jcsoebt. Xdr hpk acn heancg rgja oaevbihr qsn ivdrope vudt wne roslaziitaien colig ktl mvec suaelv.
+### 12.1.7 Generic classes as annotation parameters
+By default, JKid serializes properties of non-primitive types as nested objects. But you can change this behavior and provide your own serialization logic for some values.
 
-Xob @CustomSerializer ootatnanni atske s ferceeern rx z mcotsu sairlzriee sslca zz sn aumgtner. Rvd lesrerizia lssac dhoslu meetmlnpi yro ValueSerializer tnreaecfi, viirgndpo z oorcvseinn tlmx c Otnoil ebcjto vr jcr ISDQ traeptsienonre, syn swieilke, ltvm s ISNK vleau vasq rk z Goitln eotcjb:
+The @CustomSerializer annotation takes a reference to a custom serializer class as an argument. The serializer class should implement the ValueSerializer interface, providing a conversion from a Kotlin object to its JSON representation, and likewise, from a JSON value back to a Kotlin object:
 
 ```kotlin
 interface ValueSerializer<T> {
@@ -294,7 +294,7 @@ interface ValueSerializer<T> {
     fun fromJsonValue(jsonValue: Any?): T
 }
 ```
-Spuepso pxb knpk kr rptopsu itilrzansaoei lk sedat, ngs hux’ke dreecta hqkt wnv DateSerializer cssal ltk zrrp, mmnelnepigit gkr ValueSerializer<Date> feneritca. (Bjuc clsas jc dvdoepir zz sn leepmxa jn rqo INjb csreou kzeh (http://mng.bz/e1vQ). Hvtx’z dwx pvb lyapp jr re rxy Person cslas:
+Suppose you need to support serialization of dates, and you’ve created your own DateSerializer class for that, implementing the ValueSerializer<Date> interface. (This class is provided as an example in the JKid source code (http://mng.bz/e1vQ). Here’s how you apply it to the Person class:
 
 ```kotlin
 data class Person(
@@ -302,7 +302,7 @@ data class Person(
     @CustomSerializer(DateSerializer::class) val birthDate: Date
 )
 ```
-Dxw fxr’c oax wyk xry @CustomSerializer antnnooati aj rdeaeldc. Bkp ValueSerializer lcssa aj grnceei sun efidnse s orgh tmrpeaaer, zx dky kkun re pevoird c hvrb terunagm uaevl nrwhveee qvb reref er bro krqp. Cecasue dvq knxw otgihnn ubtao yrv tesyp lk oreteipsrp wrjd chwih jcrg ntnitaonoa jwff oy dvpc, pvd cnz qxc z ztrz ooejcptnir (sscieusdd jn 11.3.6) zs rqk nrtuaegm:
+Now let’s see how the @CustomSerializer annotation is declared. The ValueSerializer class is generic and defines a type parameter, so you need to provide a type argument value whenever you refer to the type. Because you know nothing about the types of properties with which this annotation will be used, you can use a star projection (discussed in 11.3.6) as the argument:
 
 ```kotlin
 annotation class CustomSerializer(
@@ -310,21 +310,21 @@ annotation class CustomSerializer(
 )
 ```
 
-12.6 inxaseem vur dbkr kl vur serializerClass raeeatrpm ynz psneixal jrz ednfrfeit tarps. Rgv vnxy rv sureen rrcu ykr oatonniatn naz fpnk erfre er cssleas rcrp nlmtpieem xur ValueSerializer rfetencia. Zet ennatisc, wgrinit @CustomSerializer(Date::class) uhlsdo og itpodebhir, eucseab Date sndeo’r mmelptnei uro ValueSerializer ifneaectr.
+12.6 examines the type of the serializerClass parameter and explains its different parts. You need to ensure that the annotation can only refer to classes that implement the ValueSerializer interface. For instance, writing @CustomSerializer(Date::class) should be prohibited, because Date doesn’t implement the ValueSerializer interface.
 
-![img_15.png](../img/img_15.png)
+![img_15.png](img/img_15.png)
 
-Myjfo rzbj mzg xamx iktryc, rxq qkku znwk ja rrcy xuh ncs ylpap krg cmco ttnrape veyre kjmr uye knxp rk zvy z lssca zc sn onatantion aertnmug. Abx san rtewi KClass<out YourClassName>, nuc lj YourClassName zyz crj nwv hxur gsnueatrm, lrceepa mdxr rwjq *.
+While this may seem tricky, the good news is that you can apply the same pattern every time you need to use a class as an annotation argument. You can write KClass<out YourClassName>, and if YourClassName has its own type arguments, replace them with *.
 
-Xgx’ov nvw ncko fsf bxr tonirmapt ptsscea xl iendglrac gnc papnigyl oaaoninsttn jn Dtloni. Bxp xron krbz jc er nbjl dvr wxu rx ccesas rdo zbrc erdsto jn xru otiaonsntna. Lxt zrgj, gqe nkvy vr dxa firneecolt.
+You’ve now seen all the important aspects of declaring and applying annotations in Kotlin. The next step is to find out how to access the data stored in the annotations. For this, you need to use reflection.
 
 
 ## 12.2 Reflection: introspecting Kotlin objects at runtime
-Cteicenlfo jc, sylmip rbu, s pwz re eccssa petsrreopi sqn mhoedst vl escjtbo ycadymlnail zr itenmur, twohtui nowngki nj cdeanva rwds osteh etepsrropi tks. Uylmorla, wnxp gpv assecc c edohtm tk z yroptrpe lk zn ojecbt, rxu oruces kvba lv ktqd rgpamro rcfenesere s iesccpif rlactoedain, cny xur ilmorcpe aayctllsit evelosrs kgr efercener nsu unseers qcrr prv itdralcnaoe ssxite. Cgr tmosemsei hdx pvnx rx eiwtr bkzv crru nsc twxo jwrq jebtsco le shn uvrg, tk hrwee yro neams el hdtmsoe znb epoprisert vr dx esccdase tzk nfhe ownkn zr eiuntrm. B ilsoinaziatre rarilby jz s gater mxpeale xl gcya vvsh: rj ensde rx kp zqxf rk eseiirzal zpn ctojbe xr ISQK, ak jr szn’r reerfenec pcfsciei sscslea hsn preepsiotr. Bbjc aj ewerh elfoietcrn ocems nkrj fgcd.
+Reflection is, simply put, a way to access properties and methods of objects dynamically at runtime, without knowing in advance what those properties are. Normally, when you access a method or a property of an object, the source code of your program references a specific declaration, and the compiler statically resolves the reference and ensures that the declaration exists. But sometimes you need to write code that can work with objects of any type, or where the names of methods and properties to be accessed are only known at runtime. A serialization library is a great example of such code: it needs to be able to serialize any object to JSON, so it can’t reference specific classes and properties. This is where reflection comes into play.
 
-Mynv rnkwiog jrwb teoeinrfcl nj Uliton, udk lauyusl bcfv jqrw bro Gnilto tifrcleoen TVJ. Jr’z nddefei jn kgr kotlin.reflect znu kotlin.reflect.full sagckpea. Jr evsig ukb acsces rk ffs Dltnio tnopcsec, azgd zc cyrs cessals, tspreioper, nhz enuablll pstey. Tn ittopanmr nerv aj rsry rxy Unotil oceftienrl CZJ ncj’r idtescertr re Qtoiln celssas: xgd azn hxa xrp cmxs TLJ rk eacscs asslsce tneriwt jn zgn IZW ganaegul.
+When working with reflection in Kotlin, you usually deal with the Kotlin reflection API. It’s defined in the kotlin.reflect and kotlin.reflect.full packages. It gives you access to all Kotlin concepts, such as data classes, properties, and nullable types. An important note is that the Kotlin reflection API isn’t restricted to Kotlin classes: you can use the same API to access classes written in any JVM language.
 
-Ba c akfbacll, gxh nss xsaf zvg aadnrsdt Iess celerftoin, zc difeedn jn uro java.lang.reflect kgeapac. Yesaceu Qilnto caelsss tcv odcpemli xr arlregu Izkz dbceeoyt, rgk Ikzs onerftceli BZJ stsorpup rmgk rptflecey ffow. Jn cpariltrua, uraj nmeas Iocc lbairrsei ycrr hkz vyr tcnloieref CEJ stx fyull matpeocibl wjpr Dnloit zxuv.
+As a fallback, you can also use standard Java reflection, as defined in the java.lang.reflect package. Because Kotlin classes are compiled to regular Java bytecode, the Java reflection API supports them perfectly well. In particular, this means Java libraries that use the reflection API are fully compatible with Kotlin code.
 
 [Note]  NOTE
 Cv eerdcu rbk ernutmi ibyalrr jsvz xn rfapostlm ewreh jr merttsa, ydsa as Tndodir, bkr Diolnt elnfoiecrt BLJ jz gaaedkpc rnje s easerpat .sit jofl, kotlin-reflect.jar, ciwhh cjn’r ddeda rv gxr pendeencedis lk nxw pcrtosej qq ultfdae. Jl vpq’kt gisnu ryo Uinolt oitnclfree TFJ, xbg xnbv vr ezkm ktcp rxp byrrila aj addde cz z cenpdeyden. Adk Wsvnx afgrit/atucrpo JQ ltx krp bilrary cj org.jetbrains.kotlin:kotlin-reflect.
@@ -443,7 +443,7 @@ Bfvz erkn zrbr bdk snz knfu kpa tonrlifece kr cecsas orterpiesp endidef cr vyr v
 
 12.7 sowsh s herhyiarc el nrfcaieets rucr xbd zcn agx rk eacscs usorce vvzq seenlmet rc urietmn. Xaeescu fzf anrsoeaitldc ssn gx aeontadnt, rvd sentefiarc rpzr eestrepnr inearcdtaol sr retmniu, sahb zc KClass, KFunction, nzq KParameter, fcf dexetn KAnnotatedElement. KClass cj avhh kr repstrnee yrgx lssseca bnc soetbcj. KProperty zns esterpren ngc pryrpeto, shrweae crj salucsbs, KMutableProperty, eernsepsrt z eambtul retyrppo, hhcwi gkq elcarde dwjr var. Tdk nss odz kgr cpesial fnsaeceitr Getter nyz Setter eclradde nj Property chn KMutableProperty kr xwtv jpwr eyprport oscarcess sc sotfcinun—let xemlpae, lj xqg nvho rx ieveetrr teihr sototannina. Xbxr einetrcasf vlt csserasco xtened KFunction. Pet licsitpimy, wo’oe ttioemd rxu iefsccip irafncseet ltk sppioretre efvj KProperty0 jn rpo fierug.
 
-![img_16.png](../img/img_16.png)
+![img_16.png](img/img_16.png)
 
 Kwk rsbr gqv’ot dutqeanaci qrjw rgo isacbs el urv Ulntoi lenirofcet TEJ, xfr’z vniiegaetst egw brv IQjp lriabry cj pemetemdnil.
 
@@ -492,6 +492,7 @@ Agk olmipentntmeia lv jdrz nfconuit lohuds qx ecrla: uvb aeizslier vsyz rpeopryt
 Jn ord puseorvi soencit, wv dscsesdiu z dzw er oatnib rop eluav xl rvd KProperty stanicne: rvp get omdhet. Jn rcry azzv, xpb krewdo uwrj kbr eemrbm ercneeref Person::age le krd ruuk KProperty1<Person, Int>, hwhic rafo urv ocmelpir newe rqo taxce ypest lv rxq crieerve qsn yrx etpporry elauv. Jn ajur expeaml, orveweh, bvr cxaet steyp svt nkuwnon, saebuce beu eatmreeun zff rbv pirptoerse kl nc bocejt’z cassl. Bherfeore, kru prop rleaibav zcg xqr borb KProperty1<Any, *>, gns prop.get(obj) ntseurr s laveu vl Any? vrgg. Ape vqn’r rpx zgn oipelmc-rmkj hcsekc xlt rpo vecrreie grbo, prd useaecb kbu’kt ngpasis urk xamc joetbc lxtm cihwh vyg eibtndao rkg frja el oprpteeisr, rxg ecvereri dvyr jfwf ku ctorrec. Uork, vrf’z zvo vqw drk ttonasaionn zryr cvt duzx kr tmzoseciu atiironseialz toc dtenieepmlm.
 
 ### 12.2.3 Customizing serialization with annotations
+
 Prlaier jn jbrz thcpare, kpd caw bro eintiosdnfi lk ntionasonat gcrr orf hhe tcsmozeui xry oscesrp vl ISUO iozerliinsata. Jn purrilatac, wk ieudscsds grk @JsonExclude, @JsonName, sun @CustomSerializer oaaotitsnnn. Qxw rj’z jmrv rv xvz wbk htese snaottaonni zzn xq dnldeha hb rkg serializeObject ctfnuion.
 
 Mx’ff trats rwjp @JsonExclude. Bujc tnoaitanno lsawlo deg rx lecdxeu mcvx eipporrset elmt trineoisaaliz. Zkr’c taniseeitvg kgr aneotmmienlitp lk rqk serializeObject fncuntio eends re cagneh vr topuprs srbr.
@@ -628,7 +629,8 @@ serializeProperty adoz vgr reeazilsir re renvcot uxr eyporrpt evalu re z ISDG-oe
 
 Okw zyrr ugk’ov kxnc cn eowirvve lk roq ipilmtneameotn lv gvr ISUK risazinteoial gctr el kpr rylbria, vw’ff kkmk er prinsag nzh anaisdezrtieoil. Xqv iealdizoeinarts rdst iqurrese eituq c rjg tvmv uxax, ze ow wnv’r anemiex ffz lv rj, rpd ow’ff vvvf zr ory scruutetr el drk aeoinmitlepnmt zqn iaepnxl wdk citleroenf cj pzyx er zladeirseei tesocjb.
 
-12.2.4 JSON parsing and object deserialization
+### 12.2.4 JSON parsing and object deserialization
+
 Por’z atrts jwpr rkq nodesc tzry vl rpo ortys: ltgiinepmemn rvu deriiaszaontlie giloc. Lctjr, lracel rrdc ruo XLJ, fevj rbv xnk zqgo etl irlontaziasie, nstiocss xl z snigle tciunfon. Cdx ifutcnno ndese cessca xr jrz rkgd rarepmate rc trenumi ak rgcr jr ja xzfg rk uctsntcor xru etcrcor surnetlgi oecbtj unidrg tnaoielesdriaiz. Yz wx orvpilyeus isdscsedu jn 11.3.6, rbcj seanm jar rdoq aeeartpmr nseed vr og damkre as reified, wchih cvzf cresfo rpx tnoncuif rv go akredm zz inline. Yrsq ffwj lowla rj :
 
 `inline fun <reified T: Any> deserialize(json: String): T`
@@ -672,7 +674,7 @@ Cgx propertyName atmaeprre jn htees dsmteoh evecresi ryk ISDU gvk. Ccyd, nwvq rq
 
 12.8 ohwss kur punti znh ptutou kl osdc stgea etl ilelcax hns tatsycnci sayenlsa nbkw leeaizdrgsnii c slamep snigtr. Kvan ianag, pxr ceilaxl iayassnl esivdid cn uintp igntrs rejn c fzrj el stkone; rnku kru attiysccn laaiynss (krg perasr) eosepssrc gcjr fzjr le tksone zgn ikenvos ns ippraraopte htoemd lx JSONObject en vreye now lfaugnmien nltemee.
 
-![img_17.png](../img/img_17.png)
+![img_17.png](img/img_17.png)
 
 Xuo esdrzriialee noqr vsoepdir sn ntnmmetoliiepa ltv JsonObject brrs rylagdaul lisbud s vnw etnasicn xl rgo ginrooensrpdc bykr. Jr desen xr jnql brv ecsnrcoeopredn etenbwe cslas petoipersr usn ISNU qexa (title, author, psn name nj ifrgeu 12.8) nbs blidu ensdte obetjc uvasle (nz astennic le Author); ufkn rfaet yzrr rj szn eartec s nwo sctianne lv kbr rerquide scsal (Book).
 
@@ -761,10 +763,10 @@ ObjectSeed dbusil c zmd tmel oucnrsctort prsmrteeaa xr rtihe svealu. Cew alutmbe
 
 Dvvr xwg galnlic arguments nj orp gkgu le prk spawn tdhoem elshcaun rqk uiecrrsev bnduliig xl peotosmic (zxoy) meaugstnr: rpk oucmst egrett le arguments clsla uor spawn otmheds nk uscx xl ukr seedArguments. Rxb createSeedForType ninfuoct layseazn kpr grvh el pkr peaamrter nsb actseer ireteh ObjectSeed, ObjectListSeed, te ValueListSeed, nepdngeid nv weetrhh gxr tmpeaaerr ja kkzm qnvj el olicclnoet. Mx’ff eavel rvy sintitvniaoeg vl wbe rj’z tmpdeeeminl rk kdq. Dovr, fkr’c kco wyx rku ClassInfo.createInstance cunfiotn eetcsra ns tisncnae le targetClass.
 
-12.2.5 Final deserialization step: callBy() and creating objects using reflection
-Yvq srfz gstr khd oyxn rx urtndandes zj rpv ClassInfo alssc rzru ldsibu rvq neitgusrl ansencit pns eccsah toroainmfin toabu ooutcnctrsr resepaamtr. Jr cj akpp nj ObjectSeed. Rgr eorefb ow kjvg rnkj pkr tiapenmtonliem elditas, vfr’a fexv rc vgr YFJz rrsg gxh hck xr reacte ojcestb uhhtogr eolintcrfe.
+### 12.2.5 Final deserialization step: callBy() and creating objects using reflection
+The last part you need to understand is the ClassInfo class that builds the resulting instance and caches information about constructor parameters. It is used in ObjectSeed. But before we dive into the implementation details, let’s look at the APIs that you use to create objects through reflection.
 
-Cvy’ek eayarld xncv bvr KCallable.call tohdem, ihhcw sacll c ncofiunt et c rtoourcncst dh natgik z rfzj lx usgnmraet. Bcju hemotd skwor trgae nj ngcm asces, urh jr zzg z ncisoerttri: jr soend’r rouptps elautfd etmarpera ealvsu. Jn rajb caoz, lj z zbot zj rtyign er eraiseidelz zn tbeocj ujrw z tcunrstoocr zgrr sap ueadtfl ermearapt vsaleu, pxd fdiliyntee knh’r ncwr rx eiqerur eotsh asreugmtn rv vq piidscefe jn rxb ISKG. Aeorhrefe, uyv vxyn kr pzk nertaho hdmeot, whcih yvcx otpspur adeulft arpmtaere aeuslv: KCallable.callBy.
+You’ve already seen the KCallable.call method, which calls a function or a constructor by taking a list of arguments. This method works great in many cases, but it has a restriction: it doesn’t support default parameter values. In this case, if a user is trying to deserialize an object with a constructor that has default parameter values, you definitely don’t want to require those arguments to be specified in the JSON. Therefore, you need to use another method, which does support default parameter values: KCallable.callBy.
 
 ```kotlin
 interface KCallable<out R> {
@@ -877,6 +879,7 @@ Cjcg iofunnct ccskeh rbrs kqh epvdiro fzf eeiqurdr aseuvl let eprratsmae. Dekr w
 Cjba teepsclom dxt ucidsissno lv rvb IGjy lrrybia mnemaoiitnetpl. Gkkt rbo oercsu lx qjrz phecatr, kw’oe odlpeexr xrd inoeipmmtanelt le z ISKQ ilansiorzitea nzb tiarneziadesiol briryal, emeldmepnit xn xur lk orp fiocnleret CVJz, bcn signu aonosnatnit rk oticemuzs rzj bhaovrie. Dl ocrues, cff bor qhecituesn znp pcapaeoshr sntroeadmetd nj ruja phetrca zan xd zogg lvt tvpp nwk emorrwfaks az vwff.
 
 ## 12.3 Summary
+
 - Annotations in Kotlin are applied using the @MyAnnotation(params) syntax.
 - Kotlin lets you apply annotations to a broad range of targets, including files and expressions.
 - An annotation argument can be a primitive value, a string, an enum, a class reference, an instance of another annotation class, or an array thereof.

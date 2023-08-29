@@ -30,7 +30,7 @@ val authors = listOf("Sveta", "Seb", "Dima", "Roman")
 Because the two values passed to the listOf function are both strings, the compiler infers that you’re creating a List<String>.
 
 > Figure 11.1. Optional inlay hints in IntelliJ IDEA and Android Studio help visualize inferred generic types.
-> ![img.png](../img/img.png)
+> ![img.png](img/img.png)
 
 On the other hand, if you need to create an empty list, there’s nothing from which to infer the type argument, so you need to specify it explicitly. In the case of creating a list, you have a choice between specifying the type as part of the variable declaration and specifying a type argument for the function that creates a list. The following example shows how this is done:
 
@@ -56,7 +56,7 @@ If you’re going to write a function that works with a list, and you want it to
 Most of the library functions working with collections are generic. For example, let’s look at the slice function declaration, shown in 11.2. This function returns a list containing only elements at indices in the specified range.
 
 > Figure 11.2. The generic function slice has the type parameter T, allowing it to work lists of arbitrary elements. This type parameter is used both in the receiver type of the extension function, and the return type of the function.
-> ![img_1.png](../img/img_1.png)
+> ![img_1.png](img/img_1.png)
 
 
 The function’s type parameter `T` is used in the receiver type and in the return type; both of them are List<T>. When you call such a function on a specific list, you can specify the type argument explicitly. But in almost all cases you don’t need to, because the compiler infers it, as shown next.
@@ -172,7 +172,7 @@ When you specify a type as an upper bound constraint for a type parameter of a g
 To specify a constraint, you put a colon after the type parameter name, followed by the type that’s the upper bound for the type parameter; see 11.3. In Java, you use the keyword extends to express the same concept: <T extends Number> T sum(List<T> list).
 
 > Figure 11.3. Constraints are defined by specifying an upper bound after a type parameter. In this case, the sum function is constrained to lists of a type whose upper bound is Number.
-> ![img_2.png](../img/img_2.png)
+> ![img_2.png](img/img_2.png)
 >
 
 This function invocation is allowed because the actual type argument (Int in the following example) extends the Number interface from the Kotlin standard library:
@@ -345,7 +345,7 @@ Even though the compiler sees two distinct types for the lists, at execution tim
 Figure 11.4. At runtime, you don’t know whether list1 and list2 were declared as lists of strings or integers. Each of them is just List. This introduces additional constraints to working with type arguments.
 typeErasure
 
-![img_3.png](../img/img_3.png)
+![img_3.png](img/img_3.png)
 
 
 Let’s talk next about the constraints that go with erasing the type information. Because type arguments aren’t stored, you can’t check them—for example, you can’t check whether a list is a list of strings rather than other objects. As a general rule, it’s not possible to use types with type arguments in is checks. This can prove to be a hurdle when you want to create a function that should exhibit different behavior based on the type argument of its parameter.
@@ -649,7 +649,7 @@ The story becomes even more complicated with generic classes. To get a valid typ
 
 In order for us to discuss the relation between types, you need to be familiar with the term subtype. A type B is a subtype of a type A if you can use the value of the type B whenever a value of the type A is required. For instance, Int is a subtype of Number, but Int isn’t a subtype of String. This definition also indicates that a type is considered a subtype of itself. 11.5 illustrates this.
 
-![img_4.png](../img/img_4.png)
+![img_4.png](img/img_4.png)
 
 The term supertype is the opposite of subtype. If A is a subtype of B, then B is a supertype of A.
 
@@ -672,7 +672,7 @@ In simple cases, subtype means essentially the same thing as subclass. For examp
 
 Nullable types provide an example of when subtype isn’t the same as subclass; see 11.6.
 
-![img_9.png](../img/img_9.png)
+![img_9.png](img/img_9.png)
 
 A non-null type is a subtype of its nullable version, but they both correspond to one class. You can always store the value of a non-null type in a variable of a nullable type, but not vice versa (null isn’t an acceptable value for a variable of a non-null type). That makes the non-null type a subtype of the nullable type:
 
@@ -768,7 +768,7 @@ You can’t make any class covariant: it would be unsafe. Making the class covar
 
 Uses of a type parameter in declarations of class members can be divided into in and out positions. Let’s consider a class that declares a type parameter T and contains a function that uses T. We say that if T is used as the return type of a function, it’s in the out position. In this case, the function produces values of type T. If T is used as the type of a function parameter, it’s in the in position. Such a function consumes values of type T. 11.7 illustrates this.
 
-![img_8.png](../img/img_8.png)
+![img_8.png](img/img_8.png)
 
 Aqx out oedkywr nx c dvbr eemtparar kl prv alssc useireqr usrr fsf thsdeom uings T pcoo T fknd nj out psiosonti cnu nre jn in siiospont. Rzyj kerodyw snarsnitoc bsspoile zvd kl T, hwhic agtuenrsae tsfyae xl rgk igseocnopndrr ybsupet ritalneo.
 
@@ -903,11 +903,11 @@ Now you’re ready for the full definition of contravariance. A class that is co
 
 
 
-![img_5.png](../img/img_5.png)
+![img_5.png](img/img_5.png)
 
 The in keyword means values of the corresponding type are passed in to methods of this class and consumed by those methods. Similar to the covariant case, constraining use of the type parameter leads to the specific subtyping relation. The in keyword on the type parameter T means the subtyping is reversed and T can be used only in in positions. 11.1 summarizes the differences between the possible variance choices.
 
-![img_6.png](../img/img_6.png)
+![img_6.png](img/img_6.png)
 
 
 A class or interface can be covariant on one type parameter and contravariant on another. The classic example is the Function interface. The following declaration shows a one-parameter Function:
@@ -933,7 +933,7 @@ fun main() {
 
 11.9 illustrates the subtyping relationships in the previous example.
 
-![img_7.png](../img/img_7.png)
+![img_7.png](img/img_7.png)
 
 Note that in all the examples so far, the variance of a class is specified directly in its declaration and applies to all places where the class is used. Java doesn’t support that and instead uses wildcards to specify the variance for specific uses of a class. Let’s look at the difference between the two approaches and see how you can use the second approach in Kotlin.
 

@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "learn-kotlin"
-  text: "文档"
+  name: "kotlin in action"
+  text: "书籍翻译"
   tagline: My great project tagline
   actions:
     - theme: brand
@@ -18,8 +18,8 @@ features:
   - title: Feature A
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
   - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: yyy
   - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    details: xxx
 ---
 
