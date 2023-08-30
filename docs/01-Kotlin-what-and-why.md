@@ -12,7 +12,9 @@
 :::
 
 ::: details Kotlin 到底是什么？它是 Java 虚拟机 (JVM) 及更高版本上的现代编程语言。它是一种通用语言，简洁、安全、实用。独立程序员、小型软件商店和大型企业都已经接受了 Kotlin：数以百万计的开发人员现在正在使用它来编写移动应用程序、构建服务器端应用程序、创建桌面软件等等。
+
 What is Kotlin all about? It's a modern programming language on the Java Virtual Machine (JVM) and beyond. It’s a general-purpose language, concise, safe and pragmatic. Independent programmers, small software shops, and large enterprises all have embraced Kotlin: millions of developers are now using it to write mobile apps, build server-side applications, create desktop software, and more.
+
 :::
 
 Kotlin 最初是一种“更好的 Java”：一种改进了开发人员人体工程学的语言，可以防止常见错误类别，并且包含现代语言设计范例，同时保持在使用 Java 的任何地方都可以使用的能力。在过去的十年中，Kotlin 成功证明了自己的实用性，适合多种类型的开发人员、项目和平台。 Android 现在是 Kotlin 优先，这意味着大部分 Android 开发都是在 Kotlin 中完成的。对于服务器端开发，Kotlin 是 Java 的强大替代品，在 Spring 等流行框架中提供原生且有据可查的 Kotlin 支持，并且纯 Kotlin 框架充分利用了该语言的全部潜力，如 Ktor。
