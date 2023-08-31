@@ -2,6 +2,7 @@ import {DefaultTheme, defineConfig} from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: "/note-kotlin/",
   title: "kotlin-in-action",
   description: "kotlin-in-action",
 
@@ -51,6 +52,11 @@ export default defineConfig({
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2023 备案号：<a href="https://beian.miit.gov.cn/">京****号</a>',
     },
+
+    outline: {
+      level: [2, 6],
+      label: '目录'
+    }
 
     //本地搜索
     // search: {
