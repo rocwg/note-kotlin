@@ -2,12 +2,12 @@
 
 ::: tip This chapter covers
 
-- A basic demonstration of Kotlin
-- The main traits of the Kotlin language
+- A basic <u>demonstration</u><ShowS>示例</ShowS> of Kotlin
+- The main <u>traits</u><ShowS>特点</ShowS> of the Kotlin language
 - Possibilities for server-side and Android development
 - A glimpse into Kotlin Multiplatform
-- What distinguishes Kotlin from other languages
-- Writing and running code in Kotlin
+- <u>What distinguishes Kotlin from other languages</u><ShowS>和其他语言的差异</ShowS>
+- <u>Writing and running code in Kotlin</u><ShowS>_编写和运行_</ShowS>
 
 :::
 
@@ -17,9 +17,18 @@ What is Kotlin all about? It's a modern programming language on the Java Virtual
 
 :::
 
+<ShowL>
+<template v-slot:show>
+
 Kotlin 最初是一种“更好的 Java”：一种改进了开发人员人体工程学的语言，可以防止常见错误类别，并且包含现代语言设计范例，同时保持在使用 Java 的任何地方都可以使用的能力。在过去的十年中，Kotlin 成功证明了自己的实用性，适合多种类型的开发人员、项目和平台。 Android 现在是 Kotlin 优先，这意味着大部分 Android 开发都是在 Kotlin 中完成的。对于服务器端开发，Kotlin 是 Java 的强大替代品，在 Spring 等流行框架中提供原生且有据可查的 Kotlin 支持，并且纯 Kotlin 框架充分利用了该语言的全部潜力，如 Ktor。
 
+</template>
+<template v-slot:hide>
+
 Kotlin started as a "better Java": a language with improved developer ergonomics, that prevents common categories of errors, and that embraces modern language design paradigms, all while keeping the ability to be used everywhere Java was used. Over the last decade, Kotlin has managed to prove itself to be a good pragmatic, fit for many types of developers, projects, and platforms. Android is now Kotlin-first, meaning most of the Android development is done in Kotlin. For server-side development, Kotlin makes a strong alternative to Java, with native and well-documented Kotlin support in prevalent frameworks like Spring, and with pure-Kotlin frameworks exploiting the full potential of the language, like Ktor.
+
+</template>
+</ShowL>
 
 Kotlin 结合了现有语言中运行良好的思想，但也带来了创新方法，例如用于异步编程的协程。尽管一开始只关注 JVM，但 Kotlin 的发展显着超出了这一范围，提供了更多可供运行的“目标”，包括创建跨平台解决方案的技术。
 
@@ -28,6 +37,7 @@ Kotlin combines ideas from existing languages that work well, but also brings in
 In this chapter, we’ll take a detailed look at Kotlin’s main traits.
 
 ## 1.1 A taste of Kotlin
+
 Let’s start with a small example to demonstrate what Kotlin looks like. Even in this first, short code snippet, you can see a lot of interesting features and concepts in Kotlin that will all be discussed in detail later throughout the book:
 
 - Defining a Person data class with properties without the need to specify a body.
