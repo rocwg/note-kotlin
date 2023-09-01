@@ -6,19 +6,6 @@ export default defineConfig({
   title: "kotlin-in-action",
   description: "kotlin-in-action",
 
-  //多语言
-  locales: {
-    root: {
-      label: 'English',
-      lang: 'en',
-    },
-    zh: {
-      label: '简体中文',
-      lang: 'Zh_CN',
-      link: '/zh/',
-    }
-  },
-
   //markdown配置
   markdown: {
     //行号显示

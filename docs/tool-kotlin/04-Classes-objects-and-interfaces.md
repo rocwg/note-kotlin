@@ -395,7 +395,7 @@ Table 4.3. Correspondence between nested and inner classes in Java and Kotlin
 
 Figure 4.1. Nested classes don’t reference their outer class, whereas inner classes do.
 
-![img_14.png](img_14.png)
+![img_14.png](img/0img_14.png)
 
 The syntax to reference an instance of an outer class in Kotlin also differs from Java. You write this@Outer to access the Outer class from the Inner class:
 
@@ -456,7 +456,7 @@ If you handle all subclasses of a sealed class in a when expression, you don’t
 
 Figure 4.2. All direct subclasses of a sealed class must be known at compile time.
 
-![img_15.png](img_15.png)
+![img_15.png](img/0img_15.png)
 
 When you use when with sealed classes and add a new subclass, the when expression returning a value fails to compile, which points you to the code that must be changed—for example, when you define a multiplication operator Mul, but don’t handle it in the eval function:
 
@@ -687,7 +687,7 @@ Here you define two constructors, each of which calls the corresponding construc
 
 Figure 4.3. Using different superclass constructors
 
-![img_16.png](img_16.png)
+![img_16.png](img/0img_16.png)
 
 Just as in Java, you also have an option to call another constructor of your own class from a constructor, using the this() keyword. Here’s how this works:
 
@@ -702,7 +702,7 @@ You change the MyDownloader class so that one of the constructors delegates to t
 
 Figure 4.4. Delegating to a constructor of the same class.
 
-![img_17.png](img_17.png)
+![img_17.png](img/0img_17.png)
 
 If the class has no primary constructor, then each secondary constructor has to initialize the base class or delegate to another constructor that does so.
 Thinking in terms of the previous figures, each secondary constructor must have an outgoing arrow starting a path that ends at any constructor of the base class.
@@ -1287,7 +1287,7 @@ To write a function that can be called without having a class instance but has a
 
 Figure 4.5. Private members can’t be used in top-level functions outside of the class.
 
-![img_18.png](img_18.png)
+![img_18.png](img/img_18.png)
 
 Exactly one of the object declarations defined in a class can be marked with a special keyword: companion. If you do that, you gain the ability to access the methods and properties of that object directly through the name of the containing class, without specifying the name of the object explicitly. The resulting syntax looks exactly like static method invocation in Java. Here’s a basic example showing the syntax:
 

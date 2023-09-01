@@ -12,7 +12,7 @@ The easiest way to create a Gradle project with Kotlin support is via the builti
 
 Figure A.1. The New Project Wizard in IntelliJ IDEA makes it easy to set up a Kotlin project.
 
-![img_60.png](img_60.png)
+![img_60.png](img/img_60.png)
 
 The standard Gradle build script for building a Kotlin project looks like this:
 

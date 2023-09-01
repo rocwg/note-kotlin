@@ -397,7 +397,7 @@ All you need to do is put the name of the class or interface that you’re exten
 
 Figure 3.1. In an extension function declaration, the receiver type is the type on which the extension is defined. You use it to specify the type your function extends. The receiver object is the instance of that type. You use it to access properties and methods of the type you’re extending.
 
-![img_9.png](img_9.png)
+![img_9.png](img/0img_9.png)
 
 
 You can call the function using the same syntax you use for ordinary class members:
@@ -568,7 +568,7 @@ fun main() {
 But it doesn’t work that way for extensions.Extension functions aren’t a part of the class; they’re declared externally to it, as shown in 3.2.
 
 Figure 3.2. The `View.showOff()` and `Button.showOff()` extension functions are defined outside the `View` and `Button` classes.
-![img_10.png](img_10.png)
+![img_10.png](img/0img_10.png)
 
 
 Even though you can define extension functions with the same name and parameter types for a base class and its subclass, the function that’s called depends on the declared static type of the variable, determined at compile time, not on the runtime type of the value stored in that variable.
@@ -758,7 +758,7 @@ This feature is called a destructuring declaration. 3.3 illustrates how it works
 
 Figure 3.3. You create a pair using the to function and unpack it with a destructuring declaration.
 
-![img_11.png](img_11.png)
+![img_11.png](img/0img_11.png)
 
 The destructuring declaration feature isn’t limited to pairs. For example, you can also initialize two variables, key and value, with the contents of a map entry (something you’ve already seen very briefly in 2.25).
 
@@ -823,7 +823,7 @@ Let’s look at another example with two different implementations: the first on
 components: a directory, a filename, and an extension. The Kotlin standard library contains functions to get the substring before (or after) the first (or the last) occurrence of the given delimiter. Here’s how you can use them to solve this task (also see 3.4).
 
 Figure 3.4. Splitting a path into a directory, a filename, and a file extension by using the substringBeforeLast and substringAfterLast functions
-![img_12.png](img_12.png)
+![img_12.png](img/0img_12.png)
 
 
 Listing 3.10. Using String extensions for parsing paths
@@ -872,7 +872,7 @@ In this example, the regular expression is written in a triple-quoted string. In
 
 Figure 3.5. The regular expression for splitting a path into a directory, a filename, and a file extension
 
-![img_13.png](img_13.png)
+![img_13.png](img/0img_13.png)
 
 
 This regular expression divides a path into three groups separated by a slash and a dot. The pattern `.` matches any character from the beginning, so the first group `(.+)` contains the substring before the last slash. This substring includes all the previous slashes, because they match the pattern "any character". Similarly, the second group contains the substring before the last dot, and the third group contains the remaining part.

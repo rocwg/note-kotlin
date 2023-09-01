@@ -32,7 +32,7 @@ Let’s start with a small example to demonstrate what Kotlin looks like. Even i
 
 - Defining a Person data class with properties without the need to specify a body.
 - Declaring read-only properties (name and age) with the val keyword Providing default values for arguments
-- Explicit work with nullable values (Int?) in the type system, avoiding the "Billion Dollar Mistake" of NullPointerExceptions
+- Explicit work with nullable values (Int?) in the type system, avoiding the "Billion-Dollar Mistake" of NullPointerExceptions
 - Top-level function definitions without the need of nesting them inside classes
 - Named arguments when invoking functions and constructors Using trailing commas
 - Using collection operations with lambda expressions
@@ -263,7 +263,7 @@ data class Greeting(val id: Int, val text: String)
 ```
 
 Figure 1.1. By combining Kotlin with industry-proven frameworks like Spring, writing an application that serves JSON via HTTP only takes two dozen lines of code.
-![img.png](img.png)
+![img.png](img/0img.png)
 
 Check the Kotlin or Spring websites to find more information about using Spring with Kotlin (https://kotlinlang.org/docs/jvm-spring-boot-restful.html).
 
@@ -434,7 +434,7 @@ Refactor your Java methods and have their use in Kotlin code correctly updated, 
 
 Figure 1.2. When using the "Find Usages" action in IntelliJ IDEA, it finds results across Kotlin and Java files in the same project. Other IDE features, such as refactorings and navigation, work just as smoothly across both languages.
 
-![img_1.png](img_1.png)
+![img_1.png](img/0img_1.png)
 
 Hopefully by now we’ve convinced you to give Kotlin a try. Now, how can you start using it? In the next section, we’ll discuss the process of compiling and running Kotlin code, both from the command line and using different tools.
 

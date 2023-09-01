@@ -1076,7 +1076,7 @@ Thus, inside every property accessor, the compiler generates calls to the corres
 
 Figure 9.11. When you access a property, the `getValue` and `setValue` functions on `<delegate>` are called.
 
-![img_59.png](img_59.png)
+![img_59.png](img/img_59.png)
 
 The mechanism is fairly simple, yet it enables many interesting scenarios. You can customize where the value of the property is stored (in a map, in a database table, or in the cookies of a user session) and also what happens when the property is accessed (to add validation, change notifications, and so on). All of this can be accomplished with compact code. Let’s look at one more use for delegated properties in the standard library and then see how you can use them in your own frameworks.
 

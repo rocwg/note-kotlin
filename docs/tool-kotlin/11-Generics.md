@@ -55,7 +55,7 @@ Unlike Java, Kotlin always requires type arguments to be either specified explic
 List aList = new ArrayList();
 ```
 
-Because Kotlin has had generics from the beginning, it doesn’t support raw types, and the type arguments must always be defined. If your program receives a variable with a raw type from Java code, it’s treated as having a generic parameter of type `Any!`—a platform type, as you’ve gotten to know them in Platform types.
+Because Kotlin has had generics from the beginning, it doesn't support raw types, and the type arguments must always be defined. If your program receives a variable with a raw type from Java code, it’s treated as having a generic parameter of type `Any!`—a platform type, as you’ve gotten to know them in Platform types.
 
 :::
 
@@ -122,7 +122,7 @@ fun main() {
 
 ::: info **YOU CAN’T DECLARE A GENERIC NON-EXTENSION PROPERTY**
 
-Regular (non-extension) properties can’t have type parameters. It’s not possible to store multiple values of different types in a property of a class, and therefore declaring a generic non-extension property doesn’t make sense. If you try to do that, the compiler reports an error:
+Regular (non-extension) properties can’t have type parameters. It’s not possible to store multiple values of different types in a property of a class, and therefore declaring a generic non-extension property doesn't make sense. If you try to do that, the compiler reports an error:
 
 ```kotlin
 val <T> x: T = TODO()
@@ -162,7 +162,7 @@ class ArrayList<T> : List<T> {
 
 The `StringList` class is declared to contain only `String` elements, so it uses `String` as the type argument of the base type. Any function from the subclass substitutes this proper type instead of `T`. That means, instead of `fun get(Int): T`, you have a signature `fun get(Int): String`.
 
-The `ArrayList` class defines its own type parameter `T` and specifies that as a type argument of the superclass. Note that `T` in `ArrayList<T>` is not the same as in `List<T>`—it’s a new type parameter, and it doesn’t need to have the same name.
+The `ArrayList` class defines its own type parameter `T` and specifies that as a type argument of the superclass. Note that `T` in `ArrayList<T>` is not the same as in `List<T>`—it’s a new type parameter, and it doesn't need to have the same name.
 
 A class can even refer to itself as a type argument. Classes implementing the `Comparable` interface are the classical example of this pattern. Any comparable element must define how to compare it with objects of the same type:
 
@@ -301,7 +301,7 @@ Note that you can make a type parameter non-`null` by specifying any non-null ty
 
 ::: info **MARKING GENERIC TYPES AS "DEFINITELY NON-NULLABLE" WHEN INTEROPERATING WITH JAVA**
 
-A special case worth pointing out is when implementing generic interfaces from Java that are annotated with nullability annotations as you’ve gotten to know them in 7.1.11. For example, this generic `JBox` interface allows the `put` method to only be called with a non-null parameter of type `T`. Note that the interface itself doesn’t make such constraints on the type `T` in general, allowing other methods like `putIfNotNull` to accept nullable values:
+A special case worth pointing out is when implementing generic interfaces from Java that are annotated with nullability annotations as you’ve gotten to know them in 7.1.11. For example, this generic `JBox` interface allows the `put` method to only be called with a non-null parameter of type `T`. Note that the interface itself doesn't make such constraints on the type `T` in general, allowing other methods like `putIfNotNull` to accept nullable values:
 
 ```kotlin
 import org.jetbrains.annotations.NotNull;
@@ -320,7 +320,7 @@ void put(@NotNull T t);
 }
 ```
 
-With the syntax you have seen so far, you couldn’t directly convert this constraint to Kotlin code. If a Kotlin implementation specifies the non-null constraint for the generic type via `T : Any`, nullable values can’t be used with the implementation at all anymore—which would differ from the constraint given by the Java interface:
+With the syntax you have seen so far, you couldn't directly convert this constraint to Kotlin code. If a Kotlin implementation specifies the non-null constraint for the generic type via `T : Any`, nullable values can’t be used with the implementation at all anymore—which would differ from the constraint given by the Java interface:
 
 ```kotlin
 class KBox<T : Any>: JBox<T> {
@@ -352,7 +352,7 @@ From an implementation perspective, generics on the JVM are normally implemented
 
 ### 11.2.1 Limitations to finding type information of a generic class at runtime: type checks and casts
 
-Kotlin’s generics are erased at runtime. This means an instance of a generic class doesn’t carry information about the type arguments used to create that instance. For example, if you create a `List<String>` and put a bunch of strings into it, at runtime you’ll only be able to see that it’s a `List` (an effect that you can also see in Java.) It’s not possible to identify which type of elements the list was intended to contain. (Of course, you can get an element and check its type, but that won’t give you any guarantees, because other elements may have different types.)
+Kotlin’s generics are erased at runtime. This means an instance of a generic class doesn't carry information about the type arguments used to create that instance. For example, if you create a `List<String>` and put a bunch of strings into it, at runtime you’ll only be able to see that it’s a `List` (an effect that you can also see in Java.) It’s not possible to identify which type of elements the list was intended to contain. (Of course, you can get an element and check its type, but that won’t give you any guarantees, because other elements may have different types.)
 
 Consider what happens with these two lists when you run the code (shown in 11.4):
 
@@ -370,7 +370,7 @@ typeErasure
 
 Let’s talk next about the constraints that go with erasing the type information. Because type arguments aren’t stored, you can’t check them—for example, you can’t check whether a list is a list of strings rather than other objects. As a general rule, it’s not possible to use types with type arguments in is checks. This can prove to be a hurdle when you want to create a function that should exhibit different behavior based on the type argument of its parameter.
 
-For example, you might have a function `readNumbersOrWords` which, depending on the user input, either returns a `List<String>` or `List<Int>`. Trying to discern between the list of numbers and words via `is` checks inside the `printList` function doesn’t compile:
+For example, you might have a function `readNumbersOrWords` which, depending on the user input, either returns a `List<String>` or `List<Int>`. Trying to discern between the list of numbers and words via `is` checks inside the `printList` function doesn't compile:
 
 ```kotlin
 fun readNumbersOrWords(): List<Any> {
@@ -395,7 +395,7 @@ fun main() {
 
 Even though it’s perfectly possible to find out at runtime that value is a `List`, you can’t tell whether it’s a list of strings, persons, or something else: that information has been erased. Note that erasing generic type information has its benefits: the overall amount of memory used by your application is smaller, because less type information needs to be saved in memory.
 
-As we stated earlier, Kotlin doesn’t let you use a generic type without specifying type arguments. Thus you may wonder how to check that the value is a list, rather than a set or another object. You can do that by using the special star projection syntax:
+As we stated earlier, Kotlin doesn't let you use a generic type without specifying type arguments. Thus you may wonder how to check that the value is a list, rather than a set or another object. You can do that by using the special star projection syntax:
 
 ```kotlin
 if (value is List<*>) { /* ... */ }
@@ -539,9 +539,9 @@ Note that `inline` function with `reified` type parameters can’t be called fro
 
 :::
 
-An inline function can have multiple reified type parameters, and it can have non-reified type parameters in addition to the reified ones. Note that the `filterIsInstance` function is marked as `inline` even though it doesn’t expect any lambdas as arguments. In 10.2.4, we discussed that marking a function as inline only has performance benefits when the function has function-type parameters and the corresponding arguments—lambdas—are inlined together with the function. But in this case, you aren’t marking the function as `inline` for performance reasons; instead, you’re doing it to enable the use of reified type parameters.
+An inline function can have multiple reified type parameters, and it can have non-reified type parameters in addition to the reified ones. Note that the `filterIsInstance` function is marked as `inline` even though it doesn't expect any lambdas as arguments. In 10.2.4, we discussed that marking a function as inline only has performance benefits when the function has function-type parameters and the corresponding arguments—lambdas—are inlined together with the function. But in this case, you aren’t marking the function as `inline` for performance reasons; instead, you’re doing it to enable the use of reified type parameters.
 
-To ensure good performance, you still need to keep track of the size of the function marked as inline. If the function becomes large, it’s better to extract the code that doesn’t depend on the reified type parameters into separate non-inline functions.
+To ensure good performance, you still need to keep track of the size of the function marked as inline. If the function becomes large, it’s better to extract the code that doesn't depend on the reified type parameters into separate non-inline functions.
 
 
 ### 11.2.3 Avoiding `java.lang.Class` parameters by replacing class references with reified type parameters
@@ -651,9 +651,9 @@ fun main() {
 }
 ```
 
-Jr solko vkfj s zfjr xl nstsgri kwosr ljon vtgk. Bdv nionuctf etsrat zuzv mtleeen ca `Any`, nhc ebsauce yvree nrstgi jz `Any`, rj’z ltaltoy vlza.
+It looks like a list of strings works fine here. The function treats each element as `Any`, and because every string is `Any`, it’s totally safe.
 
-Kwx kfr’z fxxe zr honeart coufintn, hwihc sifioemd rdo rcjf (pnz fhoetrere tkase `MutableList` ca c rmpaetaer):
+Now let’s look at another function, which modifies the list (and therefore takes `MutableList` as a parameter):
 
 ```kotlin
 fun addAnswer(list: MutableList<Any>) {
@@ -672,7 +672,7 @@ fun main() {
 }
 ```
 
-You declare a variable `strings` of type `MutableList<String>`. Then you try to pass it to the function. If the compiler accepted it (which it doesen’t), you’d be able to add an integer to a list of strings, which would then lead to a runtime exception when you tried to access the contents of the list as strings. For that reason, this call doesn’t compile. This example shows that it’s not safe to pass a `MutableList<String>` as an argument when a `MutableList<Any>` is expected; the Kotlin compiler correctly forbids that.
+You declare a variable `strings` of type `MutableList<String>`. Then you try to pass it to the function. If the compiler accepted it (which it doesen’t), you’d be able to add an integer to a list of strings, which would then lead to a runtime exception when you tried to access the contents of the list as strings. For that reason, this call doesn't compile. This example shows that it’s not safe to pass a `MutableList<String>` as an argument when a `MutableList<Any>` is expected; the Kotlin compiler correctly forbids that.
 
 Now you can answer the question of whether it’s safe to pass a list of strings to a function that expects a list of `Any` objects. It’s not safe if the function adds or replaces elements in the list, because this creates the possibility of type inconsistencies. It’s safe otherwise (we’ll discuss why in more detail later in this section). In Kotlin, this can be easily controlled by choosing the right interface, depending on whether the list is mutable. If a function accepts a read-only list, you can pass a `List` with a more specific element type. If the list is mutable, you can’t do that.
 
@@ -705,7 +705,7 @@ fun test(i: Int) {
 }
 ```
 
-Storing a value in a variable is allowed only when the value type is a subtype of the variable type; for instance, the type `Int` of the variable initializer `i` is a subtype of the variable type `Number`, so the declaration of `n` is valid. Passing an expression to a function is allowed only when the type of the expression is a subtype of the function parameter type. In the example the type `Int` of the argument `i` isn’t a subtype of the function parameter `String`, so the invocation of the `f` function doesn’t compile.
+Storing a value in a variable is allowed only when the value type is a subtype of the variable type; for instance, the type `Int` of the variable initializer `i` is a subtype of the variable type `Number`, so the declaration of `n` is valid. Passing an expression to a function is allowed only when the type of the expression is a subtype of the function parameter type. In the example the type `Int` of the argument `i` isn’t a subtype of the function parameter `String`, so the invocation of the `f` function doesn't compile.
 
 In simple cases, subtype means essentially the same thing as subclass. For example, the `Int` class is a subclass of `Number`, and therefore the `Int` type is a subtype of the `Number` type. If a class implements an interface, its type is a subtype of the interface type: `String` is a subtype of `CharSequence`.
 
@@ -742,7 +742,7 @@ interface Producer<out T> {
 }
 ```
 
-Wgrkain s dbrk rretmeaap kl c aslsc as nicvtoara mesak jr spsibole rk hzza saevul lk rurz cssla sa nintufco tresguman nyc retrnu lavesu oywn xyr hvrb rtmuesnga xhn’r xaycetl amtch rbk nxcx nj rgx ctunfoni infteidion. Ztx lemaepx, igeianm z nintfcuo rcgr easkt tozs lk egfdnie z urgop vl nimsaal, ntespeedrre qu gvr Herd sacsl. Axb rkuu eararpemt xl yor Herd cassl etfdieinis xbr krhh el xur miaanl jn rku tgbx.
+Marking a type parameter of a class as covariant makes it possible to pass values of that class as function arguments and return values when the type arguments don’t exactly match the ones in the function definition. For example, imagine a function that takes care of feeding a group of animals, represented by the `Herd` class. The type parameter of the `Herd` class identifies the type of the animal in the herd.
 
 ```kotlin
 //Listing 11.11. Defining an invariant collection-like class
@@ -763,7 +763,7 @@ fun feedAll(animals: Herd<Animal>) {
 }
 ```
 
-Sopupse rrys c qoat el bqvt xuez qcc c puvt lx szzr pns eedns rk kzer tcoz le krum.
+Suppose that a user of your code has a herd of cats and needs to take care of them.
 
 ```kotlin
 //Listing 11.12. Using an invariant collection-like class
@@ -782,7 +782,7 @@ fun takeCareOfCats(cats: Herd<Cat>) {
 
 Unfortunately, the cats will remain hungry: if you tried to pass the herd to the `feedAll` function, you’d get a type-mismatch error during compilation. Because you don’t use any variance modifier on the `T` type parameter in the `Herd` class, making it invariant, the herd of cats isn’t a subclass of the herd of animals. You could use an explicit cast to work around the problem, but that approach is verbose, error-prone, and almost never a correct way to deal with a type-mismatch problem.
 
-Because the `Herd` class has an API similar to `List` and doesn’t allow its clients to add or change the animals in the herd, you can make it covariant and change the calling code accordingly.
+Because the `Herd` class has an API similar to `List` and doesn't allow its clients to add or change the animals in the herd, you can make it covariant and change the calling code accordingly.
 
 
 ```kotlin
@@ -806,7 +806,9 @@ Uses of a type parameter in declarations of class members can be divided into in
 
 ![img_8.png](img/img_8.png)
 
-Aqx out oedkywr nx c dvbr eemtparar kl prv ...
+The `out` keyword on a type parameter of the class requires that all methods using `T` have `T` only in `out` positions and not in `in` positions. This keyword constrains possible use of `T`, which guarantees safety of the corresponding subtype relation.
+
+As an example, consider the `Herd` class. It uses the type parameter `T` in only one place: in the return value of the `get` method.
 
 ```kotlin
 class Herd<out T : Animal> {
@@ -815,7 +817,14 @@ class Herd<out T : Animal> {
 }
 ```
 
-Auaj aj cn out ptnooiis, ...
+This is an `out` position, which makes it safe to declare the class as covariant. Any code calling `get` on a `Herd<Animal>` will work perfectly if the method returns a `Cat`, because `Cat` is a subtype of `Animal`.
+
+To reiterate, the `out` keyword on the type parameter `T` means two things:
+
+- The subtyping is preserved (`Producer<Cat>` is a subtype of `Producer<Animal>`).
+- `T` can be used only in `out` positions.
+
+Now let’s look at the `List<T>` interface. `List` is read-only in Kotlin, so it has a method `get` that returns an element of type `T` but doesn't define any methods that store a value of type `T` in the list. Therefore, it’s also covariant.
 
 ```kotlin
 interface List<out T> : Collection<T> {
@@ -824,7 +833,7 @@ interface List<out T> : Collection<T> {
 }
 ```
 
-Gxkr rqrs z rhuk arermeapt ...
+Note that a type parameter can be used not only as a parameter type or return type directly, but also as a type argument of another type. For example, the `List` interface contains a method `subList` that returns `List<T>`.
 
 ```kotlin
 interface List<out T> : Collection<T> {
@@ -834,7 +843,7 @@ interface List<out T> : Collection<T> {
 
 ```
 
-Jn gcjr oazs,...
+In this case, `T` in the function `subList` is used in the `out` position. We won’t go deep into detail here; if you’re interested in the exact algorithm that determines which position is `out` and which is `in`, you can find this information in the Kotlin language documentation.
 
 Note that you can’t declare `MutableList<T>` as covariant on its type parameter, because it contains methods that take values of type T as parameters and return such values (therefore, `T` appears in both in and `out` positions). The compiler enforces this restriction. The code below, which attempts to declare the interface as covariant via the `out` keyword, reports an error, `Type parameter T is declared as 'out' but occurs in 'in' position`:
 
@@ -964,7 +973,7 @@ fun main() {
 
 ![img_7.png](img/img_7.png)
 
-Note that in all the examples so far, the variance of a class is specified directly in its declaration and applies to all places where the class is used. Java doesn’t support that and instead uses wildcards to specify the variance for specific uses of a class. Let’s look at the difference between the two approaches and see how you can use the second approach in Kotlin.
+Note that in all the examples so far, the variance of a class is specified directly in its declaration and applies to all places where the class is used. Java doesn't support that and instead uses wildcards to specify the variance for specific uses of a class. Let’s look at the difference between the two approaches and see how you can use the second approach in Kotlin.
 
 ### 11.3.5 Specifying variance for type occurrences via use-site variance
 
@@ -1159,7 +1168,7 @@ fun main() {
 }
 ```
 
-Once you do that, you may have difficulties when trying to use the validators. You can’t validate a string with a validator of the type `FieldValidator<*>`. It’s unsafe, because the compiler doesn’t know what kind of validator it is:
+Once you do that, you may have difficulties when trying to use the validators. You can’t validate a string with a validator of the type `FieldValidator<*>`. It’s unsafe, because the compiler doesn't know what kind of validator it is:
 
 ```kotlin
 validators[String::class]!!.validate("")
@@ -1188,7 +1197,9 @@ stringValidator.validate("")
 //   at DefaultIntValidator.validate
 ```
 
-Aaqj inrcrtcoe bvav pnc 11.19 ....
+This incorrect code and 11.19 are similar in a sense that in both cases, only a warning is emitted. It becomes your responsibility to cast only values of the correct type.
+
+This solution isn’t type-safe and is error-prone. So, let’s investigate what other options you have if you want to store validators for different types in one place.
 
 
 The solution in 11.21 uses the same `validators` map but encapsulates all the access to it into two generic methods responsible for having only correct validators registered and returned. This code also emits a warning about the unchecked cast (the same one), but here the object `Validators` controls all access to the map, which guarantees that no one will change the map incorrectly.

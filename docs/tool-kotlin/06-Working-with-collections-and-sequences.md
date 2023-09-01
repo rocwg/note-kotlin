@@ -45,7 +45,7 @@ The result is a new collection that contains only the elements from the input co
 
 Figure 6.1. The filter function selects elements matching given predicate
 
-![img_41.png](img_41.png)
+![img_41.png](img/img_41.png)
 
 If you want to keep only people older than 30, you can use filter:
 
@@ -73,7 +73,7 @@ The result is a new collection that contains the same number of elements, but ea
 
 Figure 6.2. The map function applies a lambda to all elements in a collection.
 
-![img_40.png](img_40.png)
+![img_40.png](img/img_40.png)
 
 If you want to print just a list of names, not a list of people, you can transform the list using map:
 
@@ -174,7 +174,7 @@ fun main() {
 
 Figure 6.3. The reduce function gradually builds up a result in its accumulator, invoking your lambda repeatedly with each element and the previous accumulator value.
 
-![img_39.png](img_39.png)
+![img_39.png](img/img_39.png)
 
 The fold function is conceptually very similar to reduce, but instead of putting the first element of your collection into the accumulator at the beginning, you can choose an arbitrary start value. In this example, you’re concatenating the name property of two Person objects using fold (a job usually tailored for the joinToString function we explored earlier, but an illustrative example nonetheless). You initialize the accumulator with an empty string, and then gradually build up the final text in your lambda:
 
@@ -194,7 +194,7 @@ fun main() {
 
 Figure 6.4. The fold function allows you to specify the initial value and type of the accumulator. The result is gradually built up in the accumulator, applying your lambda repeatedly on each accumulator-element pair.
 
-![img_38.png](img_38.png)
+![img_38.png](img/img_38.png)
 
 There are many algorithms you can express concisely using a fold or reduce operation. For cases where you want to retrieve all intermittent values the reduce or fold operations, the runningReduce and runningFold functions come to the rescue. Their only difference to the reduce and fold functions as we just discussed them is that these functions return a list. It contains all intermittent accumulator values alongside the final result. In this example, you’re using the running counterpart of the snippets discussed in the previous paragraphs:
 
@@ -383,7 +383,7 @@ println(stayOut)
 
 Figure 6.5. The partition function returns a pair consisting of two lists: Those that satisfy the given Boolean predicate, and those that don’t.
 
-![img_37.png](img_37.png)
+![img_37.png](img/img_37.png)
 
 ### 6.1.5 Converting a list to a map of groups: groupBy
 
@@ -404,7 +404,7 @@ The result of this operation is a map from the key by which the elements are gro
 
 Figure 6.6. The result of applying the groupBy function
 
-![img_36.png](img_36.png)
+![img_36.png](img/img_36.png)
 
 For this example, the output is as follows:
 
@@ -444,7 +444,7 @@ fun main() {
 
 Figure 6.7. The associate function turns a list into a map based on the pairs of keys and values returned by your lambda.
 
-![img_35.png](img_35.png)
+![img_35.png](img/img_35.png)
 
 Instead of creating pairs of custom keys and custom values, you may want to create an association between the elements of your collection with another certain value. You can do this with the associateWith and associateBy functions.
 
@@ -548,7 +548,7 @@ fun main() {
 
 Figure 6.8. The windowed function processes your input collection using a sliding window.
 
-![img_34.png](img_34.png)
+![img_34.png](img/img_34.png)
 
 Instead of running a sliding window over your input collection, you may want to break the collection into distinct parts of a given size. The chunked function helps you achieve this. Once again, you can also pass a lambda which transforms the output:
 
@@ -563,7 +563,7 @@ fun main() {
 
 Figure 6.9. The chunked function processes your input collection in non-overlapping segments of the specified size.
 
-![img_33.png](img_33.png)
+![img_33.png](img/img_33.png)
 
 Note that in the example above, even though you specify a chunk size of 2, the last generated chunk may have a smaller size: since the input collection has an odd number of items, the chunked function creates two chunks of size 2, and puts the remaining item in a third chunk.
 
@@ -592,7 +592,7 @@ fun main() {
 
 Figure 6.10. The zip function correlates each element of its two inputs at the same index using the lambda you pass to it, or creates pairs of the elements otherwise. Elements that don’t have a counterpart in the other collection are ignored.
 
-![img_32.png](img_32.png)
+![img_32.png](img/img_32.png)
 
 Note that the size of the resulting collection is the same as the shorter of the two lists: `zip` only processes items at those indexes that exist in both input collections.
 
@@ -708,7 +708,7 @@ Operations on a sequence are divided into two categories: intermediate and termi
 
 Figure 6.11. Intermediate and terminal operations on sequences
 
-![img_31.png](img_31.png)
+![img_31.png](img/img_31.png)
 
 Intermediate operations are always lazy. Look at this example, where the terminal operation is missing:
 
@@ -767,7 +767,7 @@ If the same operations are applied to a collection instead of a sequence, then t
 
 Figure 6.12. Eager evaluation runs each operation on the entire collection; lazy evaluation processes elements one by one.
 
-![img_30.png](img_30.png)
+![img_30.png](img/img_30.png)
 
 In the first case, when you work with collections, the list is transformed into another list, so the map transformation is applied to each element, including 3 and 4. Afterward, the first element satisfying the predicate is found: the square of 2.
 
@@ -804,7 +804,7 @@ fun main() {
 
 Figure 6.13. Applying filter first helps to reduce the total number of transformations.
 
-![img_29.png](img_29.png)
+![img_29.png](img/img_29.png)
 
 If map goes first, each element is transformed, even if it is discarded in the next step, and never used again. If you apply filter first, inappropriate elements are filtered out as soon as possible and aren’t transformed. As a rule of thumb, the earlier you can remove elements from your chain of operations (without compromising the logic of your code, of course), the more performant your code will be.
 

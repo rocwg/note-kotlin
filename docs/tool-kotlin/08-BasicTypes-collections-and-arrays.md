@@ -70,7 +70,7 @@ amount of memory. A regular Int for example allows you to store numbers from rou
 
 Figure 8.1. Unsigned number types shift the value range, allowing you to store larger non- negative numbers in the same amount of memory: Where a regular, signed Byte can store values between -128 and 127, a UByte can store values between 0 and 255.
 
-![img_52.png](img_52.png)
+![img_52.png](img/img_52.png)
 
 Like other primitive types, unsigned numbers in Kotlin are only wrapped when required, and have the performance characteristics of primitive types otherwise.
 
@@ -359,7 +359,7 @@ Note how the nullability of the type of the variable itself is distinct from the
 
 Figure 8.2. Carefully consider how you intend to use your collection when thinking about nullability. Should the whole collection itself be nullable, or should individual elements inside the collection be nullable?
 
-![img_53.png](img_53.png)
+![img_53.png](img/img_53.png)
 
 In the first case, the list itself is always not null, but each value in the list can be null. A variable of the second type may contain a null reference instead of a list instance, but the elements in the list are guaranteed to be non-null.
 
@@ -376,7 +376,7 @@ You may also find yourself in a situation where you would like to declare a vari
 
 Figure 8.3. A nullable collection of nullable integers can be null itself, or store elements which are potentially null.
 
-![img_54.png](img_54.png)
+![img_54.png](img/img_54.png)
 
 To see how you can work with a list of nullable values, let’s write a function to add all the valid numbers together and count the invalid numbers separately.
 
@@ -428,7 +428,7 @@ Of course, the filtering also affects the type of the collection. The type of `v
 
 Figure 8.4. The filterNotNull function returns a new collection with all the null elements from the input collection removed. This new collection is also of non-nullable type, meaning you won’t have to do any further null-handling down the line.
 
-![img_55.png](img_55.png)
+![img_55.png](img/img_55.png)
 
 Now that you understand how Kotlin distinguishes between collections that hold nullable and non-null elements, let’s look at another major distinction introduced by Kotlin: read-only versus mutable collections.
 
@@ -440,7 +440,7 @@ To modify the data in the collection, use the `kotlin.collections.MutableCollect
 
 Figure 8.5. The Collections interface is ready-only. MutableCollection extends it and adds methods to modify a collection’s contents.
 
-![img_56.png](img_56.png)
+![img_56.png](img/img_56.png)
 
 As a general rule, you should use read-only interfaces everywhere in your code. Use the mutable variants only if the code will modify the collection.
 
@@ -483,7 +483,7 @@ A key thing to keep in mind when working with collection interfaces is that read
 
 Figure 8.6. Two different references, one read-only and one mutable, pointing to the same collection object. Code accessing list can’t change the underlying collection, but may still have to deal with changes done by code working with the mutableList.
 
-![img_57.png](img_57.png)
+![img_57.png](img/img_57.png)
 
 If one part of your code holds a reference to the collection which is mutable, then another part of your code holding a read-only "view" on that same collection can’t rely on the fact that the collection isn’t modified by the first part simultaneously. When the collection is modified while your code is working on it, it may lead to `ConcurrentModificationException` errors and other problems.
 
@@ -504,7 +504,7 @@ It’s true that every Kotlin collection is an instance of the corresponding Jav
 Figure 8.7. The hierarchy of the Kotlin collection interfaces. The Java classes ArrayList and
 HashSet, among others, extend Kotlin mutable interfaces.
 
-![img_58.png](img_58.png)
+![img_58.png](img/img_58.png)
 
 All collection interfaces shown in 8.7 are declared in Kotlin. The basic structure of the Kotlin read-only and mutable interfaces is parallel to the structure of the Java collection interfaces in the `java.util` package. In addition, each mutable interface extends the corresponding read-only interface. Mutable interfaces correspond directly to the interfaces in the `java.util` package, whereas the read-only versions lack all the mutating methods.
 

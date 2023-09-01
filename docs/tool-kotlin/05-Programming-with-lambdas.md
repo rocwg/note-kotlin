@@ -126,7 +126,7 @@ As we’ve mentioned, a lambda encodes a small piece of behavior that you can pa
 
 Figure 5.1. Lambda expression syntax: A lambda is always surrounded by curly braces, specifies a number of parameters, and provides a body of the lambda which contains the actual logic.
 
-![img_28.png](img_28.png)
+![img_28.png](img/img_28.png)
 
 A lambda expression in Kotlin is always surrounded by curly braces. Note that there are no parentheses around the arguments. The arrow separates the argument list from the body of the lambda.
 
@@ -205,7 +205,7 @@ All three syntactic forms mean the same thing, but the last one is the easiest t
 
 Figure 5.2. You simplified your maxByOrNull call to get the oldest person from the people collection in six steps. You first moved the lambda out of the parentheses (1), removed the now empty pair of parentheses (2), used the Kotlin compiler’s type inference instead of specifying the parameter type for p explicitly (3), and used the implicit name for the only lambda parameter it (5). You also learned an additional shorthand in the form of member references (6).
 
-![img_27.png](img_27.png)
+![img_27.png](img/img_27.png)
 
 To see what these options look like with a more complex call, let’s go back to the joinToString function that you used extensively in 3. It’s also defined in the Kotlin standard library, with the difference that the standard library version takes a function as an additional parameter. This function can be used to convert an element to a string differently than its toString function.
 Here’s how you can use it to print names only.
@@ -240,7 +240,7 @@ IntelliJ IDEA and Android Studio allow you to automatically convert between the 
 
 Figure 5.3. The "move lambda" intention actions allow you to
 
-![img_26.png](img_26.png)
+![img_26.png](img/img_26.png)
 
 :::
 
@@ -326,7 +326,7 @@ fun main() {
 
 Figure 5.4. The forEach lambda can access the prefix variable defined in the surrounding scope, and any other variables defined in surrounding scopes—all the way up to the surrounding class and file scopes.
 
-![img_25.png](img_25.png)
+![img_25.png](img/img_25.png)
 
 One important difference between Kotlin and Java is that in Kotlin, you aren’t restricted to accessing final variables: You can also modify variables from within a lambda. In the next listing, you’re counting the number of client and server errors in a given collection of response status codes. You do so by incrementing the clientErrors and serverErrors variables defined in the printProblemCounts functions from within the forEach lambda:
 
@@ -412,7 +412,7 @@ This expression is called member reference, and it provides a short syntax for c
 
 Figure 5.5. Member reference syntax
 
-![img_24.png](img_24.png)
+![img_24.png](img/img_24.png)
 
 This is a more concise expression of a lambda that does the same thing:
 
@@ -493,7 +493,7 @@ As you can see, the way we defined `sebsAgeFunction` in this example
 
 Figure 5.6. A regular member reference, like `Person::age`, takes an instance of an object as a parameter and returns the value of the member. A bound member reference like seb::age takes no arguments, and returns the value of the member belonging to the object it is bound to.
 
-![img_23.png](img_23.png)
+![img_23.png](img/img_23.png)
 
 In the following section, we’ll look at many library functions that work great with lambda expressions, as well as member references.
 
@@ -556,7 +556,7 @@ View, as in the onClick method. The mapping is illustrated in 5.7.
 
 Figure 5.7. Parameters of the lambda correspond to method parameters.
 
-![img_22.png](img_22.png)
+![img_22.png](img/img_22.png)
 
 This works because the OnClickListener interface has only one abstract method. Such interfaces are called functional interfaces, or SAM interfaces, where SAM stands for single abstract method. The Java API is full of functional interfaces like Runnable and Callable, as well as methods working with them. Kotlin allows you to use lambdas when calling Java methods that take functional interfaces as parameters, ensuring that your Kotlin code remains clean and idiomatic.
 
@@ -812,7 +812,7 @@ The with function converts its first argument into a receiver of the lambda that
 
 Figure 5.8. Inside the lambda of the with function, the first argument is available as the receiver type this. IDEs like IntelliJ IDEA and Android Studio have the option to visualize this receiver type via an inlay hint after the opening parenthesis.
 
-![img_21.png](img_21.png)
+![img_21.png](img/img_21.png)
 
 In 5.17, this refers to stringBuilder, which is passed to with as the first argument. You can access methods on stringBuilder via explicit this references, as in `this.append(letter)`; or directly, making your code even more concise:
 
@@ -894,7 +894,7 @@ You can call the apply function as an extension function on any type – in this
 
 Figure 5.9. Like the with function, apply makes the object it was called on the receiver type inside the lambda. apply also returns the object it was called on. Inlay hints in IntelliJ IDEA and Android Studio help visualize this.
 
-![img_20.png](img_20.png)
+![img_20.png](img/img_20.png)
 
 One of many cases where this is useful is when you’re creating an instance of an object and need to initialize some properties right away. In Java, this is usually accomplished through a separate Builder object; and in Kotlin, you can use apply on any object without any special support from the library where the object is defined.
 
@@ -958,7 +958,7 @@ Just like `apply`, you can use the `also` function to take a receiver object, pe
 
 Figure 5.10. When using `also`, the object doesn’t become the receiver type inside the lambda, but makes the object available as an argument, by default named `it`. The `also` function returns the object it was called on, as you can see in these inlay hints.
 
-![img_19.png](img_19.png)
+![img_19.png](img/img_19.png)
 
 In the following example, you’re mapping a collection of fruits to their uppercased names, and also add the result of that mapping to an additional collection. You then filter for those fruits from the collection whose name is longer than five characters, and also print that result, before finally reversing the list:
 

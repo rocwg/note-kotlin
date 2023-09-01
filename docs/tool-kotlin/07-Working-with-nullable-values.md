@@ -62,7 +62,7 @@ You can put a question mark after any type, to indicate that the variables of th
 
 Figure 7.1. The question mark after a type name indicates that it is nullable. A variable of nullable type can store a null reference.
 
-![img_42.png](img_42.png)
+![img_42.png](img/img_42.png)
 
 To reiterate, a type without a question mark denotes that variables of this type can’t store null references. This means all regular types are non-null by default, unless explicitly marked as nullable.
 
@@ -149,7 +149,7 @@ In other words, if the value on which you’re trying to call the method isn’t
 
 Figure 7.2. The safe-call operator calls methods only on non-null values. If the value happens to be null, no call is made, and null is returned directly. This allows you to safely call methods without having to write a null check by hand.
 
-![img_43.png](img_43.png)
+![img_43.png](img/img_43.png)
 
 Note that the result type of such an invocation is nullable. Although `String.uppercase` returns a value of type `String`, the result type of an expression `s?.uppercase()` when `s` is nullable will be `String?`:
 
@@ -227,7 +227,7 @@ The operator takes two values, and its result is the first value if it isn’t `
 
 Figure 7.3. The Elvis operator substitutes a specified value for null. This allows you to provide a default value should the left-hand expression happen to be null.
 
-![img_44.png](img_44.png)
+![img_44.png](img/img_44.png)
 
 The Elvis operator is often used together with the safe-call operator to substitute a value other than null when the object on which the method is called is null. Here’s how you can use this pattern to simplify 7.1.
 
@@ -297,7 +297,7 @@ The `as?` operator tries to cast a value to the specified type and returns null 
 
 Figure 7.4. The safe-cast operator as? gives you the tools to safetly work with the possibility that a cast may not succeed. It tries to cast a value to the given type and returns null if the type differs.
 
-![img_45.png](img_45.png)
+![img_45.png](img/img_45.png)
 
 One common pattern of using a safe cast is combining it with the Elvis operator. For example, this comes in handy for implementing the `equals` method.
 
@@ -338,7 +338,7 @@ The not-null assertion is the simplest and bluntest tool Kotlin gives you for de
 Figure 7.5. By using a not-null assertion, you don’t have to explicitly handle your value being
 null. Instead, it throws an exception when encountering a null value.
 
-![img_46.png](img_46.png)
+![img_46.png](img/img_46.png)
 
 Here’s a trivial example of a function that uses the assertion to convert a nullable argument to a non-null one.
 
@@ -434,7 +434,7 @@ But you can go another way: use the let function, and call it via a safe call. A
 
 Figure 7.6. Together with the safe-call operator, let allows you to specify a lambda that is only executed if your expression isn’t null. This is particularly useful when you are working with the result of a chain of expressions that happens to be nullable.
 
-![img_47.png](img_47.png)
+![img_47.png](img/img_47.png)
 
 The let function will be called only if the email value is non-null, so you use the email as a non-null argument of the lambda:
 
@@ -568,7 +568,7 @@ It clearly identifies what has happened and is much easier to understand than a 
 
 Figure 7.7. A `lateinit` property is has a non-`null` type, but doesn’t need to be assigned a value right away. It is your responsibility not to access the variable before it was assigned a value.
 
-![img_48.png](img_48.png)
+![img_48.png](img/img_48.png)
 
 `lateinit` properties are commonly used in conjunction with Java dependency injection frameworks like Google Guice. In that scenario, the values of `lateinit` properties are set externally by the framework. To ensure compatibility with a broad range of Java frameworks, Kotlin generates a field with the same visibility as the `lateinit` property. If the property is declared as public, the field will be public as well.
 
@@ -607,7 +607,7 @@ You can call an extension function that was declared for a nullable receiver wit
 
 Figure 7.8. Extensions for nullable types know how to handle the null-case for their receiver themselves. Therefore, they can be accessed without a safe call.
 
-![img_49.png](img_49.png)
+![img_49.png](img/img_49.png)
 
 The function isNullOrBlank checks explicitly for null, returning true in this case, and then calls isBlank, which can be called on a non-null String only:
 
@@ -691,7 +691,7 @@ First, as we mentioned, sometimes Java code contains information about nullabili
 
 Figure 7.9. Annotated Java types are represented as nullable and non-null types in Kotlin, according to the annotations. Those types can either explicitly store null values, or are explicitly non-null.
 
-![img_50.png](img_50.png)
+![img_50.png](img/img_50.png)
 
 Kotlin recognizes many different flavors of nullability annotations, including those from the JSR-305 standard (in the `javax.annotation` package), the Android ones (`android.support.annotation`), and those supported by JetBrains tools (`org.jetbrains.annotations`). The interesting question is what happens when the annotations aren’t present. In that case, the Java type becomes a platform type in Kotlin.
 
@@ -699,7 +699,7 @@ Kotlin recognizes many different flavors of nullability annotations, including t
 
 Figure 7.10. Java types without special annotations are represented in Kotlin as platform types. You can choose to either use them as a nullable type or as a non-null type.
 
-![img_51.png](img_51.png)
+![img_51.png](img/img_51.png)
 
 A platform type is essentially a type for which Kotlin doesn’t have nullability information; you can work with it as either a nullable or a non-null type (see 7.10). This means, just as in Java, you have full responsibility for the operations you perform with that type. The compiler will allow all operations. It also won’t highlight any null-safe operations on such values as redundant, which it normally does when you perform a null-safe operation on a value of a non-null type. If you know the value can be null, you can compare it with null before use. If you know it’s not null, you can use it directly. Just as in Java, you’ll get a NullPointerException at the usage site if you get this wrong.
 

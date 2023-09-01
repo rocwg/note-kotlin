@@ -44,7 +44,7 @@ Let's start our journey into the world of Kotlin with a classical example: a pro
 
 Figure 2.1. "Hello World!" in Kotlin
 
-![img_8.png](img_8.png)
+![img_8.png](img/0img_8.png)
 
 We can observe a number of features and parts of the language syntax in this simple code snippet already:
 
@@ -76,7 +76,7 @@ fun max(a: Int, b: Int): Int {
 
 Figure 2.2. A Kotlin function is introduced with the `fun` keyword. Parameters and their types follow in parentheses, each one of them annotated with a name and a type, separated by a colon. Its return type is specified after the end of the parameter list. Functions just like this one are a basic building block of any Kotlin program.
 
-![img_2.png](img_2.png)
+![img_2.png](img/0img_2.png)
 
 You can then call your function by using its name, providing the arguments in parentheses (you'll learn about different ways for calling Kotlin functions in 3.2.1.)
 
@@ -493,13 +493,13 @@ In Java, you put your classes into a structure of files and directories that mat
 
 Figure 2.3. In Java, the directory hierarchy duplicates the package hierarchy.
 
-![img_3.png](img_3.png)
+![img_3.png](img/0img_3.png)
 
 In Kotlin, you can put multiple classes in the same file and choose any name for that file. Kotlin also doesn't impose any restrictions on the layout of source files on disk; you can use any directory structure to organize your files. For instance, you can define all the content of the package geometry.shapes in the file shapes.kt and place this file in the geometry folder without creating a separate shapes folder (see 2.4).
 
 Figure 2.4. Your package hierarchy doesn't need to follow the directory hierarchy.
 
-![img_4.png](img_4.png)
+![img_4.png](img/0img_4.png)
 
 In most cases, however, it's still a good practice to follow Java's directory layout and to organize source files into directories according to the package structure. Sticking to that structure is especially important in projects where Kotlin is mixed with Java, because doing so lets you migrate the code gradually without introducing any surprises. But you shouldn't hesitate to pull multiple classes into the same file, especially if the classes are small (and in Kotlin, they often are).
 
@@ -744,13 +744,13 @@ class Sum(val left: Expr, val right: Expr) : Expr
 
 Figure 2.5. Class diagram showing the relationship between Expr, Num and Sum. Num and Sum both realize the marker interface Expr. Sum also has an association with the left and right operands, which are once again of type Expr.
 
-![img_5.png](img_5.png)
+![img_5.png](img/0img_5.png)
 
 Sum stores references to the left and right arguments of type Expr. In the case of your example, that means they can be either Num or Sum. To store the expression (1 + 2) + 4 mentioned earlier, you create a structure of Expr objects, specifically Sum(Sum(Num(1), Num(2)), Num(4)). 2.6 shows its tree representation.
 
 Figure 2.6. A representation of the expression Sum(Sum(Num(1), Num(2)), Num(4)) describing the mathematical expression (1 + 2) + 4. We use this codification as the input for our evaluation function.
 
-![img_6.png](img_6.png)
+![img_6.png](img/0img_6.png)
 
 
 Your goal is to evaluate this kind of expression consisting of Sum and Num
@@ -792,7 +792,7 @@ In the eval function, after you check whether the variable e has Num type, the c
 
 Figure 2.7. The IDE highlights smart casts with a background color.
 
-![img_7.png](img_7.png)
+![img_7.png](img/0img_7.png)
 
 
 The smart cast works only if a variable couldn't have changed after the is check. When you're using a smart cast with a property of a class, as in this example, the property has to be a val and it can't have a custom accessor. Otherwise, it would not be possible to verify that every access to the property would return the same value.

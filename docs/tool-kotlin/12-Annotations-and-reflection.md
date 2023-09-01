@@ -112,14 +112,14 @@ If the annotation you are using happens to be declared in Java, then it is appli
 The full list of supported use-site targets is as follows:
 
 - `property`—Property (Java annotations can’t be applied with this use-site target)
-- `field`—Lhvfj eeatgednr klt dvr ryoteppr.
-- `get`—Loretrpy getret.
-- `set`—Loptryer srtete.
-- `receiver`—Xeeicvre rpmaereta lk sn nxoetnsei niucfnot tk rroeyptp.
-- `param`—Aotrurntcos eerrpamat.
-- `setparam`—Frtpyoer street etaeamprr.
-- `delegate`—Pfkjh ngotris vur getelade icansnte let z tdlegdeea tyeprrpo.
-- `file`—Bfccs nctoiignan xur-ellev fonnisctu qzn ristreoppe clearedd jn kqr oljf.
+- `field`—
+- `get`—
+- `set`—
+- `receiver`—
+- `param`—
+- `setparam`—
+- `delegate`—
+- `file`—Bfccs ....
 
 Any annotation with the `file` target needs to be placed at the top level of the file, before the `package` directive. One of the annotations commonly applied to files is `@JvmName`, which changes the name of the corresponding class. 3.2.3 showed you an example: `@file:JvmName("StringFunctions")`.
 
@@ -186,7 +186,7 @@ fun main() {
 
 The JSON representation of an object consists of key/value pairs: pairs of property names and their values for the specific instance, such as `"age": 29`.
 
-Xx ryv c Dltion tjoebc zzuo ....
+To get a Kotlin object back from the JSON representation, you call the `deserialize` function. When you create an instance from JSON data, you must specify the class explicitly as a type argument, because JSON doesn't store object types. In this case, you pass the `Person` class:
 
 ```kotlin
 fun main() {
@@ -195,14 +195,15 @@ fun main() {
     // Person(name=Alice, age=29)
 }
 ```
-12.3 attulrsilse ...
+
+12.3 illustrates the equivalence between an object and its JSON representation. Note that the serialized class can contain not only values of primitive types or strings, as shown on the figure, but also collections and instances of other value object classes.
 
 ![img_12.png](img/img_12.png)
 
 You can use annotations to customize the way objects are serialized and deserialized. When serializing an object to JSON, by default, the library tries to serialize all the properties and uses the property names as keys. The annotations allow you to change the defaults. In this section, we’ll discuss two annotations, `@JsonExclude` and `@JsonName`, and you’ll see their implementation later in the chapter:
 
-- Xxy `@JsonExclude` ....
-- Rgx `@JsonName` ....
+- The `@JsonExclude` annotation is used to mark a property that should be excluded from serialization and deserialization.
+- The `@JsonName` annotation lets you specify that the key in the key/value pair representing the property should be the given string, not the name of the property.
 
 Consider this example, in which you annotate the property `firstName` to change the key used to represent it in JSON. You also annotate the property `age` to exclude it from serialization and deserialization:
 
@@ -212,7 +213,7 @@ data class Person(
     @JsonExclude val age: Int? = null
 )
 ```
-Note that you must specify the default value of the property `age`. Otherwise, you wouldn’t be able to create a new instance of `Person` during deserialization. 12.4 shows how the representation of an instance of the `Person` class changes.
+Note that you must specify the default value of the property `age`. Otherwise, you wouldn't be able to create a new instance of `Person` during deserialization. 12.4 shows how the representation of an instance of the `Person` class changes.
 
 ![img_13.png](img/img_13.png)
 
@@ -220,7 +221,7 @@ With that, you’ve seen most of the features available in JKid: `serialize()`, 
 
 ### 12.1.4 Creating your own annotation declarations
 
-In this section, you’ll learn how to declare annotations, using the annotations from JKid as an example. The `@JsonExclude` annotation has the simplest form, because it doesn’t have any parameters. The syntax looks like a regular class declaration, with the added `annotation` modifier before the `class` keyword:
+In this section, you’ll learn how to declare annotations, using the annotations from JKid as an example. The `@JsonExclude` annotation has the simplest form, because it doesn't have any parameters. The syntax looks like a regular class declaration, with the added `annotation` modifier before the `class` keyword:
 
 ```kotlin
 annotation class JsonExclude
@@ -236,7 +237,7 @@ annotation class JsonName(val name: String)
 
 ::: info **COMPARISON WITH JAVA ANNOTATIONS**
 
-Vtk oncmosipar, ....
+For comparison, here’s how you would have declared the same annotation in Java:
 
 ```kotlin
 /* Java */
@@ -264,7 +265,7 @@ Of the meta-annotations defined in the standard library, the most common is `@Ta
 annotation class JsonExclude
 ```
 
-The `@Target` meta-annotation specifies the types of elements to which the annotation can be applied. If you don’t use it, the annotation will be applicable to all declarations. That wouldn’t make sense for JKid, because the library processes only property annotations.
+The `@Target` meta-annotation specifies the types of elements to which the annotation can be applied. If you don’t use it, the annotation will be applicable to all declarations. That wouldn't make sense for JKid, because the library processes only property annotations.
 
 The list of values of the `AnnotationTarget` enum gives the full range of possible targets for an annotation. It includes classes, files, functions, properties, property accessors, types, all expressions, and so on. You can declare multiple targets if you need to: `@Target(AnnotationTarget.CLASS, AnnotationTarget.METHOD)`.
 
@@ -281,7 +282,7 @@ Note that you can’t use annotations with a `property` target from Java code; t
 
 ::: info **THE @RETENTION ANNOTATION**
 
-In Java, may have seen another important meta-annotation, `@Retention`. You can use it to specify whether the annotation you declare will be stored in the `.class` file and whether it will be accessible at runtime through reflection. Java by default retains annotations in `.class` files but doesn’t make them accessible at runtime. Most annotations do need to be present at `runtime`, so in Kotlin the default is different: annotations have RUNTIME retention. Therefore, the JKid annotations do not have an explicitly specified retention.
+In Java, may have seen another important meta-annotation, `@Retention`. You can use it to specify whether the annotation you declare will be stored in the `.class` file and whether it will be accessible at runtime through reflection. Java by default retains annotations in `.class` files but doesn't make them accessible at runtime. Most annotations do need to be present at `runtime`, so in Kotlin the default is different: annotations have RUNTIME retention. Therefore, the JKid annotations do not have an explicitly specified retention.
 
 :::
 
@@ -314,9 +315,9 @@ annotation class DeserializeInterface(val targetClass: KClass<out Any>)
 
 The `KClass` type is used to hold references to Kotlin classes; you’ll see what it lets you do with those classes in 12.2.
 
-Xky vrqb aetmrerap...
+The type parameter of `KClass` specifies which Kotlin classes can be referred to by this reference. For instance, `CompanyImpl::class` has a type `KClass<CompanyImpl>`, which is a subtype of the annotation parameter type (see figure 12.5).
 
-If you wrote `KClass<Any>` without the `out` modifier, you wouldn’t be able to pass `CompanyImpl::class` as an argument: the only allowed argument would be `Any::class`. The out keyword specifies that you’re allowed to refer to classes that extend `Any`, not just to `Any` itself. The next section shows one more annotation that takes a reference to generic class as a parameter.
+If you wrote `KClass<Any>` without the `out` modifier, you wouldn't be able to pass `CompanyImpl::class` as an argument: the only allowed argument would be `Any::class`. The out keyword specifies that you’re allowed to refer to classes that extend `Any`, not just to `Any` itself. The next section shows one more annotation that takes a reference to generic class as a parameter.
 
 ![img_14.png](img/img_14.png)
 
@@ -350,7 +351,7 @@ annotation class CustomSerializer(
 )
 ```
 
-12.6 examines the type of the `serializerClass` parameter and explains its different parts. You need to ensure that the annotation can only refer to classes that implement the `ValueSerializer` interface. For instance, writing `@CustomSerializer(Date::class)` should be prohibited, because `Date` doesn’t implement the `ValueSerializer` interface.
+12.6 examines the type of the `serializerClass` parameter and explains its different parts. You need to ensure that the annotation can only refer to classes that implement the `ValueSerializer` interface. For instance, writing `@CustomSerializer(Date::class)` should be prohibited, because `Date` doesn't implement the `ValueSerializer` interface.
 
 ![img_15.png](img/img_15.png)
 
@@ -369,11 +370,11 @@ As a fallback, you can also use standard Java reflection, as defined in the `jav
 
 ::: warning NOTE
 
-Cv eerdcu rbk ernutmi ...
+To reduce the runtime library size on platforms where it matters, such as Android, the Kotlin reflection API is packaged into a separate .jar file, `kotlin-reflect.jar`, which isn’t added to the dependencies of new projects by default. If you’re using the Kotlin reflection API, you need to make sure the library is added as a dependency. The Maven group/artifact ID for the library is `org.jetbrains.kotlin:kotlin-reflect`.
 
 :::
 
-Jn jgcr ntosice, ...
+In this section, you’ll see how JKid uses the reflection API. We’ll walk you through the serialization part first, because it’s more straightforward and easier for us to explain, and then proceed to JSON parsing and deserialization. But first let’s take a close look at the contents of the reflection API.
 
 ### 12.2.1 The Kotlin reflection API: KClass, KCallable, KFunction, and KProperty
 
@@ -394,7 +395,7 @@ fun main() {
     // name
 }
 ```
-Raqj mslpie aexpmle pisrtn kdr ...
+Raqj ....
 
 ```kotlin
 interface KClass<T : Any> {
@@ -406,11 +407,11 @@ interface KClass<T : Any> {
     // ...
 }
 ```
-Wbzn troeh eluufs stereafu....
+Many other useful features of `KClass`, including `memberProperties` used in the previous example, are declared as extensions. You can see the full list of methods on `KClass` (including extensions) in the standard library reference (http://mng.bz/em4i).
 
 ::: warning NOTE
 
-Apv igmht eecxpt vb
+Apv igmht ....
 
 :::
 
@@ -453,7 +454,7 @@ fun main() {
 }
 ```
 
-Using `invoke` rather than `call` on `kFunction` prevents you from accidentally passing an incorrect number of arguments to the function: the code won’t compile. Therefore, if you have a `KFunction` of a specific type, with known parameters and return type, it’s preferable to use its `invoke` method. The `call` method is a generic approach that works for all types of functions but doesn’t provide type safety.
+Using `invoke` rather than `call` on `kFunction` prevents you from accidentally passing an incorrect number of arguments to the function: the code won’t compile. Therefore, if you have a `KFunction` of a specific type, with known parameters and return type, it’s preferable to use its `invoke` method. The `call` method is a generic approach that works for all types of functions but doesn't provide type safety.
 
 ::: info **HOW AND WHERE ARE KFUNCTIONN INTERFACES DEFINED?**
 
@@ -515,7 +516,7 @@ private fun StringBuilder.serializeObject(x: Any) {
     append(/*...*/)
 }
 ```
-Converting a function parameter into an extension function receiver is a common pattern in Kotlin code, and we’ll discuss it in detail in Chapter 13. Note that `serializeObject` doesn’t extend the `StringBuilder` API. It performs operations that make no sense outside of this particular context, so it’s marked `private` to ensure that it can’t be used elsewhere. It’s declared as an extension to emphasize a particular object as primary for this code block and to make it easier to work with that object.
+Converting a function parameter into an extension function receiver is a common pattern in Kotlin code, and we’ll discuss it in detail in Chapter 13. Note that `serializeObject` doesn't extend the `StringBuilder` API. It performs operations that make no sense outside of this particular context, so it’s marked `private` to ensure that it can’t be used elsewhere. It’s declared as an extension to emphasize a particular object as primary for this code block and to make it easier to work with that object.
 
 Consequently, the `serialize` function delegates all the work to `serializeObject`:
 
@@ -635,13 +636,14 @@ data class Person(
 )
 ```
 
-Hkvt’c s dnimrere lv ....
+Here’s a reminder of how the `@CustomSerializer` annotation is declared, to help you better understand the implementation of `getSerializer`:
 
 ```kotlin
 annotation class CustomSerializer(
     val serializerClass: KClass<out ValueSerializer<*>>
 )
 ```
+
 Here’s how the `getSerializer` function is implemented.
 
 
@@ -686,7 +688,7 @@ private fun StringBuilder.serializeProperty(
 }
 ```
 
-`serializeProperty` uses the serializer to convert the property value to a JSON-compatible format by calling `toJsonValue`. If the property doesn’t have a custom serializer, it uses the property value.
+`serializeProperty` uses the serializer to convert the property value to a JSON-compatible format by calling `toJsonValue`. If the property doesn't have a custom serializer, it uses the property value.
 
 Now that you’ve seen an overview of the implementation of the JSON serialization part of the library, we’ll move to parsing and deserialization. The deserialization part requires quite a bit more code, so we won’t examine all of it, but we’ll look at the structure of the implementation and explain how reflection is used to deserialize objects.
 
@@ -742,7 +744,7 @@ The `propertyName` parameter in these methods receives the JSON key. Thus, when 
 
 The deserializer then provides an implementation for `JsonObject` that gradually builds a new instance of the corresponding type. It needs to find the correspondence between class properties and JSON keys (`title`, `author`, and `name` in figure 12.8) and build nested object values (an instance of `Author`); only after that it can create a new instance of the required class (`Book`).
 
-The JKid library is intended to be used with data classes, and, as such, it passes all the name-value pairs loaded from the JSON file as parameters to the constructor of the class being deserialized. It doesn’t support setting properties on object instances after they’ve been created. This means it needs to store the data somewhere while reading it from JSON, before the construction of the actual object begins.
+The JKid library is intended to be used with data classes, and, as such, it passes all the name-value pairs loaded from the JSON file as parameters to the constructor of the class being deserialized. It doesn't support setting properties on object instances after they’ve been created. This means it needs to store the data somewhere while reading it from JSON, before the construction of the actual object begins.
 
 The requirement to save the components before creating the object looks similar to the traditional Builder pattern, with the difference that builders are generally tailored to creating a specific kind of object. In the case of deserialization, the solution needs to be completely generic. To avoid being boring, we use the term seed for the implementation. In JSON, you need to build different types of composite structures: objects, collections, and maps. The classes `ObjectSeed`, `ObjectListSeed`, and `ValueListSeed` are responsible for building objects and lists of composite objects or simple values appropriately. The construction of maps is left as an exercise for you.
 
@@ -831,7 +833,7 @@ Note how calling `arguments` in the body of the `spawn` method launches the recu
 
 The last part you need to understand is the ClassInfo class that builds the resulting instance and caches information about constructor parameters. It is used in ObjectSeed. But before we dive into the implementation details, let’s look at the APIs that you use to create objects through reflection.
 
-You’ve already seen the `KCallable.call` method, which calls a function or a constructor by taking a list of arguments. This method works great in many cases, but it has a restriction: it doesn’t support default parameter values. In this case, if a user is trying to deserialize an object with a constructor that has default parameter values, you definitely don’t want to require those arguments to be specified in the JSON. Therefore, you need to use another method, which does support default parameter values: `KCallable.callBy`.
+You’ve already seen the `KCallable.call` method, which calls a function or a constructor by taking a list of arguments. This method works great in many cases, but it has a restriction: it doesn't support default parameter values. In this case, if a user is trying to deserialize an object with a constructor that has default parameter values, you definitely don’t want to require those arguments to be specified in the JSON. Therefore, you need to use another method, which does support default parameter values: `KCallable.callBy`.
 
 ```kotlin
 interface KCallable<out R> {
@@ -844,7 +846,7 @@ The method takes a map of parameters to their corresponding values that will be 
 
 However, you do need to take care of getting the types right. The type of the value in the `args` map needs to match the constructor parameter type; otherwise, you’ll get an `IllegalArgumentException` at runtime. This is particularly important for numeric types: you need to know whether the parameter takes an `Int`, a `Long`, a `Double`, or another primitive type, and to convert the numeric value coming from JSON to the correct type. To do that, you use the `KParameter.type` property.
 
-The type conversion works through the same `ValueSerializer` interface used for custom serialization. If a property doesn’t have an `@CustomSerializer` annotation, you retrieve a standard implementation based on its type.
+The type conversion works through the same `ValueSerializer` interface used for custom serialization. If a property doesn't have an `@CustomSerializer` annotation, you retrieve a standard implementation based on its type.
 
 To do so, you can provide a small function `serializerForType` that provides the mapping between a `KType` and the corresponding builtin `ValueSerializer` objects. To obtain a runtime representation of the types JKid knows about—`Byte`, `Int`, `Boolean` and so on—you can use the `typeOf<>()` function to return their respective `KType` instances:
 
