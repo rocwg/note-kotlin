@@ -3,13 +3,15 @@ import {DefaultTheme, defineConfig} from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: "/note-kotlin/",
-  title: "kotlin-in-action",
-  description: "kotlin-in-action",
+  title: "Roc Note",
+  description: "学习笔记",
+
+  cleanUrls: true,
 
   //markdown配置
   markdown: {
     //行号显示
-    lineNumbers: true
+    lineNumbers: false
   },
 
   //主题配置  https://vitepress.dev/reference/default-theme-config
@@ -20,14 +22,8 @@ export default defineConfig({
 
     //侧边栏
     sidebar: {
-      '/': { base: '/', items: sidebarGuide() }
+      '/tool-kotlin/': { base: '/tool-kotlin/', items: sidebarKotlin() }
     },
-
-    //编辑本页
-    // editLink: {
-    //   pattern: 'https://github.com/vuejs/vitepress/edit/main/docs/:path',
-    //   text: 'Edit this page on GitHub'
-    // },
 
     //社交链接
     socialLinks: [
@@ -44,21 +40,16 @@ export default defineConfig({
       level: [2, 6],
       label: '目录'
     }
-
-    //本地搜索
-    // search: {
-    // },
   }
 })
 
 function nav(): DefaultTheme.NavItem[] {
   return [
-    {text: 'Home', link: '/'},
-    {text: '01', link: '/01-Kotlin-what-and-why'}
+    { text: 'kotlin', link: '/tool-kotlin/01-Kotlin-what-and-why', activeMatch: '/tool-kotlin/' }
   ]
 }
 
-function sidebarGuide(): DefaultTheme.SidebarItem[] {
+function sidebarKotlin(): DefaultTheme.SidebarItem[] {
   return [
     {
       text: 'PART 1: Introducing kotlin',
