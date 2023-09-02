@@ -688,6 +688,8 @@ The story becomes even more complicated with generic classes. To get a valid typ
 
 In order for us to discuss the relation between types, you need to be familiar with the term subtype. A type `B` is a subtype of a type `A` if you can use the value of the type `B` whenever a value of the type `A` is required. For instance, `Int` is a subtype of `Number`, but `Int` isn’t a subtype of `String`. This definition also indicates that a type is considered a subtype of itself. 11.5 illustrates this.
 
+Figure 11.5. `B` is a subtype of `A` if you can use it when `A` is expected. Since you can use an `Int` where a `Number` is expected, it is a subtype. Likewise, you can use an `Int` where an `Int` is expected, it is also a subtype of itself. Because you can’t use an `Int` where a `String` is expected, it can’t be considered a subtype.
+
 ![img_4.png](img/img_4.png)
 
 The term supertype is the opposite of subtype. If `A` is a subtype of `B`, then `B` is a supertype of `A`.
@@ -802,7 +804,7 @@ fun takeCareOfCats(cats: Herd<Cat>) {
 
 You can’t make any class covariant: it would be unsafe. Making the class covariant on a certain type parameter constrains the possible uses of this type parameter in the class. To guarantee type safety, it can be used only in so-called out positions, meaning the class can produce values of type `T` but not consume them.
 
-Uses of a type parameter in declarations of class members can be divided into in and out positions. Let’s consider a class that declares a type parameter `T` and contains a function that uses `T`. We say that if `T` is used as the return type of a function, it’s in the `out` position. In this case, the function produces values of type `T`. If `T` is used as the type of a function parameter, it’s in the in position. Such a function consumes values of type `T`. 11.7 illustrates this.
+Uses of a type parameter in declarations of class members can be divided into in and out positions. Let’s consider a class that declares a type parameter `T` and contains a function that uses `T`. We say that if `T` is used as the return type of a function, it’s in the `out` position. In this case, the function produces values of type `T`. If `T` is used as the type of a function parameter, it’s in the `in` position. Such a function consumes values of type `T`. 11.7 illustrates this.
 
 ![img_8.png](img/img_8.png)
 
@@ -947,7 +949,15 @@ Now you’re ready for the full definition of contravariance. A class that is co
 
 The `in` keyword means values of the corresponding type are passed in to methods of this class and consumed by those methods. Similar to the covariant case, constraining use of the type parameter leads to the specific subtyping relation. The `in` keyword on the type parameter `T` means the subtyping is reversed and `T` can be used only in `in` positions. 11.1 summarizes the differences between the possible variance choices.
 
-![img_6.png](img/img_6.png)
+::: info **Table 11.1. Covariant, contravariant, and invariant classes**
+
+| Covariant                                                                                 | Contravariant                                                              | Invariant           |
+|-------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|---------------------|
+| `Producer<out T>`                                                                         | `Consumer<in T>`                                                           | `MutableList<T>`    |
+| Subtyping for the class is preserved: `Producer<Cat>` is a subtype of `Producer<Animal>`. | Subtyping is reversed: `Consumer<Animal>` is a subtype of `Consumer<Cat>`. | No subtyping.       |
+| `T` only in `out` positions                                                               | `T` only in `in` positions                                                 | `T` in any position |
+
+:::
 
 A class or interface can be covariant on one type parameter and contravariant on another. The classic example is the `Function` interface. The following declaration shows a one-parameter `Function`:
 
@@ -1239,6 +1249,7 @@ Now you have a type-safe API. All the unsafe logic is hidden in the body of the 
 println(Validators[String::class].validate(42))
 // Error: The integer literal does not conform to the expected type String
 ```
+
 This pattern can be easily extended to the storage of any custom generic classes. Localizing unsafe code in a separate place prevents misuse and makes uses of a container safe. Note that the pattern described here isn’t specific to Kotlin; you can use the same approach in Java as well.
 
 Java generics and variance are generally considered the trickiest part of the language. In Kotlin, we’ve tried hard to come up with a design that is easier to understand and easier to work with, while remaining interoperable with Java.

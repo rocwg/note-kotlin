@@ -112,14 +112,14 @@ If the annotation you are using happens to be declared in Java, then it is appli
 The full list of supported use-site targets is as follows:
 
 - `property`—Property (Java annotations can’t be applied with this use-site target)
-- `field`—
-- `get`—
-- `set`—
-- `receiver`—
-- `param`—
-- `setparam`—
-- `delegate`—
-- `file`—Bfccs ....
+- `field`—Field generated for the property.
+- `get`—Property getter.
+- `set`—Property setter.
+- `receiver`—Receiver parameter of an extension function or property.
+- `param`—Constructor parameter.
+- `setparam`—Property setter parameter.
+- `delegate`—Field storing the delegate instance for a delegated property.
+- `file`—Class containing top-level functions and properties declared in the file.
 
 Any annotation with the `file` target needs to be placed at the top level of the file, before the `package` directive. One of the annotations commonly applied to files is `@JvmName`, which changes the name of the corresponding class. 3.2.3 showed you an example: `@file:JvmName("StringFunctions")`.
 
@@ -278,6 +278,7 @@ annotation class BindingAnnotation
 @BindingAnnotation
 annotation class MyBinding
 ```
+
 Note that you can’t use annotations with a `property` target from Java code; to make such an annotation usable from Java, you can add the second target `AnnotationTarget.FIELD`. In this case, the annotation will be applied to properties in Kotlin and to fields in Java.
 
 ::: info **THE @RETENTION ANNOTATION**
@@ -395,7 +396,9 @@ fun main() {
     // name
 }
 ```
-Raqj ....
+This simple example prints the name of the class and the names of its properties and uses `.memberProperties` to collect all non-extension properties defined in the class, as well as in all of its superclasses.
+
+If you browse the declaration of `KClass`, you’ll see that it contains a bunch of useful methods for accessing the contents of the class:
 
 ```kotlin
 interface KClass<T : Any> {
@@ -411,7 +414,7 @@ Many other useful features of `KClass`, including `memberProperties` used in the
 
 ::: warning NOTE
 
-Apv igmht ....
+You might expect the `simpleName` and `qualifiedName` properties to be non-nullable. However, recall that you saw in 4.4.4 that you can use `object` expressions to create anonymous objects. While these objects are still an instance of a class, that class is anonymous. As such, it has neither a `simpleName` nor a `qualifiedName`. Accessing those fields from a `KClass` instance will return `null`.
 
 :::
 
@@ -545,6 +548,7 @@ private fun StringBuilder.serializeObject(obj: Any) {
     }
 }
 ```
+
 The implementation of this function should be clear: you serialize each property of the class, one after another. The resulting JSON will look like this: `{ "prop1": value1, "prop2": value2 }`. The `joinToStringBuilder` function ensures that properties are separated with commas. The `serializeString` function escapes special characters as required by the JSON format. The `serializePropertyValue` function checks whether a value is a primitive value, string, collection, or nested object, and serializes its content accordingly.
 
 In the previous section, we discussed a way to obtain the value of the `KProperty` instance: the `get` method. In that case, you worked with the member reference `Person::age` of the type `KProperty1<Person, Int>`, which lets the compiler know the exact types of the receiver and the property value. In this example, however, the exact types are unknown, because you enumerate all the properties of an object’s class. Therefore, the `prop` variable has the type `KProperty1<Any, *>`, and `prop.get(obj)` returns a value of `Any?` type. You don’t get any compile-time checks for the receiver type, but because you’re passing the same object from which you obtained the list of properties, the receiver type will be correct. Next, let’s see how the annotations that are used to customize serialization are implemented.
@@ -623,6 +627,7 @@ private fun StringBuilder.serializeProperty(
     serializePropertyValue(prop.get(obj))
 }
 ```
+
 The property name is processed according to the `@JsonName` annotation discussed earlier.
 
 Next, let’s implement the remaining annotation, `@CustomSerializer`. The implementation is based on the function `getSerializer`, which returns the `ValueSerializer` instance registered via the `@CustomSerializer` annotation. For example, if you declare the `Person` class as shown next and call `getSerializer()` when serializing the `birthDate` property, it will return an instance of `DateSerializer`:
@@ -661,6 +666,7 @@ fun KProperty<*>.getSerializer(): ValueSerializer<Any?>? {
     return valueSerializer as ValueSerializer<Any?>
 }
 ```
+
 `getSerializer` is an extension function to `KProperty`, because the function operates on the property. It calls the `findAnnotation` function to get an instance of the `@CustomSerializer` annotation if it exists. Its argument, `serializerClass`, specifies the class for which you need to obtain an instance.
 
 The most interesting part here is the way you handle both classes and objects (Kotlin’s singletons) as values of the `@CustomSerializer` annotation. They’re both represented by the `KClass` class. The difference is that objects have a non-`null` value of the `objectInstance` property, which can be used to access the singleton instance created for the `object`. For example, `DateSerializer` is declared as an `object`, so its `objectInstance` property stores the singleton `DateSerializer` instance. You’ll use that instance to serialize all objects, and `createInstance` won’t be called.
@@ -736,6 +742,7 @@ interface JsonObject {
     fun createArray(propertyName: String): JsonObject
 }
 ```
+
 The `propertyName` parameter in these methods receives the JSON key. Thus, when the parser encounters an `author` property with an object as its value, the `createObject("author")` method is called. Simple value properties call `setSimpleProperty`, with the actual token value passed as the `value` argument. The `JsonObject` implementations are responsible for creating new objects for properties and storing references to them in the outer object.
 
 12.8 shows the input and output of each stage for lexical and syntactic analyses when deserializing a sample string. Once again, the lexical analysis divides an input string into a list of tokens; then the syntactic analysis (the parser) processes this list of tokens and invokes an appropriate method of `JSONObject` on every new meaningful element.
@@ -782,6 +789,7 @@ fun <T: Any> deserialize(json: Reader, targetClass: KClass<T>): T {
     return seed.spawn()
 }
 ```
+
 To start the parsing, you create an `ObjectSeed` to store the properties of the object being deserialized, and then you invoke the parser and pass the input stream reader `json` to it. Once you reach the end of the input data, you call the `spawn` function to build the resulting object.
 
 Now let’s focus on the implementation of `ObjectSeed`, which stores the state of an object being constructed. `ObjectSeed` takes a reference to the resulting class and a `classInfoCache` object containing cached information about the properties of the class. This cached information will be used later to create instances of that class. `ClassInfoCache` and `ClassInfo` are helper classes that we’ll discuss in the next section.
@@ -825,6 +833,7 @@ class ObjectSeed<out T: Any>(
         classInfo.createInstance(arguments)
 }
 ```
+
 `ObjectSeed` builds a map from constructor parameters to their values. Two mutable maps are used for that: `valueArguments` for simple value properties and `seedArguments` for composite properties. While the result is being built, new arguments are added to the `valueArguments` map by calling `setSimpleProperty` and to the `seedArguments` map by calling `createCompositeProperty`. New composite seeds are added in an empty state and are then filled with data coming from the input stream. Finally, the `spawn` method builds all nested seeds recursively by calling `spawn` on each.
 
 Note how calling `arguments` in the body of the `spawn` method launches the recursive building of composite (seed) arguments: the custom getter of `arguments` calls the `spawn` methods on each of the `seedArguments`. The `createSeedForType` function analyzes the type of the parameter and creates either `ObjectSeed`, `ObjectListSeed`, or `ValueListSeed`, depending on whether the parameter is some kind of collection. We’ll leave the investigation of how it’s implemented to you. Next, let’s see how the `ClassInfo.createInstance` function creates an instance of `targetClass`.
@@ -875,6 +884,7 @@ object BooleanSerializer : ValueSerializer<Boolean> {
     override fun toJsonValue(value: Boolean) = value
 }
 ```
+
 The `callBy` method gives you a way to invoke the primary constructor of an object, passing a map of parameters and corresponding values. The `ValueSerializer` mechanism ensures that the values in the map have the right types. Now let’s see how you invoke this API.
 
 The `ClassInfoCache` class is intended to reduce the overhead of reflection operations. Recall that the annotations used to control the serialization and deserialization process (`@JsonName` and `@CustomSerializer`) are applied to properties, rather than parameters. When you’re deserializing an object, you’re dealing with constructor parameters, not properties. In order to retrieve the annotations, you need to find the corresponding property. Performing this search when reading every key-value pair would be exceedingly slow, so you do this once per class and cache the information. Here’s the entire implementation of `ClassInfoCache`.
@@ -889,6 +899,7 @@ class ClassInfoCache {
             cacheData.getOrPut(cls) { ClassInfo(cls) } as ClassInfo<T>
 }
 ```
+
 You use the same pattern we discussed in 11.3.6: you remove the type information when you store the values in the map, but the implementation of the `get` method guarantees that the returned `ClassInfo<T>` has the right type argument. Note the use of `getOrPut`: if the `cacheData` map already contains an entry for `cls`, this call simply returns that entry. Otherwise, you call the passed lambda, which calculates the value for the key, stores the value in the map, and returns it.
 
 The `ClassInfo` class is responsible for creating a new instance of the target class and caching the necessary information. To simplify the code, we’ve omitted some functions and trivial initializers. Also, you may notice that instead of `!!`, the actual JKid code in the repository throws an exception with an informative message (which is a good pattern for your own code, as well). Here, it was just omitted for brevity.
@@ -943,6 +954,7 @@ private fun ensureAllParametersPresent(arguments: Map<KParameter, Any?>) {
     }
 }
 ```
+
 This function checks that you provide all required values for parameters. Note how the reflection API helps you here. If a parameter has a default value, then `param.isOptional` is `true` and you can omit an argument for it; the default one will be used instead. If the parameter type is nullable (`type.isMarkedNullable` tells you that), `null` will be used as the default parameter value. For all other parameters, you must provide the corresponding arguments; otherwise, an exception will be thrown. The reflection cache ensures that the search for annotations that customize the deserialization process is performed only once, and not for every property you see in the JSON data.
 
 This completes our discussion of the JKid library implementation. Over the course of this chapter, we’ve explored the implementation of a JSON serialization and deserialization library, implemented on top of the reflection APIs, and using annotations to customize its behavior. Of course, all the techniques and approaches demonstrated in this chapter can be used for your own frameworks as well.
