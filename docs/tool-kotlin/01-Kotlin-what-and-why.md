@@ -11,11 +11,18 @@
 
 :::
 
-::: details Kotlin 到底是什么？它是 Java 虚拟机 (JVM) 及更高版本上的现代编程语言。它是一种通用语言，简洁、安全、实用。独立程序员、小型软件商店和大型企业都已经接受了 Kotlin：数以百万计的开发人员现在正在使用它来编写移动应用程序、构建服务器端应用程序、创建桌面软件等等。
+<ShowL>
+<template v-slot:hide>
 
 What is Kotlin all about? It's a modern programming language on the Java Virtual Machine (JVM) and beyond. It’s a general-purpose language, concise, safe and pragmatic. Independent programmers, small software shops, and large enterprises all have embraced Kotlin: millions of developers are now using it to write mobile apps, build server-side applications, create desktop software, and more.
 
-:::
+</template>
+<template v-slot:show>
+
+Kotlin 到底是什么？它是 Java 虚拟机 (JVM) 及更高版本上的现代编程语言。它是一种通用语言，简洁、安全、实用。独立程序员、小型软件商店和大型企业都已经接受了 Kotlin：数以百万计的开发人员现在正在使用它来编写移动应用程序、构建服务器端应用程序、创建桌面软件等等。
+
+</template>
+</ShowL>
 
 <ShowL>
 <template v-slot:show>
@@ -32,9 +39,20 @@ Kotlin started as a "better Java": a language with improved developer ergonomics
 
 Kotlin 结合了现有语言中运行良好的思想，但也带来了创新方法，例如用于异步编程的协程。尽管一开始只关注 JVM，但 Kotlin 的发展显着超出了这一范围，提供了更多可供运行的“目标”，包括创建跨平台解决方案的技术。
 
+<ShowL>
+<template v-slot:hide>
+
 Kotlin combines ideas from existing languages that work well, but also brings innovative approaches, such as coroutines for asynchronous programming. Despite being started with JVM-only focus, Kotlin grew significantly beyond that, providing more "targets" to run on, including technology to create cross-platform solutions.
 
-In this chapter, we’ll take a detailed look at Kotlin’s main traits.
+</template>
+<template v-slot:show>
+
+Kotlin 结合了现有语言中运行良好的思想，但也带来了创新方法，例如用于异步编程的协程。尽管一开始只关注 JVM，但 Kotlin 的发展显着超出了这一范围，提供了更多可供运行的“目标”，包括创建跨平台解决方案的技术。
+
+</template>
+</ShowL>
+
+<u>In this chapter, we’ll take a detailed look at Kotlin’s main traits.</u><ShowS>在本章中，我们将详细了解 Kotlin 的主要特征。</ShowS>
 
 ## 1.1 A taste of Kotlin
 

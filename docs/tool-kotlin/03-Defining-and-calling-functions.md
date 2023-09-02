@@ -31,7 +31,9 @@ To make our discussion more useful and less abstract, we’ll focus on Kotlin co
 
 Before you can do interesting things with collections, you need to learn how to create them. In 2.3.4, you bumped into the way to create a new set: the setOf function. You created a set of colors then, but for now, let’s keep it simple and work with numbers:
 
-`val set = setOf(1, 7, 53)`
+```kotlin
+val set = setOf(1, 7, 53)
+```
 
 You create a list or a map in a similar way:
 
