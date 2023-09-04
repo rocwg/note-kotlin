@@ -1,4 +1,5 @@
 import {DefaultTheme, defineConfig} from 'vitepress'
+import { toolKotlin, toolPython, workJava, workVue, myThink } from "./mySidebar";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -16,26 +17,26 @@ export default defineConfig({
 
   //主题配置  https://vitepress.dev/reference/default-theme-config
   themeConfig: {
-
     //导航栏
     nav: nav(),
-
     //侧边栏
     sidebar: {
-      '/tool-kotlin/': { base: '/tool-kotlin/', items: sidebarKotlin() }
+      '/tool-kotlin/': { base: '/tool-kotlin/', items: toolKotlin },
+      '/tool-python/': { base: '/tool-python/', items: toolPython },
+      '/work-java/': { base: '/work-java/', items: workJava },
+      '/work-vue/': { base: '/work-vue/', items: workVue },
+      '/my-think/': { base: '/my-think/', items: myThink },
     },
-
     //社交链接
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ],
-
     //页脚
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2023 备案号：<a href="https://beian.miit.gov.cn/">京****号</a>',
     },
-
+    //
     outline: {
       level: [2, 6],
       label: '目录'
@@ -45,44 +46,22 @@ export default defineConfig({
 
 function nav(): DefaultTheme.NavItem[] {
   return [
-    { text: 'kotlin', link: '/tool-kotlin/01-Kotlin-what-and-why', activeMatch: '/tool-kotlin/' }
-  ]
-}
-
-function sidebarKotlin(): DefaultTheme.SidebarItem[] {
-  return [
     {
-      text: 'PART 1: Introducing kotlin',
-      collapsed: false,
+      text: 'work',
+      activeMatch: `^/(work-java|work-vue)/`,
       items: [
-        { text: '1 kotlin: what and why', link: '01-Kotlin-what-and-why' },
-        { text: '2 Kotlin basics', link: '02-Kotlin-basics' },
-        { text: '03-Defining-and-calling-functions', link: '03-Defining-and-calling-functions' },
-        { text: '04-Classes-objects-and-interfaces', link: '04-Classes-objects-and-interfaces' },
-        { text: '05-Programming-with-lambdas', link: '05-Programming-with-lambdas' },
-        { text: '06-Working-with-collections-and-sequences', link: '06-Working-with-collections-and-sequences' },
-        { text: '07-Working-with-nullable-values', link: '07-Working-with-nullable-values' },
-        { text: '08-BasicTypes-collections-and-arrays', link: '08-BasicTypes-collections-and-arrays' }
+        { text: 'Java', link: '/work-java/0release' },
+        { text: 'Vue', link: '/work-vue/00' },
       ]
     },
     {
-      text: 'PART 2: Embracing kotlin',
-      collapsed: false,
+      text: 'tool',
+      activeMatch: `^/(tool-kotlin|tool-python)/`,
       items: [
-        { text: '09-Operator-overloading-and-other-conventions', link: '09-Operator-overloading-and-other-conventions' },
-        { text: '10-Higher_order-functions-lambdas-as-parameters-and-returnValues', link: '10-Higher_order-functions-lambdas-as-parameters-and-returnValues' },
-        { text: '11-Generics', link: '11-Generics' },
-        { text: '12-Annotations-and-reflection', link: '12-Annotations-and-reflection' },
-        { text: '13', link: '13' },
+        { text: 'kotlin', link: '/tool-kotlin/01-Kotlin-what-and-why' },
+        { text: 'python', link: '/tool-python/00' },
       ]
     },
-    {
-      text: 'APPENDIXES',
-      collapsed: false,
-      items: [
-        { text: 'A: Building kotlin projects', link: 'Appendix-A' },
-        { text: 'B: Documenting kotlin code', link: 'Appendix-B' },
-      ]
-    }
+    { text: 'think', link: '/my-think/0vitepress', activeMatch: '/my-think/' },
   ]
 }
