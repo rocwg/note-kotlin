@@ -2,20 +2,22 @@
 
 ::: tip This chapter covers
 
-- A basic <u>demonstration</u><ShowS>示例</ShowS> of Kotlin
-- The main <u>traits</u><ShowS>特点</ShowS> of the Kotlin language
-- Possibilities for server-side and Android development
-- A glimpse into Kotlin Multiplatform
-- <u>What distinguishes Kotlin from other languages</u><ShowS>和其他语言的差异</ShowS>
-- <u>Writing and running code in Kotlin</u><ShowS>_编写和运行_</ShowS>
+- <u>Kotlin 的基本示范</u><ShowS>`A basic demonstration of Kotlin`</ShowS>
+- <u>Kotlin 语言的主要特征</u><ShowS>`The main traits of the Kotlin language`</ShowS>
+- <u>服务端和Android开发的可能性</u><ShowS>`Possibilities for server-side and Android development`</ShowS>
+- <u>KMP 一瞥</u><ShowS>`A glimpse into Kotlin Multiplatform`</ShowS>
+- <u>Kotlin 与其他语言的区别</u><ShowS>`What distinguishes Kotlin from other languages`</ShowS>
+- Writing and running code in Kotlin
 
 :::
 
 <ShowL>
 <template v-slot:hide>
+<div class="custom-show-hide">
 
-What is Kotlin all about? It's a modern programming language on the Java Virtual Machine (JVM) and beyond. It’s a general-purpose language, concise, safe and pragmatic. Independent programmers, small software shops, and large enterprises all have embraced Kotlin: millions of developers are now using it to write mobile apps, build server-side applications, create desktop software, and more.
+What is Kotlin all about? It's a modern programming language on the Java Virtual Machine (JVM) and beyond. It's a general-purpose language, concise, safe and pragmatic. Independent programmers, small software shops, and large enterprises all have embraced Kotlin: millions of developers are now using it to write mobile apps, build server-side applications, create desktop software, and more.
 
+</div>
 </template>
 <template v-slot:show>
 
@@ -25,19 +27,19 @@ Kotlin 到底是什么？它是 Java 虚拟机 (JVM) 及更高版本上的现代
 </ShowL>
 
 <ShowL>
+<template v-slot:hide>
+<div class="custom-show-hide">
+
+Kotlin started as a "better Java": a language with improved developer ergonomics, that prevents common categories of errors, and that embraces modern language design paradigms, all while keeping the ability to be used everywhere Java was used. Over the last decade, Kotlin has managed to prove itself to be a good pragmatic, fit for many types of developers, projects, and platforms. Android is now Kotlin-first, meaning most of the Android development is done in Kotlin. For server-side development, Kotlin makes a strong alternative to Java, with native and well-documented Kotlin support in prevalent frameworks like Spring, and with pure-Kotlin frameworks exploiting the full potential of the language, like Ktor.
+
+</div>
+</template>
 <template v-slot:show>
 
 Kotlin 最初是一种“更好的 Java”：一种改进了开发人员人体工程学的语言，可以防止常见错误类别，并且包含现代语言设计范例，同时保持在使用 Java 的任何地方都可以使用的能力。在过去的十年中，Kotlin 成功证明了自己的实用性，适合多种类型的开发人员、项目和平台。 Android 现在是 Kotlin 优先，这意味着大部分 Android 开发都是在 Kotlin 中完成的。对于服务器端开发，Kotlin 是 Java 的强大替代品，在 Spring 等流行框架中提供原生且有据可查的 Kotlin 支持，并且纯 Kotlin 框架充分利用了该语言的全部潜力，如 Ktor。
 
 </template>
-<template v-slot:hide>
-
-Kotlin started as a "better Java": a language with improved developer ergonomics, that prevents common categories of errors, and that embraces modern language design paradigms, all while keeping the ability to be used everywhere Java was used. Over the last decade, Kotlin has managed to prove itself to be a good pragmatic, fit for many types of developers, projects, and platforms. Android is now Kotlin-first, meaning most of the Android development is done in Kotlin. For server-side development, Kotlin makes a strong alternative to Java, with native and well-documented Kotlin support in prevalent frameworks like Spring, and with pure-Kotlin frameworks exploiting the full potential of the language, like Ktor.
-
-</template>
 </ShowL>
-
-Kotlin 结合了现有语言中运行良好的思想，但也带来了创新方法，例如用于异步编程的协程。尽管一开始只关注 JVM，但 Kotlin 的发展显着超出了这一范围，提供了更多可供运行的“目标”，包括创建跨平台解决方案的技术。
 
 <ShowL>
 <template v-slot:hide>
@@ -52,26 +54,42 @@ Kotlin 结合了现有语言中运行良好的思想，但也带来了创新方�
 </template>
 </ShowL>
 
-<u>In this chapter, we’ll take a detailed look at Kotlin’s main traits.</u><ShowS>在本章中，我们将详细了解 Kotlin 的主要特征。</ShowS>
+<u>In this chapter, we'll take a detailed look at Kotlin's main traits.</u><ShowS>在本章中，我们将详细了解 Kotlin 的主要特征。</ShowS>
 
 ## 1.1 A taste of Kotlin
 
-Let’s start with a small example to demonstrate what Kotlin looks like. Even in this first, short code snippet, you can see a lot of interesting features and concepts in Kotlin that will all be discussed in detail later throughout the book:
+Let's start with a small example to demonstrate what Kotlin looks like. Even in this first, short code snippet, you can see a lot of interesting features and concepts in Kotlin that will all be discussed in detail later throughout the book:
 
-- Defining a Person data class with properties without the need to specify a body.
-- Declaring read-only properties (name and age) with the val keyword Providing default values for arguments
-- Explicit work with nullable values (Int?) in the type system, avoiding the "Billion-Dollar Mistake" of NullPointerExceptions
+- Defining a `Person` data class with properties without the need to specify a body.
+- Declaring read-only properties (`name` and `age`) with the val keyword 
+- Providing default values for arguments
+- Explicit work with nullable values (`Int?`) in the type system, avoiding the "Billion-Dollar Mistake" of `NullPointerExceptions`
 - Top-level function definitions without the need of nesting them inside classes
-- Named arguments when invoking functions and constructors Using trailing commas
+- Named arguments when invoking functions and constructors 
+- Using trailing commas
 - Using collection operations with lambda expressions
-- It illustrates how collection functions like maxByOrNull help find the oldest person in the list.
-- Providing fallback values when a variable is null via the Elvis operator (`?:`).
+- It illustrates how collection functions like `maxByOrNull` help find the oldest person in the list.
+- Providing fallback values when a variable is `null` via the Elvis operator (`?:`).
 - Using string templates as an alternative to manual concatenation
-- Using autogenerated functions for data classes, such as toString
+- Using autogenerated functions for data classes, such as `toString`
 
-The code is explained briefly, but please don’t worry if something isn’t clear right away. We will take plenty of time to discuss each and every detail of this code snippet throughout the book, so you’ll be able to confidently write code just like this yourself.
+<ShowL>
+<template v-slot:hide>
+<div class="custom-show-hide">
 
-Listing 1.1. An early taste of Kotlin
+The code is explained briefly, but please don't worry if something isn't clear right away. We will take plenty of time to discuss each and every detail of this code snippet throughout the book, so you'll be able to confidently write code just like this yourself.
+
+</div>
+</template>
+<template v-slot:show>
+
+代码进行了简要解释，但如果有些内容还不清楚，请不要担心。我们将花费大量时间在整本书中讨论此代码片段的每一个细节，因此您将能够自信地自己编写这样的代码。
+
+</template>
+</ShowL>
+
+::: info Listing 1.1. An early taste of Kotlin
+
 ```kotlin
 data class Person(
     val name: String,
@@ -92,76 +110,77 @@ fun main() {
 // The oldest is: Person(name=Alice, age=29)
 ```
 
+:::
+
 Our first Kotlin code snippet demonstrates how to create a collection in Kotlin, fill it with some Person objects, and then find the oldest person in the collection, using default values where no age is specified.
 
-When creating the list of people, it omits Bob’s age, so null is used as a default value. To find the oldest person in the list, the maxBy function is used. The lambda expression passed to the function takes one parameter, and it is used as the default name of that parameter. The Elvis operator (?:) returns zero if age is null. Because Bob’s age isn’t specified, the Elvis operator replaces it with zero, so Alice wins the prize for being the oldest person.
+When creating the list of people, it omits Bob's age, so `null` is used as a default value. To find the oldest person in the list, the `maxBy` function is used. The lambda expression passed to the function takes one parameter, and it is used as the default name of that parameter. The Elvis operator (`?:`) returns zero if `age` is `null`. Because Bob's age isn't specified, the Elvis operator replaces it with zero, so Alice wins the prize for being the oldest person.
 
 You can also try to run this example on your own. The easiest option to so is to use the online playground at https://play.kotlinlang.org/. Type in the example and click the Run button, and the code will be executed.
 
-Do you like what you’ve seen? Read on to learn more and become a Kotlin expert. We hope that soon you’ll see such code in your own projects, not only in this book.
+Do you like what you've seen? Read on to learn more and become a Kotlin expert. We hope that soon you'll see such code in your own projects, not only in this book.
 
-## 1.2 Kotlin’s primary traits
+## 1.2 Kotlin's primary traits
 
-Kotlin is a multi-paradigm language. It is statically typed, meaning many errors can be caught at compile time instead of at runtime. It combines ideas from object-oriented and functional languages, which helps you write elegant code and make use of additional powerful abstractions. It provides a powerful way to write asynchronous code, which is important in all development areas.
+Kotlin is a <u>`多范式`</u><ShowS>multi-paradigm</ShowS> language. It is <u>`静态类型`</u><ShowS>statically typed</ShowS>, meaning many errors can be caught at compile time instead of at runtime. It combines ideas from object-oriented and functional languages, which helps you write elegant code and make use of additional powerful abstractions. It provides a powerful way to write asynchronous code, which is important in all development areas.
 
-Just based on these short descriptions, you maybe already have an intuitive idea of the type of language Kotlin is. Let’s look at these key attributes in more detail. First, let’s see what kinds of applications you can build with Kotlin.
+Just based on these short descriptions, you maybe already have an intuitive idea of the type of language Kotlin is. Let's look at these key attributes in more detail. First, let's see what kinds of applications you can build with Kotlin.
 
 ### 1.2.1 Kotlin use-cases: Android, server-side, anywhere Java runs, and more
 
-Kotlin’s target is quite broad. The language doesn’t focus on a single problem domain or address a single type of challenge faced by software developers today. Instead, it provides across-the-board productivity improvements for all tasks that come up during the development process and aims for an excellent level of integration with libraries that support specific domains or programming paradigms.
+Kotlin's target is <u>quite broad</u><ShowS>`相当广泛`</ShowS>. The language doesn't focus on a single problem domain or address a single type of challenge faced by software developers today. Instead, it provides across-the-board productivity improvements for all tasks that come up during the development process and aims for an excellent level of integration with libraries that support specific domains or programming paradigms.
 
 The most common areas to use Kotlin are:
 - Building mobile applications that run on Android devices
 - Building server-side code (typically, backends of web applications)
 
-The initial goal of Kotlin was to provide a more concise, more productive, safer alternative to Java that’s suitable in all contexts where Java can be used. That includes a broad variety of environments, from running small edge devices to the largest data centers. In all these use-case Kotlin fits perfectly, and developers can do their job with less code and fewer annoyances along
-the way.
+The initial goal of Kotlin was to provide a more concise, more productive, safer alternative to Java that's suitable in all contexts where Java can be used. That includes a broad variety of environments, from running small edge devices to the largest data centers. In all these use-case Kotlin fits perfectly, and developers can do their job with less code and fewer annoyances along the way.
 
 But Kotlin works in other contexts as well. You can create cross-platforms apps with Kotlin Multiplatform Mobile, or run Kotlin in browser using Kotlin/JS. This book is focused mainly on the language itself and intricacies of the JVM target. You can find the extensive information about other Kotlin applications on the Kotlin website: https://kotl.in/.
 
-Next, let’s look at the key qualities of Kotlin as a programming language.
+Next, let's look at the key qualities of Kotlin as a programming language.
 
 ### 1.2.2 Static typing makes Kotlin performant, reliable, and maintainable
 
-Statically typed programming languages come with a number of advantages, such as performance, reliability, maintainability, and tool support. The key point behind a statically typed language is that the type of every expression in a program is known at compile time. Kotlin is a statically typed programming language: The Kotlin compiler can validate that the methods and fields you’re trying to access on an object actually exist. This helps eliminate an entire class of bugs—rather than crash at runtime, if a field is missing or the return type of a function call isn’t as expected, you will already see these problems at compile time, allowing you to fix them earlier in the development cycle.
+Statically typed programming languages come with a number of advantages, such as performance, reliability, maintainability, and tool support. The key point behind a statically typed language is that the type of every expression in a program is known at compile time. Kotlin is a statically typed programming language: The Kotlin compiler can validate that the methods and fields you're trying to access on an object actually exist. This helps eliminate an entire class of bugs—rather than crash at runtime, if a field is missing or the return type of a function call isn't as expected, you will already see these problems at compile time, allowing you to fix them earlier in the development cycle.
 
 Following are some benefits of static typing:
 
-- Performance—Calling methods is faster because there’s no need to figure out at runtime which method needs to be called.
-- Reliability—The compiler uses types to verify the consistency of the program, so there are fewer chances for crashes at runtime.
-- Maintainability—Working with unfamiliar code is easier because you can see what kind of types the code is working with.
-- Tool support—Static typing enables reliable refactorings, precise code completion, and other IDE features.
+- _**Performance**_—Calling methods is faster because there's no need to figure out at runtime which method needs to be called.
+- _**Reliability**_—The compiler uses types to verify the consistency of the program, so there are fewer chances for crashes at runtime.
+- _**Maintainability**_—Working with unfamiliar code is easier because you can see what kind of types the code is working with.
+- _**Tool support**_—Static typing enables reliable refactorings, precise code completion, and other IDE features.
 
-This is in contrast to dynamically typed programming languages, like Python or JavaScript. Those languages let you define variables and functions that can store or return data of any type and resolve the method and field references at runtime. This allows for shorter code and greater flexibility in creating data structures. But the downside is that problems like misspelled names or invalid parameters passed to functions can’t be detected during compilation and can lead to runtime errors.
+This is in contrast to dynamically typed programming languages, like Python or JavaScript. Those languages let you define variables and functions that can store or return data of any type and resolve the method and field references at runtime. This allows for shorter code and greater flexibility in creating data structures. But the downside is that problems like misspelled names or invalid parameters passed to functions can't be detected during compilation and can lead to runtime errors.
 
-While the type of every expression in your program needs to be known at compile time, Kotlin doesn’t require you to specify the type of every variable explicitly in your source code. In many cases, the type of a variable can automatically be determined from the context, allowing you to omit the type declaration. Here’s the simplest possible example of this:
+While the type of every expression in your program needs to be known at compile time, Kotlin doesn't require you to specify the type of every variable explicitly in your source code. In many cases, the type of a variable can automatically be determined from the context, allowing you to omit the type declaration. Here's the simplest possible example of this:
 
 ```kotlin
 val x: Int = 1
 val y = 1
 ```
 
-You’re declaring a variable, and because it’s initialized with an integer value, Kotlin automatically determines that its type is Int. The ability of the compiler to determine types from context is called type inference. Type inference in Kotlin means most of the extra verbosity associated with static typing disappears, because you don’t need to declare types explicitly.
+You're declaring a variable, and because it's initialized with an integer value, Kotlin automatically determines that its type is Int. The ability of the compiler to determine types from context is called type inference. Type inference in Kotlin means most of the extra verbosity associated with static typing disappears, because you don't need to declare types explicitly.
 
-If you look at the specifics of Kotlin’s type system, you’ll find many familiar concepts from other object-oriented programming languages. Classes and interfaces, for example, work as you may already expect from other experience. And if you happen to be a Java developer, your knowledge transfers especially easily to Kotlin, including topics like generics.
+If you look at the specifics of Kotlin's type system, you'll find many familiar concepts from other object-oriented programming languages. Classes and interfaces, for example, work as you may already expect from other experience. And if you happen to be a Java developer, your knowledge transfers especially easily to Kotlin, including topics like generics.
 
-Something that may stand out to you is Kotlin’s support for nullable types, which lets you write more reliable programs by detecting possible null pointer exceptions at compile time, rather than experience them in the form of crashes at runtime. We’ll come back to nullable types later in 7 and discuss them in detail in 7, where we’ll also contrast them with other approaches for null values you might be familiar with.
-Kotlin’s type system also has first-class support for function types. To see what this is about, let’s look at the main ideas of functional programming and see how it’s supported in Kotlin.
+Something that may stand out to you is Kotlin's support for nullable types, which lets you write more reliable programs by detecting possible null pointer exceptions at compile time, rather than experience them in the form of crashes at runtime. We'll come back to nullable types later in 7 and discuss them in detail in 7, where we'll also contrast them with other approaches for null values you might be familiar with.
+Kotlin's type system also has first-class support for function types. To see what this is about, let's look at the main ideas of functional programming and see how it's supported in Kotlin.
 
 ### 1.2.3 Combining functional and object-oriented makes Kotlin safe and flexible
 As a multi-paradigm programming language, Kotlin combines the object- oriented approach with the functional programming style. The key concepts of functional programming are as follows:
 
 - First-class functions—You work with functions (pieces of behavior) as values. You can store them in variables, pass them as parameters, or return them from other functions.
-- Immutability—You work with immutable objects, which guarantees that their state can’t change after their creation.
-- No side effects—You write pure functions—functions that return the same result given the same inputs and don’t modify the state of other objects or interact with the outside world.
+- Immutability—You work with immutable objects, which guarantees that their state can't change after their creation.
+- No side effects—You write pure functions—functions that return the same result given the same inputs and don't modify the state of other objects or interact with the outside world.
 
 What benefits can you gain from writing code in the functional style? First, conciseness. Functional code can be more elegant and succinct when compared to its imperative counterpart: Instead of mutating variables and relying on loops and conditional branching, working with functions as values gives you much more power of abstraction.
 
 Applying a functional programming style also lets you avoid duplication in your code. If you have similar code fragments that implement a similar task, but differ in some smaller details, you can easily extract the common part of the logic into a function, and pass the differing parts as arguments. Those arguments might themselves be functions. In Kotlin, you can express those using a concise syntax for lambda expressions.
 
-The second benefit of functional code is safe concurrency. One of the biggest sources of errors in multithreaded programs is modification of the same data from multiple threads without proper synchronization. If you use immutable data structures and pure functions, you can be sure that such unsafe modifications won’t happen, and you don’t need to come up with complicated synchronization schemes.
+The second benefit of functional code is safe concurrency. One of the biggest sources of errors in multithreaded programs is modification of the same data from multiple threads without proper synchronization. If you use immutable data structures and pure functions, you can be sure that such unsafe modifications won't happen, and you don't need to come up with complicated synchronization schemes.
 
-Finally, functional programming means easier testing. Functions without side effects can be tested in isolation without requiring a lot of setup code to construct the entire environment that they depend on. When your functions don’t interact with the outside world, you’ll also have an easier time reasoning about your code and validating its behaviour without having to keep a larger, complex system in your head at all times.
+Finally, functional programming means easier testing. Functions without side effects can be tested in isolation without requiring a lot of setup code to construct the entire environment that they depend on. When your functions don't interact with the outside world, you'll also have an easier time reasoning about your code and validating its behaviour without having to keep a larger, complex system in your head at all times.
 
 Generally speaking, a functional programming style can be used with many programming languages, and many parts of it are advocated as good programming style. But not all languages provide the syntactic and library support required to use it effortlessly. Kotlin has a rich set of features to support functional programming from the get-go. These include the following:
 
@@ -183,11 +202,11 @@ messages
 
 The Kotlin standard library defines functions like filter, map and sortedBy for you to use. The Kotlin language supports lambda expressions and member references (like Message::sender), so that the arguments passed to these functions are really concise.
 
-When writing code in Kotlin, you can combine both object-oriented and functional approaches and use the tools that are most appropriate for the problem you’re solving: You get the full power of functional-style programming in Kotlin, and when you need it, you can work with mutable data and write functions with side effects, all without jumping through extra hoops. And, of course, working with frameworks that are based on interfaces and class hierarchies is just as easy as you would expect it to be.
+When writing code in Kotlin, you can combine both object-oriented and functional approaches and use the tools that are most appropriate for the problem you're solving: You get the full power of functional-style programming in Kotlin, and when you need it, you can work with mutable data and write functions with side effects, all without jumping through extra hoops. And, of course, working with frameworks that are based on interfaces and class hierarchies is just as easy as you would expect it to be.
 
 ### 1.2.4 Concurrent and asynchronous code becomes natural and structured with coroutines
 
-Whether you’re building an application running on a server, a desktop machine, or a mobile phone, concurrency, running multiple pieces of your code at the same time, is a topic that’s almost unavoidable.
+Whether you're building an application running on a server, a desktop machine, or a mobile phone, concurrency, running multiple pieces of your code at the same time, is a topic that's almost unavoidable.
 
 User interfaces need to remain responsive while long-running computations are running in the background. When interacting with services on the internet, applications often need to make more than one request at a time.
 Likewise, server-side applications are expected to keep serving incoming requests, even when a single request is taking much longer than usual. All of these applications need to operate concurrently, working on more than one thing at a time.
@@ -211,9 +230,9 @@ suspend fun loadUserData(u: User): Data { /* ... */ }
 suspend fun loadImage(id: Int): Image { /* ... */ }
 ```
 
-A network call may take arbitrarily long. When performing each network request, the execution of the processUser function is suspended while waiting for the result. However, the thread this code is running on (and, by extension, the application itself), isn’t blocked: While waiting for the result of processUser, it can do other tasks in the meantime, such as responding to user inputs.
+A network call may take arbitrarily long. When performing each network request, the execution of the processUser function is suspended while waiting for the result. However, the thread this code is running on (and, by extension, the application itself), isn't blocked: While waiting for the result of processUser, it can do other tasks in the meantime, such as responding to user inputs.
 
-You won’t be able to write this code sequentially in an imperative fashion, one call after another, without blocking the underlying threads. With callbacks or reactive streams such simple consecutive logic becomes much more complicated.
+You won't be able to write this code sequentially in an imperative fashion, one call after another, without blocking the underlying threads. With callbacks or reactive streams such simple consecutive logic becomes much more complicated.
 
 In the following example, you load two images concurrently, then wait for the loading to be completed and return the overlay as the result:
 
@@ -233,8 +252,8 @@ Together with abstractions like cold and hot flows, and channels that facilitate
 
 The entire third part of this book will be dedicated to learning ins and outs of coroutines, and understanding how you can best apply them for your use cases.
 
-### 1.2.5 Kotlin can be used for any purpose: it’s free, open source, and open to contributions
-The Kotlin language, including the compiler, libraries, and all related tooling, is entirely open source and free to use for any purpose. It’s available under the Apache 2 license; development happens in the open on GitHub (http://github.com/jetbrains/kotlin). There are many ways to contribute to the development of Kotlin and its community:
+### 1.2.5 Kotlin can be used for any purpose: it's free, open source, and open to contributions
+The Kotlin language, including the compiler, libraries, and all related tooling, is entirely open source and free to use for any purpose. It's available under the Apache 2 license; development happens in the open on GitHub (http://github.com/jetbrains/kotlin). There are many ways to contribute to the development of Kotlin and its community:
 
 - The project welcomes code contributions for new features and fixes around the Kotlin compiler and its associated tooling.
 - By providing bug reports and feedback you can help improve the experience when developing with Kotlin for everyone.
@@ -242,34 +261,33 @@ The Kotlin language, including the compiler, libraries, and all related tooling,
 
 You also have a choice of multiple open source IDEs for developing your Kotlin applications: IntelliJ IDEA Community Edition and Android Studio are fully supported. (Of course, IntelliJ IDEA Ultimate works as well.)
 
-Now that you understand what kind of language Kotlin is, let’s see how the benefits of Kotlin work in specific practical applications.
+Now that you understand what kind of language Kotlin is, let's see how the benefits of Kotlin work in specific practical applications.
 
 ## 1.3 Areas in which Kotlin is often used
 
-As we mentioned earlier, two of the main areas where Kotlin is being used are server-side and Android development. Let’s look at those areas in turn and see why Kotlin is a good fit for them.
+As we mentioned earlier, two of the main areas where Kotlin is being used are server-side and Android development. Let's look at those areas in turn and see why Kotlin is a good fit for them.
 
-1.3.1Powering backends: server-side development with Kotlin
+### 1.3.1 Powering backends: server-side development with Kotlin
+
 Server-side programming is a fairly broad concept. It encompasses all the following types of applications and much more:
 
-Web applications that return HTML pages to a browser
-Backends for mobile or single-page applications that expose a JSON API over HTTP
-Microservices that communicate with other microservices over an RPC protocol or message bus
+- Web applications that return HTML pages to a browser
+- Backends for mobile or single-page applications that expose a JSON API over HTTP
+- Microservices that communicate with other microservices over an RPC protocol or message bus
 
-Developers have been building these kinds of applications on the JVM for many years and have accumulated a huge stack of frameworks and technologies to help build them. Such applications usually aren’t developed in isolation or started from scratch. There’s almost always an existing system that is being extended, improved, or replaced, and new code has to integrate with existing parts of the system, which may have been written many years ago.
+Developers have been building these kinds of applications on the JVM for many years and have accumulated a huge stack of frameworks and technologies to help build them. Such applications usually aren't developed in isolation or started from scratch. There's almost always an existing system that is being extended, improved, or replaced, and new code has to integrate with existing parts of the system, which may have been written many years ago.
 
-In this environment especially, Kotlin profits from its seamless interoperability with existing Java code. Regardless of whether you’re
+In this environment especially, Kotlin profits from its seamless interoperability with existing Java code. Regardless of whether you're writing a new component or migrating the code of an existing service to Kotlin, Kotlin will fit right in. You won't run into problems when you need to extend Java classes in Kotlin or annotate the methods and fields of a class in a certain way. And the benefit is that the code of your system will be more compact, more reliable, and easier to maintain.
 
-writing a new component or migrating the code of an existing service to Kotlin, Kotlin will fit right in. You won’t run into problems when you need to extend Java classes in Kotlin or annotate the methods and fields of a class in a certain way. And the benefit is that the code of your system will be more compact, more reliable, and easier to maintain.
-
-Another big advantage of using Kotlin is better reliability for your application. Kotlin’s type system, with its precise tracking of null values, makes the problem of null pointer exceptions much less pressing. Most of the code that would lead to a NullPointerException at runtime in Java fails to compile in Kotlin, ensuring that you fix the error before the application gets to the production environment.
+Another big advantage of using Kotlin is better reliability for your application. Kotlin's type system, with its precise tracking of null values, makes the problem of null pointer exceptions much less pressing. Most of the code that would lead to a NullPointerException at runtime in Java fails to compile in Kotlin, ensuring that you fix the error before the application gets to the production environment.
 
 Modern frameworks, such as Spring (https://spring.io/), provide first-class support for Kotlin out of the box. Beyond the seamless interoperability, these frameworks include additional extensions and make use of techniques which that make it feel as if they were designed for Kotlin in the first place.
 
-In this example, you’re defining a simple Spring Boot application, that serves a list of Greeting objects, consisting of an ID and some text, as JSON via HTTP. Concepts from the Spring framework transfer directly to Kotlin: you use the same annotations (@SpringBootApplication, @RestController, @GetMapping) as you would when using Java:
+In this example, you're defining a simple Spring Boot application, that serves a list of `Greeting` objects, consisting of an ID and some text, as JSON via HTTP. Concepts from the Spring framework transfer directly to Kotlin: you use the same annotations (`@SpringBootApplication`, `@RestController`, `@GetMapping`) as you would when using Java:
+
+::: info Listing 1.2. Writing Spring Boot applications in Kotlin
 
 ```kotlin
-//Listing 1.2. Writing Spring Boot applications in Kotlin
-
 @SpringBootApplication
 class DemoApplication
 
@@ -290,21 +308,25 @@ class GreetingResource {
 data class Greeting(val id: Int, val text: String)
 ```
 
-Figure 1.1. By combining Kotlin with industry-proven frameworks like Spring, writing an application that serves JSON via HTTP only takes two dozen lines of code.
+:::
+
+::: info Figure 1.1. By combining Kotlin with industry-proven frameworks like Spring, writing an application that serves JSON via HTTP only takes two dozen lines of code.
+
 ![img.png](img/0img.png)
+
+:::
 
 Check the Kotlin or Spring websites to find more information about using Spring with Kotlin (https://kotlinlang.org/docs/jvm-spring-boot-restful.html).
 
 Kotlin also enjoys an ever-growing ecosystem of its own libraries, including server-side frameworks. As an example, Ktor (https://ktor.io/) is a connected applications framework for Kotlin built by JetBrains. It powers products like JetBrains Space (https://jetbrains.space) and Toolbox (https://jetbrains.com/toolbox), and has been adopted by companies like Adobe.
 
-As a Kotlin framework, Ktor makes full use of the capabilities of the language. For example, it defines a custom domain-specific language (DSL) to declare how HTTP requests are routed through the application. Rather than configuring your application using annotations or XML files, you can use a DSL from Ktor to configure the routing of your server-side application, with constructs that look like they are a part of the Kotlin language, but are completely custom for the framework – something you’ll learn how to do yourself in Chapter 13.
+As a Kotlin framework, Ktor makes full use of the capabilities of the language. For example, it defines a custom domain-specific language (DSL) to declare how HTTP requests are routed through the application. Rather than configuring your application using annotations or XML files, you can use a DSL from Ktor to configure the routing of your server-side application, with constructs that look like they are a part of the Kotlin language, but are completely custom for the framework – something you'll learn how to do yourself in **Chapter 13**.
 
-In this example, you’re defining three routes, /world, /greet, and
-/greet/{entityId}, using the get, post, and route DSL constructs from Ktor:
+In this example, you're defining three routes, `/world`, `/greet`, and `/greet/{entityId}`, using the `get`, `post`, and `route` DSL constructs from Ktor:
+
+::: info Listing 1.3. A Ktor app uses a DSL to route HTTP requests. While the DSL looks like it is part of the language, it is defined entirely by the framework, without the requirement for external configuration files or modifying the compiler.
 
 ```kotlin
-//Listing 1.3. A Ktor app uses a DSL to route HTTP requests. While the DSL looks like it is part of the language, it is defined entirely by the framework, without the requirement for external configuration files or modifying the compiler.
-
 fun main() {
     embeddedServer(Netty, port = 8000) {
         routing {
@@ -320,20 +342,21 @@ fun main() {
 }
 ```
 
-DSLs flexibly combine Kotlin language features, and are often used for
+:::
 
-configuration, the construction of complex objects, or object-relational mapping (ORM) tasks, translating objects into their database representation and vice versa.
+DSLs flexibly combine Kotlin language features, and are often used for configuration, the construction of complex objects, or object-relational mapping (ORM) tasks, translating objects into their database representation and vice versa.
 
-Other Kotlin server-side frameworks like http4k (https://http4k.org/) strongly embrace the functional nature of Kotlin code, and provide simple and uniform abstractions for requests and responses. In short: Whether you’re looking to use a battle-tested industry standard framework for your next large project, or need a lightweight framework for your next microservice, you can rest assured there’s a framework waiting for you Kotlin’s extensive ecosystem.
+Other Kotlin server-side frameworks like http4k (https://http4k.org/) strongly embrace the functional nature of Kotlin code, and provide simple and uniform abstractions for requests and responses. In short: Whether you're looking to use a battle-tested industry standard framework for your next large project, or need a lightweight framework for your next microservice, you can rest assured there's a framework waiting for you Kotlin's extensive ecosystem.
 
-1.3.2Mobile Development: Android is Kotlin-first
-The most-used mobile operating system in the world, Android, started officially supporting Kotlin as a language for building apps in 2017. Only two years later, in 2019, after a lot of positive feedback from developers, Android became Kotlin-first, making Kotlin the default choice for new apps. Since then, Google’s development tools, their Jetpack libraries (https://developer.android.com/jetpack), samples, documentation, and training content all primarily focus on Kotlin.
+### 1.3.2 Mobile Development: Android is Kotlin-first
 
-Kotlin is a good fit for mobile apps: these types of applications usually need to be delivered quickly while ensuring reliable operation on a large variety of devices. Kotlin’s language features turn Android development into a much more productive and pleasant experience. Common development tasks can be accomplished with much less code. The Android KTX library (https://developer.android.com/kotlin/ktx), built by the Android team, improves your experience even further by adding Kotlin-friendly adapters around many standard Android APIs.
+The most-used mobile operating system in the world, Android, started officially supporting Kotlin as a language for building apps in 2017. Only two years later, in 2019, after a lot of positive feedback from developers, Android became Kotlin-first, making Kotlin the default choice for new apps. Since then, Google's development tools, their Jetpack libraries (https://developer.android.com/jetpack), samples, documentation, and training content all primarily focus on Kotlin.
 
-Google’s Jetpack Compose toolkit (https://developer.android.com/jetpack/compose) for building native user interfaces for Android is also designed for Kotlin from the ground up. It embraces Kotlin’s language features, and gives you the ability to write less, simpler, and easier-to-maintain code when building the UI of your mobile applications.
+Kotlin is a good fit for mobile apps: these types of applications usually need to be delivered quickly while ensuring reliable operation on a large variety of devices. Kotlin's language features turn Android development into a much more productive and pleasant experience. Common development tasks can be accomplished with much less code. The Android KTX library (https://developer.android.com/kotlin/ktx), built by the Android team, improves your experience even further by adding Kotlin-friendly adapters around many standard Android APIs.
 
-Here’s an example of Jetpack Compose, just to give you a taste of what Android development with Kotlin feels like. The following code shows the message and expands or hides the details on click:
+Google's Jetpack Compose toolkit (https://developer.android.com/jetpack/compose) for building native user interfaces for Android is also designed for Kotlin from the ground up. It embraces Kotlin's language features, and gives you the ability to write less, simpler, and easier-to-maintain code when building the UI of your mobile applications.
+
+Here's an example of Jetpack Compose, just to give you a taste of what Android development with Kotlin feels like. The following code shows the message and expands or hides the details on click:
 
 ```kotlin
 @Composable
@@ -351,17 +374,16 @@ fun MessageCard(modifier: Modifier, message: Message) {
 fun MessageDetails(message: Message) { ... }
 ```
 
-You can write the whole UI in Kotlin, and use the regular Kotlin syntax like if-expressions or loops. In this example, we show a UI element representing additional details only if the user clicked on the card to get the expanded view. With Kotlin, you can extract custom logic of representing different parts of the UI into functions, like MessageDetails, having more elegant code as a result.
+You can write the whole UI in Kotlin, and use the regular Kotlin syntax like if-expressions or loops. In this example, we show a UI element representing additional details only if the user clicked on the card to get the expanded view. With Kotlin, you can extract custom logic of representing different parts of the UI into functions, like `MessageDetails`, having more elegant code as a result.
 
-Embracing Kotlin on Android also means more reliable code, fewer NullPointerExceptions, and fewer messages that read "Unfortunately, process has stopped". As an example, Google themselves managed to reduce the number of NullPointerException crashes in their "Google Home" app by 30% after switching the development of new features to Kotlin.
+Embracing Kotlin on Android also means more reliable code, fewer `NullPointerExceptions`, and fewer messages that read "Unfortunately, process has stopped". As an example, Google themselves managed to reduce the number of `NullPointerException` crashes in their "Google Home" app by 30% after switching the development of new features to Kotlin.
 
-Using Kotlin doesn’t introduce any new compatibility concerns or performance disadvantages to your apps, either. Kotlin is fully compatible with Java 8 and above, and the code generated by the compiler is executed efficiently. The runtime used by Kotlin is fairly small, so you won’t experience a large increase in the size of the compiled application package. And when you use lambdas, many of the Kotlin standard library functions will inline them. Inlining lambdas ensures that no new objects will be created and the application won’t suffer from extra GC pauses.
+Using Kotlin doesn't introduce any new compatibility concerns or performance disadvantages to your apps, either. Kotlin is fully compatible with Java 8 and above, and the code generated by the compiler is executed efficiently. The runtime used by Kotlin is fairly small, so you won't experience a large increase in the size of the compiled application package. And when you use lambdas, many of the Kotlin standard library functions will inline them. Inlining lambdas ensures that no new objects will be created and the application won't suffer from extra GC pauses.
 
-You’ll benefit from all the cool new language features of Kotlin, and your
-
-users will still be able to run your application on their devices, even if they don’t run the latest version of Android.
+You'll benefit from all the cool new language features of Kotlin, and your users will still be able to run your application on their devices, even if they don't run the latest version of Android.
 
 ### 1.3.3 Multiplatform: Sharing business logic and minimizing duplicate work on iOS, JVM, JS and beyond
+
 Kotlin is also a multiplatform language. In addition to the Java Virtual Machine, Kotlin supports the following targets:
 
 - It can be compiled to JavaScript, allowing you to run Kotlin code in the browser and runtimes such as Node.js.
@@ -372,50 +394,49 @@ Kotlin also lets you specify which parts of your software should be shared betwe
 
 A major use case we have seen for code sharing is mobile applications targeting both Android and iOS. With Kotlin Multiplatform, you only have to write your business logic once, but can use it in both iOS and Android targets in a completely native fashion, and even make use of the respective APIs, toolkits, and capabilities that these platforms offer. Similarly, sharing code between a server-side service and a JavaScript application running in the browser helps you reduce duplicate work, help you keep validation logic in sync, and more.
 
-If you want to learn more about the specifics of these additional platforms, as well as Kotlin’s support for sharing code and multiplatform programming, please refer to the "Multiplatform programming" section of the Kotlin website (https://kotlinlang.org/docs/multiplatform.html).
+If you want to learn more about the specifics of these additional platforms, as well as Kotlin's support for sharing code and multiplatform programming, please refer to the "Multiplatform programming" section of the Kotlin website (https://kotlinlang.org/docs/multiplatform.html).
 
-Having looked at a selection of things that make Kotlin great, let’s now look at Kotlin’s philosophy—the main characteristics that distinguish Kotlin from other languages.
+Having looked at a selection of things that make Kotlin great, let's now look at Kotlin's philosophy—the main characteristics that distinguish Kotlin from other languages.
 
 ## 1.4 The philosophy of Kotlin
-When we talk about Kotlin, we like to say that it’s a pragmatic, concise, safe language with a focus on interoperability. What exactly do we mean by each of those words? Let’s look at them in turn.
+
+When we talk about Kotlin, we like to say that it's a pragmatic, concise, safe language with a focus on interoperability. What exactly do we mean by each of those words? Let's look at them in turn.
 
 ### 1.4.1 Kotlin is a pragmatic language designed to solve real-world problems
+
 Being pragmatic means a simple thing to us: Kotlin is a practical language designed to solve real-world problems. Its design is based on many years of industry experience creating large-scale systems, and its features are chosen to address use cases encountered by many software developers. Moreover, developers worldwide have been using Kotlin for roughly a decade now.
 Their continued feedback has shaped each released version of the language. This makes us confident in saying that Kotlin helps solve problems in real projects.
 
-Kotlin also is not a research language. It mostly relies on features and solutions that have already appeared in other programming languages and have proven to be successful. This reduces the complexity of the language and makes it easier to learn by letting you rely on familiar concepts. When new features are introduced, they remain in an "experimental" state for quite a long time. This makes it possible for the language design team to gather feedback, and allows the final design of a feature to be tweaked and fine-
+Kotlin also is not a research language. It mostly relies on features and solutions that have already appeared in other programming languages and have proven to be successful. This reduces the complexity of the language and makes it easier to learn by letting you rely on familiar concepts. When new features are introduced, they remain in an "experimental" state for quite a long time. This makes it possible for the language design team to gather feedback, and allows the final design of a feature to be tweaked and fine-tuned before it is added as a stable part of the language.
 
-tuned before it is added as a stable part of the language.
+Kotlin doesn't enforce using any particular programming style or paradigm. As you begin to study the language, you can use the style and techniques that are familiar to you. Later, you'll gradually discover the more powerful features of Kotlin, such as extension functions (3.3), its expressive type- system (7 and 8), higher-order functions (Chapter 10) and many more. You will learn to apply them in your own code, which will make it concise and idiomatic.
 
-Kotlin doesn’t enforce using any particular programming style or paradigm. As you begin to study the language, you can use the style and techniques that are familiar to you. Later, you’ll gradually discover the more powerful features of Kotlin, such as extension functions (3.3), its expressive type- system (7 and 8), higher-order functions (Chapter 10) and many more. You will learn to apply them in your own code, which will make it concise and idiomatic.
-
-Another aspect of Kotlin’s pragmatism is its focus on tooling. A smart development environment is just as essential for a developer’s productivity as a good language; and because of that, treating IDE support as an afterthought isn’t an option. In the case of Kotlin, the IntelliJ IDEA plug-in is developed in lockstep with the compiler, and language features are always designed with tooling in mind.
+Another aspect of Kotlin's pragmatism is its focus on tooling. A smart development environment is just as essential for a developer's productivity as a good language; and because of that, treating IDE support as an afterthought isn't an option. In the case of Kotlin, the IntelliJ IDEA plug-in is developed in lockstep with the compiler, and language features are always designed with tooling in mind.
 
 The IDE support also plays a major role in helping you discover the features of Kotlin. In many cases, the tools will automatically detect common code patterns that can be replaced by more concise constructs, and offer to fix the code for you. By studying the language features used by the automated fixes, you can learn to apply those features in your own code as well.
 
-1.4.2Kotlin is concise, making the intent of your code clear while reducing boilerplate
-It’s common knowledge that developers spend more time reading existing code than writing new code. Imagine you’re a part of a team developing a big project, and you need to add a new feature or fix a bug. What are your first steps? You look for the exact section of code that you need to change, and only then do you implement a fix. You read a lot of code to find out what you have to do. This code might have been written recently by your colleagues, or by someone who no longer works on the project, or by you, but long ago.
+### 1.4.2 Kotlin is concise, making the intent of your code clear while reducing boilerplate
+
+It's common knowledge that developers spend more time reading existing code than writing new code. Imagine you're a part of a team developing a big project, and you need to add a new feature or fix a bug. What are your first steps? You look for the exact section of code that you need to change, and only then do you implement a fix. You read a lot of code to find out what you have to do. This code might have been written recently by your colleagues, or by someone who no longer works on the project, or by you, but long ago.
 Only after understanding the surrounding code can you make the necessary modifications.
 
-The simpler and more concise the code is, the faster you’ll understand what’s
+The simpler and more concise the code is, the faster you'll understand what's going on. Of course, good design plays a significant role here. So does the choice of expressive names, ensuring that your variables, functions, and classes are accurately described by their names. But the choice of the language and its conciseness are also important. The language is concise if its syntax clearly expresses the intent of the code you read and doesn't obscure it with boilerplate required to specify how the intent is accomplished.
 
-going on. Of course, good design plays a significant role here. So does the choice of expressive names, ensuring that your variables, functions, and classes are accurately described by their names. But the choice of the language and its conciseness are also important. The language is concise if its syntax clearly expresses the intent of the code you read and doesn’t obscure it with boilerplate required to specify how the intent is accomplished.
+Kotlin tries hard to ensure that all the code you write carries meaning and isn't just there to satisfy code structure requirements. A lot of the standard boilerplate of object-oriented languages, such as getters, setters, and the logic for assigning constructor parameters to fields, is implicit in Kotlin and doesn't clutter your source code. Semicolons can also be omitted in Kotlin, removing a bit of extra clutter from your code, and its powerful type inference spares you from explicitly specifying types where the compiler can deduce them from the context.
 
-Kotlin tries hard to ensure that all the code you write carries meaning and isn’t just there to satisfy code structure requirements. A lot of the standard boilerplate of object-oriented languages, such as getters, setters, and the logic for assigning constructor parameters to fields, is implicit in Kotlin and doesn’t clutter your source code. Semicolons can also be omitted in Kotlin, removing a bit of extra clutter from your code, and its powerful type inference spares you from explicitly specifying types where the compiler can deduce them from the context.
+Kotlin has a rich standard library that lets you replace these long, repetitive sections of code with library method calls. Kotlin's support for lambdas and anonymous functions (function literals that are used like expressions) makes it easy to pass small blocks of code to library functions. This lets you encapsulate all the common parts in the library and keep only the unique, task-specific portion in the user code.
 
-Kotlin has a rich standard library that lets you replace these long, repetitive sections of code with library method calls. Kotlin’s support for lambdas and anonymous functions (function literals that are used like expressions) makes it easy to pass small blocks of code to library functions. This lets you encapsulate all the common parts in the library and keep only the unique, task-specific portion in the user code.
-
-At the same time, Kotlin doesn’t try to collapse the source code to the smallest number of characters possible. For example, Kotlin supports overloading a fixed set of operators, meaning you can provide custom implementations for +, -, in, or []. However, users can’t define their own, custom operators. This prevents developers from replacing method names with cryptic punctuation sequences, which would be harder to read, and more difficult to find in documentation systems as opposed to using expressive names.
+At the same time, Kotlin doesn't try to collapse the source code to the smallest number of characters possible. For example, Kotlin supports overloading a fixed set of operators, meaning you can provide custom implementations for `+`, `-`, `in`, or `[]`. However, users can't define their own, custom operators. This prevents developers from replacing method names with cryptic punctuation sequences, which would be harder to read, and more difficult to find in documentation systems as opposed to using expressive names.
 
 More concise code takes less time to write and, more important, less time to read and comprehend. This improves your productivity and lets you get things done faster.
 
 ### 1.4.3 Kotlin is safe, protecting you from whole categories of errors
 
-In general, when we speak of a programming language as safe, we mean its design prevents certain kinds of errors in a program. Of course, this isn’t an absolute quality; no language prevents all possible errors. In addition, preventing errors usually comes at a cost. You need to give the compiler more information about the intended operation of the program, so the compiler can then verify that the information matches what the program does. Because of that, there’s always a trade-off between the level of safety you get and the loss of productivity required to put in more detailed annotations.
+In general, when we speak of a programming language as safe, we mean its design prevents certain kinds of errors in a program. Of course, this isn't an absolute quality; no language prevents all possible errors. In addition, preventing errors usually comes at a cost. You need to give the compiler more information about the intended operation of the program, so the compiler can then verify that the information matches what the program does. Because of that, there's always a trade-off between the level of safety you get and the loss of productivity required to put in more detailed annotations.
 
-Running on the JVM already provides a lot of safety guarantees: for example, memory safety, preventing buffer overflows, and other problems caused by incorrect use of dynamically allocated memory. As a statically typed language on the JVM, Kotlin also ensures the type safety of your applications. And Kotlin goes further: It is easy to define immutable variables (via the val keyword) and quick to group them in immutable (data) classes, resulting in additional safety for multithreaded applications.
+Running on the JVM already provides a lot of safety guarantees: for example, memory safety, preventing buffer overflows, and other problems caused by incorrect use of dynamically allocated memory. As a statically typed language on the JVM, Kotlin also ensures the type safety of your applications. And Kotlin goes further: It is easy to define immutable variables (via the `val` keyword) and quick to group them in immutable (data) classes, resulting in additional safety for multithreaded applications.
 
-Beyond that, Kotlin aims to prevent errors happening at runtime by doing checks during compile time. Most important, Kotlin strives to remove the NullPointerException from your program. Kotlin’s type system tracks values that can and can’t be null and forbids operations that can lead to a NullPointerException at runtime. The additional cost required for this is minimal: marking a type as nullable takes only a single character, a question mark at the end:
+Beyond that, Kotlin aims to prevent errors happening at runtime by doing checks during compile time. Most important, Kotlin strives to remove the NullPointerException from your program. Kotlin's type system tracks values that can and can't be null and forbids operations that can lead to a NullPointerException at runtime. The additional cost required for this is minimal: marking a type as nullable takes only a single character, a question mark at the end:
 
 ```kotlin
 fun main() {
@@ -429,11 +450,9 @@ fun main() {
 
 To complement this, Kotlin provides many convenient ways to handle nullable data. This helps greatly in eliminating application crashes.
 
-Another type of exception that Kotlin helps avoid is the class cast exception,
+Another type of exception that Kotlin helps avoid is the class cast exception, which happens when you cast an object to a type without first checking that it has the right type. Kotlin combines check and cast into a single operation. That means once you've checked the type, you can refer to members of that type without any additional casts, redeclarations, or checks.
 
-which happens when you cast an object to a type without first checking that it has the right type. Kotlin combines check and cast into a single operation.
-That means once you’ve checked the type, you can refer to members of that type without any additional casts, redeclarations, or checks.
-In this example, is performs a type-check on the value variable, which may be of Any type. The compiler knows that in the true branch of the conditional, value has to be of type String, so it can safely permit the usage of methods from that type (a so-called smart-cast, which we’ll get to know in more detail in 2.3.6).
+In this example, `is` performs a type-check on the `value` variable, which may be of `Any` type. The compiler knows that in the `true` branch of the conditional, `value` has to be of type `String`, so it can safely permit the usage of methods from that type (a so-called smart-cast, which we'll get to know in more detail in 2.3.6).
 
 ```kotlin
 fun modify(value: Any) {
@@ -443,112 +462,114 @@ fun modify(value: Any) {
 }
 ```
 
-Next, let’s talk specifically about Kotlin for JVM target: Kotlin provides seamless interoperability with Java.
+Next, let's talk specifically about Kotlin for JVM target: Kotlin provides seamless interoperability with Java.
 
 ### 1.4.4 Kotlin is interoperable, allowing reuse of existing Java code to the highest degree
+
 Regarding interoperability, your first concern probably is, "Can I use my existing libraries?" With Kotlin, the answer is, "Yes, absolutely." Regardless of the kind of APIs the library requires you to use, you can work with them from Kotlin. You can call Java methods, extend Java classes and implement interfaces, apply Java annotations to your Kotlin classes, and so on.
 
-Unlike some other JVM languages, Kotlin goes even further with interoperability, making it effortless to call Kotlin code from Java as well. No tricks are required: Kotlin classes and methods can be called exactly like regular Java classes and methods. This gives you the ultimate flexibility in mixing Java and Kotlin code anywhere in your project. When you start adopting Kotlin in your Java project, you can run the Java-to-Kotlin converter on any single class in your codebase, and the rest of the code will continue to compile and work without any modifications. This works regardless of the role of the class you’ve converted—something we’ll take a
+Unlike some other JVM languages, Kotlin goes even further with interoperability, making it effortless to call Kotlin code from Java as well. No tricks are required: Kotlin classes and methods can be called exactly like regular Java classes and methods. This gives you the ultimate flexibility in mixing Java and Kotlin code anywhere in your project. When you start adopting Kotlin in your Java project, you can run the Java-to-Kotlin converter on any single class in your codebase, and the rest of the code will continue to compile and work without any modifications. This works regardless of the role of the class you've converted—something we'll take a closer look at in section **For Java developers: move code automatically with the Java-to-Kotlin converter**.
 
-closer look at in section For Java developers: move code automatically with the Java-to-Kotlin converter.
-
-Another area where Kotlin focuses on interoperability is its use of existing Java libraries to the largest degree possible. For example, Kotlin’s collections rely almost entirely on Java standard library classes, extending them with additional functions for more convenient use in Kotlin. (We’ll look at the mechanism for this in more detail in 3.3.) This means you never need to wrap or convert objects when you call Java APIs from Kotlin, or vice versa. All the API richness provided by Kotlin comes at no cost at runtime.
+Another area where Kotlin focuses on interoperability is its use of existing Java libraries to the largest degree possible. For example, Kotlin's collections rely almost entirely on Java standard library classes, extending them with additional functions for more convenient use in Kotlin. (We'll look at the mechanism for this in more detail in 3.3.) This means you never need to wrap or convert objects when you call Java APIs from Kotlin, or vice versa. All the API richness provided by Kotlin comes at no cost at runtime.
 
 The Kotlin tooling also provides full support for cross-language projects. It can compile an arbitrary mix of Java and Kotlin source files, regardless of how they depend on each other. IDE features inside IntelliJ IDEA and Android Studio work across languages as well, allowing you to:
 
-Navigate freely between Java and Kotlin source files
-Debug mixed-language projects and step between code written in different languages
-Refactor your Java methods and have their use in Kotlin code correctly updated, and vice versa
+- Navigate freely between Java and Kotlin source files
+- Debug mixed-language projects and step between code written in different languages
+- Refactor your Java methods and have their use in Kotlin code correctly updated, and vice versa
 
-Figure 1.2. When using the "Find Usages" action in IntelliJ IDEA, it finds results across Kotlin and Java files in the same project. Other IDE features, such as refactorings and navigation, work just as smoothly across both languages.
+::: info Figure 1.2. When using the "Find Usages" action in IntelliJ IDEA, it finds results across Kotlin and Java files in the same project. Other IDE features, such as refactorings and navigation, work just as smoothly across both languages.
 
 ![img_1.png](img/0img_1.png)
 
-Hopefully by now we’ve convinced you to give Kotlin a try. Now, how can you start using it? In the next section, we’ll discuss the process of compiling and running Kotlin code, both from the command line and using different tools.
+:::
+
+Hopefully by now we've convinced you to give Kotlin a try. Now, how can you start using it? In the next section, we'll discuss the process of compiling and running Kotlin code, both from the command line and using different tools.
 
 ## 1.5 Using the Kotlin tools
-Let’s have an overview of the Kotlin tools. First, let’s discuss how to set up your environment to run the Kotlin code.
+
+Let's have an overview of the Kotlin tools. First, let's discuss how to set up your environment to run the Kotlin code.
 
 ### 1.5.1 Setting up and running the Kotlin code
-You can run small snippets online, or install an IDE - the best experience you’ll get with IntelliJ IDEA or Android Studio. We provide the basic information here, but the best up-to-date tutorials are on the Kotlin website. If you need the detailed information about getting your environment set up, or information about different compilation targets, please refer to the "Getting started" section of the Kotlin website (https://kotlinlang.org/docs/getting- started.html).
 
-Try Kotlin without installation with the Kotlin online playground
+You can run small snippets online, or install an IDE - the best experience you'll get with IntelliJ IDEA or Android Studio. We provide the basic information here, but the best up-to-date tutorials are on the Kotlin website. If you need the detailed information about getting your environment set up, or information about different compilation targets, please refer to the "Getting started" section of the Kotlin website (https://kotlinlang.org/docs/getting- started.html).
 
-The easiest way to try Kotlin doesn’t require any installation or configuration. At https://play.kotlinlang.org/, you can find an online playground where you can write, compile, and run small Kotlin programs. The playground has code samples demonstrating the features of Kotlin, as well as a series of exercises for learning Kotlin interactively. Alongside it, the Kotlin documentation (https://kotlinlang.org/docs) also has a number of interactive samples that you can run right in the browser.
+**Try Kotlin without installation with the Kotlin online playground**
 
-These are the quickest ways to run short snippets of Kotlin, but they provides less assistance and guidance. It’s a very minimal development environment that is missing features such as autocomplete or inspections that can tell you how to improve your Kotlin code. The web version is also doesn’t support user interactions via the standard input stream, or working with files and
+The easiest way to try Kotlin doesn't require any installation or configuration. At https://play.kotlinlang.org/, you can find an online playground where you can write, compile, and run small Kotlin programs. The playground has code samples demonstrating the features of Kotlin, as well as a series of exercises for learning Kotlin interactively. Alongside it, the Kotlin documentation (https://kotlinlang.org/docs) also has a number of interactive samples that you can run right in the browser.
 
-directories. However, these features are all conveniently available inside IntelliJ IDEA and Android Studio.
+These are the quickest ways to run short snippets of Kotlin, but they provides less assistance and guidance. It's a very minimal development environment that is missing features such as autocomplete or inspections that can tell you how to improve your Kotlin code. The web version is also doesn't support user interactions via the standard input stream, or working with files and directories. However, these features are all conveniently available inside IntelliJ IDEA and Android Studio.
 
-Plug-in for IntelliJ IDEA and Android Studio
+**Plug-in for IntelliJ IDEA and Android Studio**
 
-The IntelliJ IDEA plug-in for Kotlin has been developed in parallel with the language, and it’s a full-featured development environment for Kotlin. It’s mature and stable, and it provides a complete set of tools for Kotlin development.
+The IntelliJ IDEA plug-in for Kotlin has been developed in parallel with the language, and it's a full-featured development environment for Kotlin. It's mature and stable, and it provides a complete set of tools for Kotlin development.
 
-The Kotlin plug-in is included out of the box with IntelliJ IDEA and Android Studio, so no additional setup is necessary. You can use either the free, open source IntelliJ IDEA Community Edition or Android Studio, or the commercial IntelliJ IDEA Ultimate. In IntelliJ IDEA, select Kotlin in the New Project dialog, and you’re good to go. In Android Studio, create a new project, and you can directly start writing Kotlin.
+The Kotlin plug-in is included out of the box with IntelliJ IDEA and Android Studio, so no additional setup is necessary. You can use either the free, open source IntelliJ IDEA Community Edition or Android Studio, or the commercial IntelliJ IDEA Ultimate. In IntelliJ IDEA, select Kotlin in the New Project dialog, and you're good to go. In Android Studio, create a new project, and you can directly start writing Kotlin.
 
 You can also check the "Get started with Kotlin/JVM" tutorial with detailed instructions and screenshots on how to create a project in IntelliJ IDEA: https://kotlinlang.org/docs/jvm-get-started.html.
 
-For Java developers: move code automatically with the Java-to-Kotlin converter
+**For Java developers: move code automatically with the Java-to-Kotlin converter**
 
-Getting up to speed with a new language is never effortless. Fortunately, we’ve built a nice little shortcut that lets you speed up your learning and adoption by relying on your existing knowledge of Java. This tool is the automated Java-to-Kotlin converter.
+Getting up to speed with a new language is never effortless. Fortunately, we've built a nice little shortcut that lets you speed up your learning and adoption by relying on your existing knowledge of Java. This tool is the automated Java-to-Kotlin converter.
 
-As you start learning Kotlin, the converter can help you express something when you don’t remember the exact syntax. You can write the corresponding snippet in Java and then paste it into a Kotlin file, and the converter will automatically offer to translate the code into Kotlin. The result won’t always be the most idiomatic, but it will be working code, and you’ll be able to make progress with your task.
+As you start learning Kotlin, the converter can help you express something when you don't remember the exact syntax. You can write the corresponding snippet in Java and then paste it into a Kotlin file, and the converter will automatically offer to translate the code into Kotlin. The result won't always be the most idiomatic, but it will be working code, and you'll be able to make progress with your task.
 
-The converter is also great for introducing Kotlin into an existing Java
-
-project. When you need to write a new class, you can do it in Kotlin right from the beginning. But if you need to make significant changes to an existing class, you may also want to use Kotlin in the process. That’s where the converter comes into play. You convert the class into Kotlin first, and then you add the changes using all the benefits of a modern language.
+The converter is also great for introducing Kotlin into an existing Java project. When you need to write a new class, you can do it in Kotlin right from the beginning. But if you need to make significant changes to an existing class, you may also want to use Kotlin in the process. That's where the converter comes into play. You convert the class into Kotlin first, and then you add the changes using all the benefits of a modern language.
 
 Using the converter in IntelliJ IDEA is extremely easy. You can either copy a Java code fragment and paste it into a Kotlin file, or invoke the Convert Java File to Kotlin File action if you need to convert an entire file.
 
 ### 1.5.2 Compiling Kotlin code
+
 Kotlin is a compiled language, which means before you can run Kotlin code, you need to compile it. As we discussed in 1.3.3, the Kotlin code can be compiled to different targets:
 
-JVM bytecode (stored in .class files) to run on Java Virtual Machine JVM bytecode to be further transformed and run on Android
-Native targets to run natively on different operating systems JavaScript (and WebAssembly) to run in browser
+- JVM bytecode (stored in .class files) to run on Java Virtual Machine 
+- JVM bytecode to be further transformed and run on Android
+- Native targets to run natively on different operating systems 
+- JavaScript (and WebAssembly) to run in browser
 
-For the Kotlin compiler, it’s not important whether the produced JVM bytecode runs on JVM or is further transformed and runs on Android. Android Runtime (ART) transforms the JVM bytecode to Dex bytecode and runs it instead. For more details on how it works on Android please refer to the documentation https://source.android.com/devices/tech/dalvik.
+For the Kotlin compiler, it's not important whether the produced JVM bytecode runs on JVM or is further transformed and runs on Android. Android Runtime (ART) transforms the JVM bytecode to Dex bytecode and runs it instead. For more details on how it works on Android please refer to the documentation https://source.android.com/devices/tech/dalvik.
 
-Since the main target for this book is Kotlin/JVM, let’s discuss in more details how the compilation process works there. You can find information about other targets on the Kotlin website.
+Since the main target for this book is Kotlin/JVM, let's discuss in more details how the compilation process works there. You can find information about other targets on the Kotlin website.
 
-Compilation process for Kotlin/JVM
+**Compilation process for Kotlin/JVM**
 
-Kotlin source code is normally stored in files with the extension .kt. When compiling Kotlin code for the JVM target, the compiler analyzes the source code and generates .class files, just like the Java compiler does. The generated .class files are then packaged and executed using the standard
+Kotlin source code is normally stored in files with the extension `.kt`. When compiling Kotlin code for the JVM target, the compiler analyzes the source code and generates `.class` files, just like the Java compiler does. The generated `.class` files are then packaged and executed using the standard procedure for the type of application you're working on.
 
-procedure for the type of application you’re working on.
-
-In the simplest case, you can use the kotlinc command to compile your code from the command line and use the java command to execute your code:
+In the simplest case, you can use the `kotlinc` command to compile your code from the command line and use the `java` command to execute your code:
 
 ```kotlin
 kotlinc <source file or directory> -include-runtime -d <jar name>
 java -jar <jar name>
 ```
 
-Java Virtual Machine can run .class files compiled from the Kotlin code without knowing whether they were written initially in Java or in Kotlin. Kotlin built-in classes and their APIs, however, differ from those in Java, and to correctly run the compiled code, JVM needs the additional information as a dependency: Kotlin runtime library. When compiling code from the command line, we explicitly invoked -include-runtime to include this runtime library into the resulting jar file.
-Kotlin runtime library contains the definitions of Kotlin’s basic classes like Int or String and some extensions that Kotlin adds to the standard Java APIs. The runtime library needs to be distributed with your application.
+Java Virtual Machine can run `.class` files compiled from the Kotlin code without knowing whether they were written initially in Java or in Kotlin. Kotlin built-in classes and their APIs, however, differ from those in Java, and to correctly run the compiled code, JVM needs the additional information as a dependency: Kotlin runtime library. When compiling code from the command line, we explicitly invoked `-include-runtime` to include this runtime library into the resulting jar file.
+
+Kotlin runtime library contains the definitions of Kotlin's basic classes like Int or String and some extensions that Kotlin adds to the standard Java APIs. The runtime library needs to be distributed with your application.
 
 A simplified description of the Kotlin build process is shown in 1.3.
 
-Figure 1.3. Kotlin build process
+::: info Figure 1.3. Kotlin build process
 
+![img.png](img/img_61.png)
 
-In addition, you need the Kotlin standard library included as a dependency in your application. In theory, you can write the Kotlin code without it, but in practice you never need to do so. The standard library contains the definitions of such fundamental classes like List, Map or Sequence, and many methods for working with them. We’ll be discussing the most important classes and their APIs in detail in this book.
+:::
 
-In most real-life cases, you’ll be using a build system such as Gradle or Maven to compile your code. Kotlin is compatible with these build systems. All of those build systems also support mixed-language projects that combine Kotlin and Java in the same codebase. Maven and Gradle take care of including both the Kotlin runtime library and (for the latest versions) Kotlin standard library as dependencies of your application, so you don’t need to
+In addition, you need the Kotlin standard library included as a dependency in your application. In theory, you can write the Kotlin code without it, but in practice you never need to do so. The standard library contains the definitions of such fundamental classes like `List`, `Map` or `Sequence`, and many methods for working with them. We'll be discussing the most important classes and their APIs in detail in this book.
 
-include them explicitly.
+In most real-life cases, you'll be using a build system such as Gradle or Maven to compile your code. Kotlin is compatible with these build systems. All of those build systems also support mixed-language projects that combine Kotlin and Java in the same codebase. Maven and Gradle take care of including both the Kotlin runtime library and (for the latest versions) Kotlin standard library as dependencies of your application, so you don't need to include them explicitly.
 
-The best up-to-date way to check the details of how to set up the project with the build system of your choice is the Kotlin documentation: please check https://kotlinlang.org/docs/gradle.html and https://kotlinlang.org/docs/maven.html sections. For a quick start, you don’t need to know all the peculiarities, you can simply create a new project, and the correct build file with the necessary dependencies will be generated for you.
+The best up-to-date way to check the details of how to set up the project with the build system of your choice is the Kotlin documentation: please check https://kotlinlang.org/docs/gradle.html and https://kotlinlang.org/docs/maven.html sections. For a quick start, you don't need to know all the peculiarities, you can simply create a new project, and the correct build file with the necessary dependencies will be generated for you.
 
 ## 1.6 Summary
 
-- Kotlin is statically typed and supports type inference, allowing it to maintain correctness and performance while keeping the source code concise.
-- Kotlin supports both object-oriented and functional programming styles, enabling higher-level abstractions through first-class functions and simplifying testing and multithreaded development through the support of immutable values.
-- Coroutines are a lightweight alternative to threads, and help make asynchronous code feel natural by allowing you to write logic that looks similar to sequential code, and help structure concurrent code in parent- child relationships.
-- Kotlin works well for server-side applications, with Kotlin-first frameworks like Ktor and http4k, as well as fully supporting all existing Java frameworks like Spring Boot.
-- Android is Kotlin-first, with development tools, libraries, samples and documentation all primarily focused on Kotlin.
-- Kotlin Multiplatform brings your Kotlin code to targets beyond the JVM, including iOS and the web.
-- Kotlin is free and open source, and supports multiple build systems and IDEs.
-- IntelliJ IDEA and Android Studio allow you to navigate smoothly across code written in both Kotlin and Java.
-- The Kotlin playground (https://play.kotlinlang.org) is a fast way to try Kotlin without any setup.
-- The automated Java-to-Kotlin converter allows you to bring your existing code and knowledge to Kotlin.
-- Kotlin is pragmatic, safe, concise, and interoperable, meaning it focuses on using proven solutions for common tasks, preventing common errors such as NullPointerExceptions, supporting compact and easy-to-read code, and providing unrestricted integration with Java.
+1. <u>Kotlin 是静态类型的，并且支持类型推断，使其能够在保持源代码简洁的同时保持正确性和性能。</u><ShowS>`Kotlin is statically typed and supports type inference, allowing it to maintain correctness and performance while keeping the source code concise.`</ShowS>
+2. <u>Kotlin 支持面向对象和函数式编程风格，通过一流函数实现更高级别的抽象，并通过不可变值的支持简化测试和多线程开发。</u><ShowS>`Kotlin supports both object-oriented and functional programming styles, enabling higher-level abstractions through first-class functions and simplifying testing and multithreaded development through the support of immutable values.`</ShowS>
+3. <u>协程是线程的轻量级替代方案，通过允许您编写看起来类似于顺序代码的逻辑，帮助使异步代码感觉自然，并帮助构建父子关系中的并发代码。</u><ShowS>`Coroutines are a lightweight alternative to threads, and help make asynchronous code feel natural by allowing you to write logic that looks similar to sequential code, and help structure concurrent code in parent-child relationships.`</ShowS>
+4. Kotlin works well for server-side applications, with Kotlin-first frameworks like Ktor and http4k, as well as fully supporting all existing Java frameworks like Spring Boot.
+5. Android is Kotlin-first, with development tools, libraries, samples and documentation all primarily focused on Kotlin.
+6. Kotlin Multiplatform brings your Kotlin code to targets beyond the JVM, including iOS and the web.
+7. Kotlin is free and open source, and supports multiple build systems and IDEs.
+8. IntelliJ IDEA and Android Studio allow you to navigate smoothly across code written in both Kotlin and Java.
+9. The Kotlin playground (https://play.kotlinlang.org) is a fast way to try Kotlin without any setup.
+10. The automated Java-to-Kotlin converter allows you to bring your existing code and knowledge to Kotlin.
+11. Kotlin is pragmatic, safe, concise, and interoperable, meaning it focuses on using proven solutions for common tasks, preventing common errors such as `NullPointerExceptions`, supporting compact and easy-to-read code, and providing unrestricted integration with Java.

@@ -32,9 +32,9 @@ In 1.2.3, we already briefly talked about Kotlin’s nature as a multi-paradigm 
 
 :::
 
-Let’s look at an example to illustrate where the approach of using lambda expressions really shines. Imagine that you need to define the behavior for clicking a button. To do so, a Button object may require you to pass an instance of the corresponding OnClickListener interface that is responsible for handling the click. This interface specifies one method, onClick. In Kotlin, you could implement it by using an object declaration, as introduced in 4.4.1:
+Let’s look at an example to illustrate where the approach of using lambda expressions really shines. Imagine that you need to define the behavior for clicking a button. To do so, a `Button` object may require you to pass an instance of the corresponding `OnClickListener` interface that is responsible for handling the click. This interface specifies one method, `onClick`. In Kotlin, you could implement it by using an `object` declaration, as introduced in 4.4.1:
 
-Listing 5.1. Implementing a listener with an object declaration.
+::: info Listing 5.1. Implementing a listener with an `object` declaration.
 
 ```kotlin
 button.setOnClickListener(object: OnClickListener {
@@ -43,18 +43,20 @@ button.setOnClickListener(object: OnClickListener {
     }
 })
 ```
+:::
 
 The verbosity required to declare an object like this becomes irritating when repeated many times. A notation to express just the behavior—what should be done on clicking—helps you eliminate redundant code: You can rewrite the snippet above using a lambda.
 
-Listing 5.2. Implementing a listener with a lambda.
+::: info Listing 5.2. Implementing a listener with a lambda.
 
 ```kotlin
 button.setOnClickListener {
     println("I was clicked!")
 }
 ```
+:::
 
-This Kotlin code does the same thing as using an anonymous object, but is more concise and readable. We’ll discuss the details of this example (and why it can be used to implement an interface like OnClickListener) later in this section.
+This Kotlin code does the same thing as using an anonymous object, but is more concise and readable. We’ll discuss the details of this example (and why it can be used to implement an interface like `OnClickListener`) later in this section.
 
 You saw how a lambda can be used as an alternative to an anonymous object with only one method. Let’s now continue and briefly explore another classical use of lambda expressions: working with collections.
 
@@ -62,7 +64,7 @@ You saw how a lambda can be used as an alternative to an anonymous object with o
 
 One of the main tenets of good programming style is to avoid duplication in your code. Most of the tasks we perform with collections follow a few common patterns. Lambdas enable Kotlin to provide a good, convenient standard library that provides powerful functionality to work with collections.
 
-Let’s look at an example. You’ll use the Person class that contains information about a person’s name and age.
+Let’s look at an example. You’ll use the `Person` class that contains information about a person’s name and age.
 
 ```kotlin
 data class Person(val name: String, val age: Int)
@@ -70,7 +72,7 @@ data class Person(val name: String, val age: Int)
 
 Suppose you have a list of people, and you need to find the oldest of them. If you had no experience with lambdas, you might rush to implement the search manually. You’d introduce two intermediate variables—one to hold the maximum age and another to store the first found person of this age—and then iterate over the list, updating these variables.
 
-Listing 5.3. Searching through a collection manually via a for-loop
+::: info Listing 5.3. Searching through a collection manually via a for-loop
 
 ```kotlin
 fun findTheOldest(people: List<Person>) {
@@ -91,6 +93,7 @@ fun main() {
     // Person(name=Bob, age=31)
 }
 ```
+:::
 
 With enough experience, you can bang out such loops pretty quickly. But there’s quite a lot of code here, and it’s easy to make mistakes. For example, you might get the comparison wrong and find the minimum element instead of the maximum.
 
@@ -149,7 +152,7 @@ fun main() {
 }
 ```
 
-But such syntax isn’t readable and doesn’t make much sense (it’s equivalent to executing the lambda body directly). If you need to enclose a piece of code in a block, you can use the library function run that executes the lambda passed to it:
+But such syntax isn’t readable and doesn’t make much sense (it’s equivalent to executing the lambda body directly). If you need to enclose a piece of code in a block, you can use the library function `run` that executes the lambda passed to it:
 
 ```kotlin
 fun main() {
@@ -158,7 +161,7 @@ fun main() {
 }
 ```
 
-The run function becomes especially useful when you need to execute a block of several statements in a place where an expression is expected. Consider a declaration of a top-level variable that performs some setup or does some additional work:
+The `run` function becomes especially useful when you need to execute a block of several statements in a place where an expression is expected. Consider a declaration of a top-level variable that performs some setup or does some additional work:
 
 ```kotlin
 val myFavoriteNumber = run {
@@ -184,10 +187,9 @@ If you rewrite this example without using any syntax shortcuts, you get the foll
 people.maxByOrNull({ p: Person -> p.age })
 ```
 
-It should be clear what happens here: the piece of code in curly braces is a lambda expression, and you pass it as an argument to the function. The lambda expression takes one argument of type Person and returns its age.
-But this code is verbose. First, there’s too much punctuation, which hurts
+It should be clear what happens here: the piece of code in curly braces is a lambda expression, and you pass it as an argument to the function. The lambda expression takes one argument of type `Person` and returns its age.
 
-readability. Second, the type can be inferred from the context and therefore omitted. Last, you don’t need to assign a name to the lambda argument in this case.
+But this code is verbose. First, there’s too much punctuation, which hurts readability. Second, the type can be inferred from the context and therefore omitted. Last, you don’t need to assign a name to the lambda argument in this case.
 
 Let’s make these improvements, starting with the braces. In Kotlin, a syntactic convention lets you move a lambda expression out of parentheses if it’s the last argument in a function call. In this example, the lambda is the only argument, so it can be placed after the parentheses:
 
@@ -203,14 +205,14 @@ people.maxByOrNull { p: Person -> p.age }
 
 All three syntactic forms mean the same thing, but the last one is the easiest to read. If a lambda is the only argument, you’ll definitely want to write it without the parentheses. If a function takes several arguments, and only the last argument is a lambda, it’s also considered good style in Kotlin to keep the lambda outside the parentheses. If you want to pass two or more lambdas, you can’t move more than one out, so it’s usually better to keep all of them inside the parentheses.
 
-Figure 5.2. You simplified your maxByOrNull call to get the oldest person from the people collection in six steps. You first moved the lambda out of the parentheses (1), removed the now empty pair of parentheses (2), used the Kotlin compiler’s type inference instead of specifying the parameter type for p explicitly (3), and used the implicit name for the only lambda parameter it (5). You also learned an additional shorthand in the form of member references (6).
+::: info Figure 5.2. You simplified your `maxByOrNull` call to get the oldest person from the `people` collection in six steps. You first moved the lambda out of the parentheses (1), removed the now empty pair of parentheses (2), used the Kotlin compiler’s type inference instead of specifying the parameter type for `p` explicitly (3), and used the implicit name for the only lambda parameter `it` (5). You also learned an additional shorthand in the form of member references (6).
 
 ![img_27.png](img/img_27.png)
+:::
 
-To see what these options look like with a more complex call, let’s go back to the joinToString function that you used extensively in 3. It’s also defined in the Kotlin standard library, with the difference that the standard library version takes a function as an additional parameter. This function can be used to convert an element to a string differently than its toString function.
-Here’s how you can use it to print names only.
+To see what these options look like with a more complex call, let’s go back to the `joinToString` function that you used extensively in 3. It’s also defined in the Kotlin standard library, with the difference that the standard library version takes a function as an additional parameter. This function can be used to convert an element to a string differently than its `toString` function. Here’s how you can use it to print names only.
 
-Listing 5.6. Passing a lambda as a named argument
+::: info Listing 5.6. Passing a lambda as a named argument
 
 ```kotlin
 fun main() {
@@ -223,14 +225,16 @@ fun main() {
     // Alice Bob
 }
 ```
+:::
 
 And here’s how you can rewrite that call with the lambda outside the parentheses.
 
-Listing 5.7. Passing a lambda outside of parentheses
+::: info Listing 5.7. Passing a lambda outside of parentheses
 
 ```kotlin
 people.joinToString(" ") { p: Person -> p.name }
 ```
+:::
 
 5.6 uses a named argument to pass the lambda, making it clear what the lambda is used for. 5.7 is more concise, but it doesn’t express explicitly what the lambda is used for, so it may be harder to understand for people not familiar with the function being called.
 
@@ -246,27 +250,28 @@ Figure 5.3. The "move lambda" intention actions allow you to
 
 Let’s move on with simplifying the syntax and get rid of the parameter type.
 
-Listing 5.8. Omitting lambda parameter type: Often, the Kotlin compiler can infer the type of the variables accepted by the lambda.
+::: info Listing 5.8. Omitting lambda parameter type: Often, the Kotlin compiler can infer the type of the variables accepted by the lambda.
 
 ```kotlin
 people.maxByOrNull { p: Person -> p.age }
 people.maxByOrNull { p -> p.age }
 ```
+:::
 
-As with local variables, if the type of a lambda parameter can be inferred, you don’t need to specify it explicitly. With the maxByOrNull function, the parameter type is always the same as the collection element type. The compiler knows you’re calling maxByOrNull on a collection of Person objects, so it can understand that the lambda parameter will also be of type Person.
+As with local variables, if the type of a lambda parameter can be inferred, you don’t need to specify it explicitly. With the `maxByOrNull` function, the parameter type is always the same as the collection element type. The compiler knows you’re calling `maxByOrNull` on a collection of `Person` objects, so it can understand that the lambda parameter will also be of type `Person`.
+
 There are cases when the compiler can’t infer the lambda parameter type, but we won’t discuss them here. The simple rule you can follow is to always start without the types; if the compiler complains, specify them.
 
-You can specify only some of the argument types while leaving others with just names. Doing so may be convenient if the compiler can’t infer one of the
-
-types or if an explicit type improves readability.
+You can specify only some of the argument types while leaving others with just names. Doing so may be convenient if the compiler can’t infer one of the types or if an explicit type improves readability.
 
 The last simplification you can make in this example is to replace a parameter with the default parameter name: `it`. This name is generated if the context expects a lambda with only one argument, and its type can be inferred.
 
-Listing 5.9. Using the default parameter name it
+::: info Listing 5.9. Using the default parameter name `it`
 
 ```kotlin
 people.maxByOrNull { it.age }
 ```
+:::
 
 This default name is generated only if you don’t specify the argument name explicitly.
 
@@ -303,11 +308,11 @@ Next, let’s talk about a concept that often goes side-by-side with lambda expr
 
 You know that when you declare an anonymous inner class in a function, you can refer to parameters and local variables of that function from inside the class. With lambdas, you can do exactly the same thing. If you use a lambda in a function, you can access the parameters of that function as well as the local variables declared before the lambda.
 
-To demonstrate this, let’s use the forEach standard library function. It’s one of the most basic collection-manipulation functions; all it does is call the given lambda on every element in the collection. The forEach function is somewhat more concise than a regular for loop, but it doesn’t have many other advantages, so you don’t need to rush to convert all your loops to lambdas.
+To demonstrate this, let’s use the `forEach` standard library function. It’s one of the most basic collection-manipulation functions; all it does is call the given lambda on every element in the collection. The `forEach` function is somewhat more concise than a regular `for` loop, but it doesn’t have many other advantages, so you don’t need to rush to convert all your loops to lambdas.
 
 The following listing takes a list of messages and prints each message with the same prefix.
 
-Listing 5.10. Using function parameters in a lambda: A lambda defined inside a function can access the parameters of that function, and all local variables that were declared before that lambda.
+::: info Listing 5.10. Using function parameters in a lambda: A lambda defined inside a function can access the parameters of that function, and all local variables that were declared before that lambda.
 
 ```kotlin
 fun printMessagesWithPrefix(messages: Collection<String>, prefix: String) {
@@ -323,14 +328,16 @@ fun main() {
     // Error: 404 Not Found
 }
 ```
+:::
 
-Figure 5.4. The forEach lambda can access the prefix variable defined in the surrounding scope, and any other variables defined in surrounding scopes—all the way up to the surrounding class and file scopes.
+::: info Figure 5.4. The `forEach` lambda can access the `prefix` variable defined in the surrounding scope, and any other variables defined in surrounding scopes—all the way up to the surrounding class and file scopes.
 
 ![img_25.png](img/img_25.png)
+:::
 
-One important difference between Kotlin and Java is that in Kotlin, you aren’t restricted to accessing final variables: You can also modify variables from within a lambda. In the next listing, you’re counting the number of client and server errors in a given collection of response status codes. You do so by incrementing the clientErrors and serverErrors variables defined in the printProblemCounts functions from within the forEach lambda:
+One important difference between Kotlin and Java is that in Kotlin, you aren’t restricted to accessing final variables: You can also modify variables from within a lambda. In the next listing, you’re counting the number of client and server errors in a given collection of response status codes. You do so by incrementing the `clientErrors` and `serverErrors` variables defined in the `printProblemCounts` functions from within the `forEach` lambda:
 
-Listing 5.11. Changing local variables from a lambda
+::: info Listing 5.11. Changing local variables from a lambda
 
 ```kotlin
 fun printProblemCounts(responses: Collection<String>) {
@@ -353,8 +360,9 @@ fun main() {
     // 1 client errors, 1 server errors
 }
 ```
+:::
 
-Kotlin, unlike Java, allows you to access non-final variables and even modify them in a lambda. External variables accessed from a lambda, such as prefix, clientErrors, and serverErrors in these examples, are said to be captured by the lambda.
+Kotlin, unlike Java, allows you to access non-final variables and even modify them in a lambda. External variables accessed from a lambda, such as `prefix`, `clientErrors`, and `serverErrors` in these examples, are said to be captured by the lambda.
 
 Note that, by default, the lifetime of a local variable is constrained by the function in which the variable is declared. But if it’s captured by the lambda, the code that uses this variable can be stored and executed later. You may ask how this works. When you capture a final variable, its value is stored together with the lambda code that uses it. For non-final variables, the value is enclosed in a special wrapper that lets you change it, and the reference to the wrapper is stored together with the lambda.
 
@@ -394,7 +402,7 @@ fun tryToCountButtonClicks(button: Button): Int {
 }
 ```
 
-This function will always return 0. Even though the onClick handler will modify the value of clicks, you won’t be able to observe the modification, because the onClick handler will be called after the function returns. A correct implementation of the function would need to store the click count not in a local variable, but in a location that remains accessible outside the function—for example, in a property of a class.
+This function will always return 0. Even though the `onClick` handler will modify the value of `clicks`, you won’t be able to observe the modification, because the `onClick` handler will be called after the function returns. A correct implementation of the function would need to store the click count not in a local variable, but in a location that remains accessible outside the function—for example, in a property of a class.
 
 We’ve discussed the syntax for declaring lambdas and how variables are captured in lambdas. Now let’s talk about member references, a feature that lets you easily pass references to existing functions.
 
@@ -410,9 +418,10 @@ val getAge = Person::age
 
 This expression is called member reference, and it provides a short syntax for creating a function value that calls exactly one method or accesses a property. A double colon separates the name of a class from the name of the member you need to reference (a method or property), as shown in 5.5.
 
-Figure 5.5. Member reference syntax
+::: info Figure 5.5. Member reference syntax
 
 ![img_24.png](img/img_24.png)
+:::
 
 This is a more concise expression of a lambda that does the same thing:
 
@@ -472,7 +481,7 @@ fun Person.isAdult() = age >= 21
 val predicate = Person::isAdult
 ```
 
-Although isAdult isn’t a member of the Person class, you can access it via reference, just as you can access it as a member on an instance: person.isAdult().
+Although `isAdult` isn’t a member of the `Person` class, you can access it via reference, just as you can access it as a member on an instance: `person.isAdult()`.
 
 ### 5.1.6 Bound callable references
 
@@ -488,12 +497,12 @@ fun main() {
 }
 ```
 
-As you can see, the way we defined `sebsAgeFunction` in this example
-—`seb::age`—is equivalent to writing the lambda `{ seb.age }` explicitly, but more concise.
+As you can see, the way we defined `sebsAgeFunction` in this example—`seb::age`—is equivalent to writing the lambda `{ seb.age }` explicitly, but more concise.
 
-Figure 5.6. A regular member reference, like `Person::age`, takes an instance of an object as a parameter and returns the value of the member. A bound member reference like seb::age takes no arguments, and returns the value of the member belonging to the object it is bound to.
+::: info Figure 5.6. A regular member reference, like `Person::age`, takes an instance of an object as a parameter and returns the value of the member. A bound member reference like `seb::age` takes no arguments, and returns the value of the member belonging to the object it is bound to.
 
 ![img_23.png](img/img_23.png)
+:::
 
 In the following section, we’ll look at many library functions that work great with lambda expressions, as well as member references.
 
@@ -511,8 +520,7 @@ button.setOnClickListener {
 }
 ```
 
-The Button class sets a new listener to a button via an setOnClickListener
-method that takes an argument of type OnClickListener:
+The `Button` class sets a new listener to a button via an `setOnClickListener` method that takes an argument of type `OnClickListener`:
 
 ```kotlin
 /* Java */
@@ -521,7 +529,7 @@ public class Button {
 }
 ```
 
-The OnClickListener interface declares one method, onClick:
+The `OnClickListener` interface declares one method, `onClick`:
 
 ```kotlin
 /* Java */
@@ -530,7 +538,7 @@ public interface OnClickListener {
 }
 ```
 
-Depending on the Java version, implementing the OnClickListener interface can be quite involved: Prior to Java 8, you had to create a new instance of an anonymous class to pass it as an argument to the setOnClickListener method:
+Depending on the Java version, implementing the `OnClickListener` interface can be quite involved: Prior to Java 8, you had to create a new instance of an anonymous class to pass it as an argument to the `setOnClickListener` method:
 
 ```kotlin
 /* Before Java 8 */
@@ -551,14 +559,14 @@ In Kotlin, you simply pass a lambda:
 button.setOnClickListener { view -> ... }
 ```
 
-The lambda used to implement OnClickListener has one parameter of type
-View, as in the onClick method. The mapping is illustrated in 5.7.
+The lambda used to implement `OnClickListener` has one parameter of type `View`, as in the `onClick` method. The mapping is illustrated in 5.7.
 
-Figure 5.7. Parameters of the lambda correspond to method parameters.
+::: info Figure 5.7. Parameters of the lambda correspond to method parameters.
 
 ![img_22.png](img/img_22.png)
+:::
 
-This works because the OnClickListener interface has only one abstract method. Such interfaces are called functional interfaces, or SAM interfaces, where SAM stands for single abstract method. The Java API is full of functional interfaces like Runnable and Callable, as well as methods working with them. Kotlin allows you to use lambdas when calling Java methods that take functional interfaces as parameters, ensuring that your Kotlin code remains clean and idiomatic.
+This works because the `OnClickListener` interface has only one abstract method. Such interfaces are called functional interfaces, or SAM interfaces, where SAM stands for single abstract method. The Java API is full of functional interfaces like `Runnable` and `Callable`, as well as methods working with them. Kotlin allows you to use lambdas when calling Java methods that take functional interfaces as parameters, ensuring that your Kotlin code remains clean and idiomatic.
 
 Let’s look in detail at what happens when you pass a lambda to a method that expects an argument of a functional interface type.
 
@@ -577,9 +585,9 @@ In Kotlin, you can invoke it and pass a lambda as an argument. The compiler will
 postponeComputation(1000) { println(42) }
 ```
 
-Note that when we say "an instance of Runnable," what we mean is "an instance of an anonymous class implementing Runnable." The compiler will create that for you and will use the lambda as the body of the single abstract method—the run method, in this case.
+Note that when we say "an instance of `Runnable`," what we mean is "an instance of an anonymous class implementing `Runnable`." The compiler will create that for you and will use the lambda as the body of the single abstract method—the `run` method, in this case.
 
-You can achieve the same effect by creating an anonymous object that implements Runnable explicitly:
+You can achieve the same effect by creating an anonymous object that implements `Runnable` explicitly:
 
 ```kotlin
 postponeComputation(1000, object : Runnable {
@@ -597,7 +605,7 @@ postponeComputation(1000) { println(42) }
 
 If the lambda captures variables from the surrounding scope, it’s no longer
 
-possible to reuse the same instance for every invocation. In that case, the compiler creates a new object for every call and stores the values of the captured variables in that object. For example, in the following function, every invocation uses a new Runnable instance, storing the id value as a field:
+possible to reuse the same instance for every invocation. In that case, the compiler creates a new object for every call and stores the values of the captured variables in that object. For example, in the following function, every invocation uses a new `Runnable` instance, storing the id value as a field:
 
 ```kotlin
 fun handleComputation(id: String) {
@@ -607,14 +615,15 @@ fun handleComputation(id: String) {
 }
 ```
 
-Note that the discussion of creating an anonymous class and an instance of this class for a lambda is valid for Java methods expecting functional interfaces, but does not apply to working with collections using Kotlin extension methods. If you pass a lambda to a Kotlin function that’s marked inline, no anonymous classes are created. And most of the library functions are marked inline. Details of how this works are discussed in Chapter 10.
+Note that the discussion of creating an anonymous class and an instance of this class for a lambda is valid for Java methods expecting functional interfaces, but does not apply to working with collections using Kotlin extension methods. If you pass a lambda to a Kotlin function that’s marked `inline`, no anonymous classes are created. And most of the library functions are marked `inline`. Details of how this works are discussed in Chapter 10.
+
 As you’ve seen, in most cases the conversion of a lambda to an instance of a functional interface happens automatically, without any effort on your part. But there are cases when you need to perform the conversion explicitly. Let’s see how to do that.
 
 ## 5.2.2 SAM constructors: explicit conversion of lambdas to functional interfaces
 
 A SAM constructor is a compiler-generated function that lets you perform an explicit conversion of a lambda into an instance of an interface with a single abstract method. You can use it in contexts when the compiler doesn’t apply the conversion automatically. For instance, if you have a method that returns an instance of a functional interface, you can’t return a lambda directly; you need to wrap it into a SAM constructor. Here’s a simple example.
 
-Listing 5.12. Using a SAM constructor to return a value
+::: info Listing 5.12. Using a SAM constructor to return a value
 
 ```kotlin
 fun createAllDoneRunnable(): Runnable {
@@ -626,13 +635,13 @@ fun main() {
     // All done!
 }
 ```
+:::
 
 The name of the SAM constructor is the same as the name of the underlying functional interface. The SAM constructor takes a single argument—a lambda that will be used as the body of the single abstract method in the functional interface—and returns an instance of the class implementing the interface.
 
-In addition to returning values, SAM constructors are used when you need to store a functional interface instance generated from a lambda in a variable.
-Suppose you want to reuse one listener for several buttons, as in the following listing (in an Android application, this code can be a part of the `Activity.onCreate` method).
+In addition to returning values, SAM constructors are used when you need to store a functional interface instance generated from a lambda in a variable. Suppose you want to reuse one listener for several buttons, as in the following listing (in an Android application, this code can be a part of the `Activity.onCreate` method).
 
-Listing 5.13. Using a SAM constructor to reuse a listener instance
+::: info Listing 5.13. Using a SAM constructor to reuse a listener instance
 
 ```kotlin
 val listener = OnClickListener { view ->
@@ -646,15 +655,13 @@ val listener = OnClickListener { view ->
 button1.setOnClickListener(listener)
 button2.setOnClickListener(listener)
 ```
+:::
 
-listener checks which button was the source of the click and behaves accordingly. You could define a listener by using an object declaration that implements OnClickListener, but SAM constructors give you a more concise option.
+`listener` checks which button was the source of the click and behaves accordingly. You could define a listener by using an object declaration that implements OnClickListener, but SAM constructors give you a more concise option.
 
 ::: info Lambdas and adding/removing listeners
 
-Note that there’s no `this` in a lambda as there is in an anonymous object: there’s no way to refer to the anonymous class instance into which the lambda is converted. From the compiler’s point of view, the lambda is a
-
-block of code, not an object, and you can’t refer to it as an object. The `this`
-reference in a lambda refers to a surrounding class.
+Note that there’s no `this` in a lambda as there is in an anonymous object: there’s no way to refer to the anonymous class instance into which the lambda is converted. From the compiler’s point of view, the lambda is a block of code, not an object, and you can’t refer to it as an object. The `this` reference in a lambda refers to a surrounding class.
 
 If your event listener needs to unsubscribe itself while handling an event, you can’t use a lambda for that. Use an anonymous object to implement a listener, instead. In an anonymous object, the `this` keyword refers to the instance of that object, and you can pass it to the API that removes the listener.
 
@@ -666,13 +673,13 @@ Also, even though SAM conversion in method calls typically happens automatically
 
 In Kotlin, you can often use function types to express behavior where you would otherwise have to use a functional interface. In Chapter 11, we’ll see a way to give more expressive names to function types in Kotlin through type aliases.
 
-However, there may be a few cases where you want to be more explicit in your code. By declaring a fun interface in Kotlin, you can define your own functional interfaces.
+However, there may be a few cases where you want to be more explicit in your code. By declaring a `fun interface` in Kotlin, you can define your own functional interfaces.
 
 Functional interfaces in Kotlin contain exactly one abstract method, but can also contain several additional non-abstract methods. This can help you express more complex constructs which you couldn’t fit into a function type’s signature.
 
-In this example, you define a functional interface called IntCondition with an abstract method check. You define an additional, non-abstract method called checkString, which invokes check after converting its parameter to an integer. Like with Java SAMs, you use the SAM constructor to instantiate the interface with a lambda that specifies the implementation of check:
+In this example, you define a functional interface called `IntCondition` with an abstract method `check`. You define an additional, non-abstract method called `checkString`, which invokes check after converting its parameter to an integer. Like with Java SAMs, you use the SAM constructor to instantiate the interface with a lambda that specifies the implementation of `check`:
 
-Listing 5.14. A functional interface in Kotlin contains exactly one abstract method, but may contain additional non-abstract methods.
+::: info Listing 5.14. A functional interface in Kotlin contains exactly one abstract method, but may contain additional non-abstract methods.
 
 ```kotlin
 fun interface IntCondition {
@@ -691,12 +698,13 @@ fun main() {
     // true
 }
 ```
+:::
 
 When a function accepts a parameter whose type is defined as a `fun interface`, you may once again also just provide a lambda implementation directly, or pass a reference to a lambda, both of which dynamically instantiate the interface implementation.
 
 In the following example, you’re defining a `checkCondition` function that takes an `IntCondition` as we previoulsy defined it. You then have multiple options of calling that function, for example by passing a lambda directly, or by passing a reference to a function that has the correct type (`(Int) → Boolean`):
 
-Listing 5.15. Whether you pass a lambda directly or pass a reference to a function with the correct signature, the functional interface is dynamically instantiated.
+::: info Listing 5.15. Whether you pass a lambda directly or pass a reference to a function with the correct signature, the functional interface is dynamically instantiated.
 
 ```kotlin
 fun checkCondition(i: Int, condition: IntCondition): Boolean {
@@ -711,10 +719,11 @@ fun main() {
     // true
 }
 ```
+:::
 
 ::: info Cleaner Java call sites with functional interfaces
 
-If you’re writing code that you expect to be used from both Java and Kotlin code, using a `fun interface` can also improve the cleanliness of the Java call sites. Kotlin function types are translated as objects whose generic types are the parameters and return types. For functions that don’t return anything, Kotlin uses Unit as its analog to Java’s void (we will talk about neccessity and usefulness of the Unit type in more depth in 8.1.6).
+If you’re writing code that you expect to be used from both Java and Kotlin code, using a `fun interface` can also improve the cleanliness of the Java call sites. Kotlin function types are translated as objects whose generic types are the parameters and return types. For functions that don’t return anything, Kotlin uses `Unit` as its analog to Java’s `void` (we will talk about necessity and usefulness of the `Unit` type in more depth in 8.1.6).
 
 That also means that when such a Kotlin function type is invoked from Java, the caller needs to explicitly return `Unit.INSTANCE`. Using a `fun interface` takes that requirement away, making the call site more concise. In this example, the functions `consumeHello` and `consumeHelloFunctional` do the same thing, but are defined once using a functional interface, and once using Kotlin functional types:
 
@@ -753,22 +762,21 @@ public class MyApp {
 
 As a general rule of thumb, simple functional types work well if your API can accept any function that takes a specific set of parameters and returns a specific type. When you need to express more complex contracts, or operations that you can’t express in a functional type signature, a functional interface is a good choice.
 
-We’ll further discuss the use of function types in function declarations in
-Chapter 10, and take a closer look at typealiases in Kotlin in Chapter 11.
+We’ll further discuss the use of function types in function declarations in Chapter 10, and take a closer look at typealiases in Kotlin in Chapter 11.
 
 To finish our discussion of lambda syntax and usage, let’s look at lambdas with receivers and how they’re used to define convenient library functions that look like built-in constructs.
 
 ## 5.4 Lambdas with receivers: "with", "apply", and "also"
 
-This section demonstrates the with and apply functions from the Kotlin standard library. These functions are convenient, and you’ll find many uses for them even without understanding how they’re declared. Later, in Chapter 13, you’ll see how you can declare similar functions for your own needs. The explanations in this section, however, help you become familiar with a unique feature of Kotlin’s lambdas that isn’t available with Java: the ability to call methods of a different object in the body of a lambda without any additional qualifiers. Such lambdas are called lambdas with receivers. Let’s begin by looking at the with function, which uses a lambda with a receiver.
+This section demonstrates the `with` and `apply` functions from the Kotlin standard library. These functions are convenient, and you’ll find many uses for them even without understanding how they’re declared. Later, in Chapter 13, you’ll see how you can declare similar functions for your own needs. The explanations in this section, however, help you become familiar with a unique feature of Kotlin’s lambdas that isn’t available with Java: the ability to call methods of a different object in the body of a lambda without any additional qualifiers. Such lambdas are called lambdas with receivers. Let’s begin by looking at the `with` function, which uses a lambda with a receiver.
 
 ### 5.4.1 Performing multiple operations on the same object: "with"
 
-Many languages have special statements you can use to perform multiple operations on the same object without repeating its name. Kotlin also has this facility, but it’s provided as a library function called with, not as a special language construct.
+Many languages have special statements you can use to perform multiple operations on the same object without repeating its name. Kotlin also has this facility, but it’s provided as a library function called `with`, not as a special language construct.
 
 To see how it can be useful, consider the following example, which you’ll then refactor using `with`.
 
-Listing 5.16. Building the alphabet
+::: info Listing 5.16. Building the alphabet
 
 ```kotlin
 fun alphabet(): String {
@@ -786,12 +794,13 @@ fun main() {
     // Now I know the alphabet!
 }
 ```
+:::
 
-In this example, you call several different methods on the result instance and repeating the result name in each call. This isn’t too bad, but what if the expression you were using was longer or repeated more often?
+In this example, you call several different methods on the `result` instance and repeating the `result` name in each call. This isn’t too bad, but what if the expression you were using was longer or repeated more often?
 
-Here’s how you can rewrite the code using with.
+Here’s how you can rewrite the code using `with`.
 
-Listing 5.17. Using with to build the alphabet
+::: info Listing 5.17. Using `with` to build the alphabet
 
 ```kotlin
 fun alphabet(): String {
@@ -805,18 +814,20 @@ fun alphabet(): String {
     }
 }
 ```
+:::
 
 The `with` structure looks like a special construct, but it’s a function that takes two arguments: `stringBuilder`, in this case, and a lambda. The convention of putting the lambda outside of the parentheses works here, and the entire invocation looks like a built-in feature of the language. Alternatively, you could write this as `with(stringBuilder, { … })`, but it’s less readable.
 
-The with function converts its first argument into a receiver of the lambda that’s passed as a second argument. You can access this receiver via an explicit this reference. Alternatively, as usual for a this reference, you can omit it and access methods or properties of this value without any additional qualifiers.
+The `with` function converts its first argument into a receiver of the lambda that’s passed as a second argument. You can access this receiver via an explicit `this` reference. Alternatively, as usual for a `this` reference, you can omit it and access methods or properties of this value without any additional qualifiers.
 
-Figure 5.8. Inside the lambda of the with function, the first argument is available as the receiver type this. IDEs like IntelliJ IDEA and Android Studio have the option to visualize this receiver type via an inlay hint after the opening parenthesis.
+::: info Figure 5.8. Inside the lambda of the `with` function, the first argument is available as the receiver type this. IDEs like IntelliJ IDEA and Android Studio have the option to visualize this receiver type via an inlay hint after the opening parenthesis.
 
 ![img_21.png](img/img_21.png)
+:::
 
-In 5.17, this refers to stringBuilder, which is passed to with as the first argument. You can access methods on stringBuilder via explicit this references, as in `this.append(letter)`; or directly, making your code even more concise:
+In 5.17, `this` refers to `stringBuilder`, which is passed to `with` as the first argument. You can access methods on `stringBuilder` via explicit `this` references, as in `this.append(letter)`; or directly, making your code even more concise:
 
-Listing 5.18. You don’t need to specify this explicitly inside the with lambda.
+::: info Listing 5.18. You don’t need to specify `this` explicitly inside the `with` lambda.
 
 ```kotlin
 fun alphabet(): String {
@@ -830,6 +841,7 @@ fun alphabet(): String {
     }
 }
 ```
+:::
 
 ::: info Lambdas with receiver and extension functions
 
@@ -845,9 +857,9 @@ A lambda is a way to define behavior similar to a regular function. A lambda wit
 
 :::
 
-Let’s refactor the initial alphabet function even further and get rid of the extra stringBuilder variable.
+Let’s refactor the initial `alphabet` function even further and get rid of the extra `stringBuilder` variable.
 
-Listing 5.19. Using with and an expression body to build the alphabet
+::: info Listing 5.19. Using with and an expression body to build the alphabet
 
 ```kotlin
 fun alphabet() = with(StringBuilder()) {
@@ -858,14 +870,15 @@ fun alphabet() = with(StringBuilder()) {
     toString()
 }
 ```
+:::
 
 This function now only returns an expression, so it’s rewritten using the expression-body syntax. You create a new instance of `StringBuilder` and pass it directly as an argument, and then you reference it without the explicit `this` in the lambda.
 
 ::: info Method-name conflicts
 
-What happens if the object you pass as a parameter to with has a method with the same name as the class in which you’re using with? In this case, you can add an explicit label to the this reference to specify which method you need to call.
+What happens if the object you pass as a parameter to `with` has a method with the same name as the class in which you’re using `with`? In this case, you can add an explicit label to the `this` reference to specify which method you need to call.
 
-Imagine that the alphabet function is a method of the class OuterClass. If you need to refer to the toString method defined in the outer class instead of the one in StringBuilder, you can do so using the following syntax:
+Imagine that the `alphabet` function is a method of the class `OuterClass`. If you need to refer to the `toString` method defined in the outer class instead of the one in `StringBuilder`, you can do so using the following syntax:
 
 ```kotlin
 this@OuterClass.toString()
@@ -873,13 +886,13 @@ this@OuterClass.toString()
 
 :::
 
-The value that with returns is the result of executing the lambda code. The result is the last expression in the lambda. But sometimes you want the call to return the receiver object, not the result of executing the lambda. That’s where the apply library function can be of use.
+The value that `with` returns is the result of executing the lambda code. The result is the last expression in the lambda. But sometimes you want the call to return the receiver object, not the result of executing the lambda. That’s where the `apply` library function can be of use.
 
 ### 5.4.2 Initializing and configuring objects: "apply"
 
-The apply function works almost exactly the same as with ; the only difference is that apply always returns the object passed to it as an argument (in other words, the receiver object). Let’s refactor the alphabet function again, this time using apply.
+The `apply` function works almost exactly the same as `with` ; the only difference is that `apply` always returns the object passed to it as an argument (in other words, the receiver object). Let’s refactor the `alphabet` function again, this time using `apply`.
 
-Listing 5.20. Using apply to build the alphabet
+::: info Listing 5.20. Using `apply` to build the alphabet
 
 ```kotlin
 fun alphabet() = StringBuilder().apply {
@@ -889,18 +902,20 @@ fun alphabet() = StringBuilder().apply {
     append("\nNow I know the alphabet!")
 }.toString()
 ```
+:::
 
-You can call the apply function as an extension function on any type – in this case, you’re calling it on your newly created StringBuilder instance. Its receiver becomes the receiver of the lambda passed as an argument. The result of executing apply is StringBuilder, so you call toString to convert it to String afterward.
+You can call the `apply` function as an extension function on any type – in this case, you’re calling it on your newly created `StringBuilder` instance. Its receiver becomes the receiver of the lambda passed as an argument. The result of executing `apply` is `StringBuilder`, so you call `toString` to convert it to `String` afterward.
 
-Figure 5.9. Like the with function, apply makes the object it was called on the receiver type inside the lambda. apply also returns the object it was called on. Inlay hints in IntelliJ IDEA and Android Studio help visualize this.
+::: info Figure 5.9. Like the `with` function, `apply` makes the object it was called on the receiver type inside the lambda. `apply` also returns the object it was called on. Inlay hints in IntelliJ IDEA and Android Studio help visualize this.
 
 ![img_20.png](img/img_20.png)
+:::
 
-One of many cases where this is useful is when you’re creating an instance of an object and need to initialize some properties right away. In Java, this is usually accomplished through a separate Builder object; and in Kotlin, you can use apply on any object without any special support from the library where the object is defined.
+One of many cases where this is useful is when you’re creating an instance of an object and need to initialize some properties right away. In Java, this is usually accomplished through a separate `Builder` object; and in Kotlin, you can use `apply` on any object without any special support from the library where the object is defined.
 
-To see how apply is used for such cases, let’s look at an example that creates an Android TextView component with some custom attributes.
+To see how `apply` is used for such cases, let’s look at an example that creates an Android `TextView` component with some custom attributes.
 
-Listing 5.21. Using apply to initialize a TextView
+::: info Listing 5.21. Using `apply` to initialize a `TextView`
 
 ```kotlin
 fun createViewWithCustomAttributes(context: Context) =
@@ -910,12 +925,13 @@ fun createViewWithCustomAttributes(context: Context) =
         setPadding(10, 0, 0, 0)
     }
 ```
+:::
 
-The apply function allows you to use the compact expression body style for the function. You create a new TextView instance and immediately pass it to apply. In the lambda passed to apply, the TextView instance becomes the receiver, so you can call methods and set properties on it. After the lambda is executed, apply returns that instance, which is already initialized; it becomes the result of the createViewWithCustomAttributes function.
+The `apply` function allows you to use the compact expression body style for the function. You create a new `TextView` instance and immediately pass it to `apply`. In the lambda passed to `apply`, the `TextView` instance becomes the receiver, so you can call methods and set properties on it. After the lambda is executed, `apply` returns that instance, which is already initialized; it becomes the result of the `createViewWithCustomAttributes` function.
 
-The with and apply functions are basic generic examples of using lambdas with receivers. More specific functions can also use the same pattern. For example, you can simplify the alphabet function even further by using the buildString standard library function, which will take care of creating a StringBuilder and calling toString. The argument of buildString is a lambda with a receiver, and the receiver is always a StringBuilder.
+The `with` and `apply` functions are basic generic examples of using lambdas with receivers. More specific functions can also use the same pattern. For example, you can simplify the `alphabet` function even further by using the `buildString` standard library function, which will take care of creating a `StringBuilder` and calling `toString`. The argument of `buildString` is a lambda with a receiver, and the receiver is always a `StringBuilder`.
 
-Listing 5.22. Using buildString to build the alphabet
+::: info Listing 5.22. Using `buildString` to build the alphabet
 
 ```kotlin
 fun alphabet() = buildString {
@@ -925,10 +941,11 @@ fun alphabet() = buildString {
     append("\nNow I know the alphabet!")
 }
 ```
+:::
 
-The buildString function is an elegant solution for the task of creating a String with the help of StringBuilder. The Kotlin standard library also comes with collection builder functions, which help you create a read-only , List, Set or Map while allowing you to treat the collection as mutable during the construction phase:
+The `buildString` function is an elegant solution for the task of creating a `String` with the help of `StringBuilder`. The Kotlin standard library also comes with collection builder functions, which help you create a read-only , `List`, `Set` or `Map` while allowing you to treat the collection as mutable during the construction phase:
 
-Listing 5.23. Using buildList and buildMap to create collections
+::: info Listing 5.23. Using `buildList` and `buildMap` to create collections
 
 ```kotlin
 val fibonacci = buildList {
@@ -951,18 +968,20 @@ val medals = buildMap<String, Int> {
     putAll(listOf("Silver" to 2, "Bronze" to 3))
 }
 ```
+:::
 
 ### 5.4.3 Performing additional actions with an object: "also"
 
 Just like `apply`, you can use the `also` function to take a receiver object, perform an action on it, and then return the receiver object. The main difference is that within the lambda of `also`, you access the receiver object as an argument – either by giving it a name, or by using the default name `it`. This makes `also` a good fit for running actions that take the original receiver object as an argument (as opposed to operations that work on the object’s properties and functions). When you see `also` in the code, you can interpret it as executing additional effects: "…and also do the following with the object."
 
-Figure 5.10. When using `also`, the object doesn’t become the receiver type inside the lambda, but makes the object available as an argument, by default named `it`. The `also` function returns the object it was called on, as you can see in these inlay hints.
+::: info Figure 5.10. When using `also`, the object doesn't become the receiver type inside the lambda, but makes the object available as an argument, by default named `it`. The `also` function returns the object it was called on, as you can see in these inlay hints.
 
 ![img_19.png](img/img_19.png)
+:::
 
 In the following example, you’re mapping a collection of fruits to their uppercased names, and also add the result of that mapping to an additional collection. You then filter for those fruits from the collection whose name is longer than five characters, and also print that result, before finally reversing the list:
 
-Listing 5.24. Using also to perform additional effects
+::: info Listing 5.24. Using also to perform additional effects
 
 ```kotlin
 fun main() {
@@ -981,6 +1000,7 @@ fun main() {
     // [CHERRY, BANANA]
 }
 ```
+:::
 
 You’ll see more interesting examples for lambdas with receivers in Chapter 13, when we begin discussing domain-specific languages. Lambdas with receivers are great tools for building DSLs; we’ll show you how to use them for that purpose and how to define your own functions that call lambdas with receivers.
 
@@ -988,9 +1008,9 @@ You’ll see more interesting examples for lambdas with receivers in Chapter 13,
 
 1. Lambdas allow you to pass chunks of code as arguments to functions, so you can easily extract common code structures.
 2. Kotlin lets you pass lambdas to functions outside of parentheses to make your code clean and concise.
-3. If a lambda only takes a single parameter, you can refer to it with its implicit name it. This saves you the effort of explicitly naming the only lambda parameter in short and simple lambdas.
+3. If a lambda only takes a single parameter, you can refer to it with its implicit name `it`. This saves you the effort of explicitly naming the only lambda parameter in short and simple lambdas.
 4. Lambdas can capture external variables. That means you can, for example, use your lambdas to access and modify variables in the function containing the call to the lambda.
-5. You can create references to methods, constructors, and properties by prefixing the name of the function with ::. You can pass such references to functions instead of lambdas as a shorthand.
+5. You can create references to methods, constructors, and properties by prefixing the name of the function with `::`. You can pass such references to functions instead of lambdas as a shorthand.
 6. To implement interfaces with a single abstract method (also known as SAM interfaces), you can simply pass lambdas instead of having to create an object implementing the interface explicitly.
 7. Lambdas with receivers are lambdas that allow you to directly call methods on a special receiver object. Because the body of these lambdas is executed in a different context than the surrounding code, they can help with structuring your code.
-8. The with standard library function allows you to call multiple methods on the same object without repeating the reference to the object. apply lets you construct and initialize any object using a builder-style API. also lets you perform additional actions with an object.
+8. The `with` standard library function allows you to call multiple methods on the same object without repeating the reference to the object. `apply` lets you construct and initialize any object using a builder-style API. `also` lets you perform additional actions with an object.

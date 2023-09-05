@@ -8,7 +8,27 @@ export const myThink = [
 ]
 
 export const workJava = [
-    { text: 'Java', link: '0release' },
+    { text: 'Java', link: '0Java' },
+    { text: 'MySQL', link: '0mysql' },
+    { text: 'release', link: '0release' },
+    {
+        text: 'spring',
+        items: [
+            { text: 'springBoot3', link: 'spring/springBoot3' },
+        ]
+    },
+    {
+        text: 'gradle',
+        items: [
+            { text: 'gradle-plugin', link: 'gradle/gradle-plugin' },
+        ]
+    },
+    {
+        text: 'toolJar',
+        items: [
+            { text: 'es', link: 'toolJar/es' },
+        ]
+    },
 ]
 
 export const workVue = [

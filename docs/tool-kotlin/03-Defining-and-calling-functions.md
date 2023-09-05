@@ -1,4 +1,4 @@
-# 3 Defining and calling functions
+# 3 <u>函数: 定义、调用</u><ShowS>`Defining and calling functions`</ShowS>
 
 ::: tip This chapter covers
 
@@ -29,7 +29,7 @@ To make our discussion more useful and less abstract, we’ll focus on Kotlin co
 
 ## 3.1 Creating collections in Kotlin
 
-Before you can do interesting things with collections, you need to learn how to create them. In 2.3.4, you bumped into the way to create a new set: the setOf function. You created a set of colors then, but for now, let’s keep it simple and work with numbers:
+Before you can do interesting things with collections, you need to learn how to create them. In 2.3.4, you bumped into the way to create a new set: the `setOf` function. You created a set of colors then, but for now, let’s keep it simple and work with numbers:
 
 ```kotlin
 val set = setOf(1, 7, 53)
@@ -42,7 +42,7 @@ val list = listOf(1, 7, 53)
 val map = mapOf(1 to "one", 7 to "seven", 53 to "fifty-three")
 ```
 
-Note that to isn’t a special construct, but a normal function. We’ll return to it later in the chapter, in 8.2.
+Note that `to` isn’t a special construct, but a normal function. We’ll return to it later in the chapter, in 8.2.
 
 Can you guess the classes of objects that are created here? Run the following example to see this for yourself:
 
@@ -59,7 +59,7 @@ fun main() {
 }
 ```
 
-As you can see, Kotlin uses the standard Java collection classes. This is good news for Java developers: Kotlin doesn’t re-implement collection classes. All of your existing knowledge about Java collections still applies here. It is worth noting however that unlike in Java, Kotlin’s collection interfaces are read-only by default. We will further details on this topic, as well as the mutable counterparts for these interfaces, in 8.2.
+As you can see, Kotlin uses the standard Java collection classes. This is good news for Java developers: Kotlin doesn't re-implement collection classes. All of your existing knowledge about Java collections still applies here. It is worth noting however that unlike in Java, Kotlin’s collection interfaces are read-only by default. We will further details on this topic, as well as the mutable counterparts for these interfaces, in 8.2.
 
 Using the standard Java collections makes it much easier to interact with Java code. You don’t need to convert collections one way or the other when you call Java functions from Kotlin or vice versa.
 
@@ -81,12 +81,13 @@ In this chapter, we’ll explore in detail how this works and where all the new 
 
 In future chapters, when we start talking about lambdas, you’ll see much more that you can do with collections, but we’ll keep using the same standard Java collection classes. And in 8.2, you’ll learn how the Java collection classes are represented in the Kotlin type system.
 
-Before discussing how the magic functions last and sum work on Java collections, let’s learn some new concepts for declaring a function.
+Before discussing how the magic functions `last` and `sum` work on Java collections, let’s learn some new concepts for declaring a function.
 
-3.2Making functions easier to call
+## 3.2 Making functions easier to call
+
 Now that you know how to create a collection of elements, let’s do something straightforward: print its contents. Don’t worry if this seems overly simple; along the way, you’ll meet a bunch of important concepts.
 
-Java collections have a default toString implementation, but the formatting of the output is fixed and not always what you need:
+Java collections have a default `toString` implementation, but the formatting of the output is fixed and not always what you need:
 
 ```kotlin
 fun main() {
@@ -96,15 +97,13 @@ fun main() {
 }
 ```
 
-Imagine that you need the elements to be separated by semicolons and surrounded by parentheses, instead of the brackets used by the default implementation: (1; 2; 3). To solve this, Java projects use third-party libraries such as Guava and Apache Commons, or reimplement the logic inside the project. In Kotlin, a function to handle this is part of the standard library.
+Imagine that you need the elements to be separated by semicolons and surrounded by parentheses, instead of the brackets used by the default implementation: `(1; 2; 3)`. To solve this, Java projects use third-party libraries such as Guava and Apache Commons, or reimplement the logic inside the project. In Kotlin, a function to handle this is part of the standard library.
 
-In this section, you’ll implement this function yourself. You’ll begin with a
+In this section, you’ll implement this function yourself. You’ll begin with a straightforward implementation that doesn’t use Kotlin’s facilities for simplifying function declarations, and then you’ll rewrite it in a more idiomatic style.
 
-straightforward implementation that doesn’t use Kotlin’s facilities for simplifying function declarations, and then you’ll rewrite it in a more idiomatic style.
+The `joinToString` function shown next appends the elements of the collection to a `StringBuilder`, with a separator between them, a prefix at the beginning, and a postfix at the end. The function is generic: it works on collections that contain elements of any type. The syntax for generics is similar to Java. (A more detailed discussion of generics will be the subject of **Chapter 11**.)
 
-The joinToString function shown next appends the elements of the collection to a StringBuilder, with a separator between them, a prefix at the beginning, and a postfix at the end. The function is generic: it works on collections that contain elements of any type. The syntax for generics is similar to Java. (A more detailed discussion of generics will be the subject of Chapter 11.)
-
-Listing 3.1. Initial implementation of joinToString()
+::: info Listing 3.1. Initial implementation of `joinToString()`
 
 ```kotlin
 fun <T> joinToString(
@@ -125,6 +124,7 @@ fun <T> joinToString(
     return result.toString()
 }
 ```
+:::
 
 Let’s verify that the function works as intended:
 
@@ -142,7 +142,7 @@ time you call the function. Let’s see what you can do.
 
 ### 3.2.1 Named arguments
 
-The first problem we’ll address concerns the readability of function calls. For example, look at the following call of joinToString:
+The first problem we’ll address concerns the readability of function calls. For example, look at the following call of `joinToString`:
 
 ```kotlin
 joinToString(collection, " ", " ", ".")
@@ -189,7 +189,7 @@ Another common Java problem is the overabundance of overloaded methods in some c
 
 In Kotlin, you can often avoid creating overloads because you can specify default values for parameters in a function declaration. Let’s use that to improve the `joinToString` function. For most cases, the strings can be separated by commas without any prefix or postfix. So, let’s make these values the defaults.
 
-Listing 3.2. Declaring joinToString() with default parameter values
+::: info Listing 3.2. Declaring `joinToString()` with default parameter values
 
 ```kotlin
 fun <T> joinToString(
@@ -199,6 +199,7 @@ fun <T> joinToString(
         postfix: String = ""
 ): String
 ```
+:::
 
 Now you can either invoke the function with all the arguments or omit some of them:
 
@@ -226,11 +227,11 @@ Note that the default values of the parameters are encoded in the function being
 
 ::: info Default values and Java
 
-Given that Java doesn’t have the concept of default parameter values, you have to specify all the parameter values explicitly when you call a Kotlin function with default parameter values from Java. If you frequently need to call a function from Java and want to make it easier to use for Java callers, you can annotate it with @JvmOverloads. This instructs the compiler to generate Java overloaded methods, omitting each of the parameters one by one, starting from the last one.
+Given that Java doesn't have the concept of default parameter values, you have to specify all the parameter values explicitly when you call a Kotlin function with default parameter values from Java. If you frequently need to call a function from Java and want to make it easier to use for Java callers, you can annotate it with `@JvmOverloads`. This instructs the compiler to generate Java overloaded methods, omitting each of the parameters one by one, starting from the last one.
 
 For example, you may annotate your `joinToString` function with `@JvmOverloads`:
 
-Listing 3.3. Declaring joinToString() with default parameter values
+Listing 3.3. Declaring `joinToString()` with default parameter values
 
 ```kotlin
 @JvmOverloads
@@ -260,27 +261,26 @@ Each overload uses the default values for the parameters that have been omitted 
 
 :::
 
-So far, you’ve been working on your utility function without paying much attention to the surrounding context. Surely it must have been a method of some class that wasn’t shown in the example listings, right? In fact, Kotlin makes this unnecessary.
+So far, you’ve been working on your utility function without paying much attention to the surrounding context. Surely it must have been a method of some class that wasn't shown in the example listings, right? In fact, Kotlin makes this unnecessary.
 
 ### 3.2.3 Getting rid of static utility classes: top-level functions and properties
 
-We all know that Java, as an object-oriented language, requires all code to be written as methods of classes. Usually, this works out nicely; but in reality, almost every large project ends up with a lot of code that doesn’t clearly belong to any single class. Sometimes an operation works with objects of two different classes that play an equally important role for it. Sometimes there is one primary object, but you don’t want to bloat its API by adding the operation as an instance method.
+We all know that Java, as an object-oriented language, requires all code to be written as methods of classes. Usually, this works out nicely; but in reality, almost every large project ends up with a lot of code that doesn't clearly belong to any single class. Sometimes an operation works with objects of two different classes that play an equally important role for it. Sometimes there is one primary object, but you don’t want to bloat its API by adding the operation as an instance method.
 
-As a result, you end up with classes that don’t contain any state or any instance methods. Such classes only act as containers for a bunch of static
-
-methods. A perfect example is the Collections class in the JDK. To find other examples in your own code, look for classes that have Util as part of the name.
+As a result, you end up with classes that don’t contain any state or any instance methods. Such classes only act as containers for a bunch of static methods. A perfect example is the `Collections` class in the JDK. To find other examples in your own code, look for classes that have `Util` as part of the name.
 
 In Kotlin, you don’t need to create all those meaningless classes. Instead, you can place functions directly at the top level of a source file, outside of any class. Such functions are still members of the package declared at the top of the file, and you still need to import them if you want to call them from other packages, but the unnecessary extra level of nesting no longer exists.
 
-Let’s put the joinToString function into the strings package directly. Create a file called join.kt with the following contents.
+Let’s put the `joinToString` function into the `strings` package directly. Create a file called `join.kt` with the following contents.
 
-Listing 3.4. Declaring `joinToString()` as a top-level function
+::: info Listing 3.4. Declaring `joinToString()` as a top-level function
 
 ```kotlin
 package strings
 
 fun joinToString(...): String { ... }
 ```
+:::
 
 How does this run? When you compile the file, some classes will be produced, because the JVM can only execute code in classes. When you work only with Kotlin, that’s all you need to know. But if you need to call such a function from Java, you have to understand how it will be compiled. To make this clear, let’s look at the Java code that would compile to the same class:
 
@@ -293,7 +293,7 @@ public class JoinKt {
 }
 ```
 
-You can see that the name of the class generated by the Kotlin compiler corresponds to the name of the file containing the function—capitalized to match Java’s naming scheme, and suffixed with Kt. All top-level functions in the file are compiled to static methods of that class. Therefore, calling this function from Java is as easy as calling any other static method:
+You can see that the name of the class generated by the Kotlin compiler corresponds to the name of the file containing the function—capitalized to match Java’s naming scheme, and suffixed with `Kt`. All top-level functions in the file are compiled to static methods of that class. Therefore, calling this function from Java is as easy as calling any other static method:
 
 ```kotlin
 /* Java */
@@ -306,7 +306,7 @@ JoinKt.joinToString(list, ", ", "", "");
 
 ::: info Changing the file class name
 
-By default, the class name generated by the compiler corresponds to the file name, together with a "Kt" suffix. To change the name of the generated class that contains Kotlin top-level functions, you add a @JvmName annotation to the file. Place it at the beginning of the file, before the package name:
+By default, the class name generated by the compiler corresponds to the file name, together with a "Kt" suffix. To change the name of the generated class that contains Kotlin top-level functions, you add a `@JvmName` annotation to the file. Place it at the beginning of the file, before the package name:
 
 ```kotlin
 @file:JvmName("StringFunctions")
@@ -324,7 +324,7 @@ import strings.StringFunctions;
 StringFunctions.joinToString(list, ", ", "", "");
 ```
 
-A detailed discussion of the annotation syntax comes later, in Chapter 12. 
+A detailed discussion of the annotation syntax comes later, in **Chapter 12**. 
 
 :::
 
@@ -332,7 +332,7 @@ A detailed discussion of the annotation syntax comes later, in Chapter 12.
 
 Just like functions, properties can be placed at the top level of a file. Storing individual pieces of data outside of a class isn’t needed as often but is still useful.
 
-For example, you can use a var property to count the number of times some operation has been performed:
+For example, you can use a `var` property to count the number of times some operation has been performed:
 
 ```kotlin
 var opCount = 0
@@ -355,7 +355,7 @@ Top-level properties also allow you to define constants in your code:
 val UNIX_LINE_SEPARATOR = "\n"
 ```
 
-By default, top-level properties, just like any other properties, are exposed to Java code as accessor methods (a getter for a val property and a getter/setter pair for a var property). If you want to expose a constant to Java code as a public static final field, to make its use more natural, you can mark it with the const modifier (this is allowed for properties of primitive types, as well as String):
+By default, top-level properties, just like any other properties, are exposed to Java code as accessor methods (a getter for a `val` property and a getter/setter pair for a `var` property). If you want to expose a constant to Java code as a `public static final` field, to make its use more natural, you can mark it with the `const` modifier (this is allowed for properties of primitive types, as well as `String`):
 
 ```kotlin
 const val UNIX_LINE_SEPARATOR = "\n"
@@ -385,7 +385,7 @@ fun main() {
 
 ## 3.3 Adding methods to other people’s classes: extension functions and properties
 
-One of the main themes of Kotlin is smooth integration with existing code. Even pure Kotlin projects are built on top of Java libraries such as the JDK, the Android framework, and other third-party frameworks. And when you integrate Kotlin into a Java project, you’re also dealing with the existing code that hasn’t been or won’t be converted to Kotlin. Wouldn’t it be nice to be able to use all the niceties of Kotlin when working with those APIs, without having to rewrite them? That’s what extension functions allow you to do.
+One of the main themes of Kotlin is smooth integration with existing code. Even pure Kotlin projects are built on top of Java libraries such as the JDK, the Android framework, and other third-party frameworks. And when you integrate Kotlin into a Java project, you’re also dealing with the existing code that hasn't been or won’t be converted to Kotlin. Wouldn't it be nice to be able to use all the niceties of Kotlin when working with those APIs, without having to rewrite them? That’s what extension functions allow you to do.
 
 Conceptually, an extension function is a simple thing: it’s a function that can be called as a member of a class but is defined outside of it. To demonstrate that, let’s add a method for computing the last character of a string:
 
@@ -397,10 +397,10 @@ fun String.lastChar(): Char = this.get(this.length - 1)
 
 All you need to do is put the name of the class or interface that you’re extending before the name of the function you’re adding. This class name is called the receiver type; the value on which you’re calling the extension function is called the receiver object. This is illustrated in 3.1.
 
-Figure 3.1. In an extension function declaration, the receiver type is the type on which the extension is defined. You use it to specify the type your function extends. The receiver object is the instance of that type. You use it to access properties and methods of the type you’re extending.
+::: info Figure 3.1. In an extension function declaration, the receiver type is the type on which the extension is defined. You use it to specify the type your function extends. The receiver object is the instance of that type. You use it to access properties and methods of the type you’re extending.
 
 ![img_9.png](img/0img_9.png)
-
+:::
 
 You can call the function using the same syntax you use for ordinary class members:
 
@@ -413,9 +413,9 @@ fun main() {
 
 In this example, `String` is the receiver type, and "Kotlin" is the receiver object.
 
-In a sense, you’ve added your own method to the `String` class. Even though `String` isn’t part of your code, and you may not even have the source code to that class, you can still extend it with the methods you need in your project. It doesn’t even matter whether String is written in Java, Kotlin, or some other JVM language, such as Groovy, or even whether it is marked as final, preventing subclassing. As long as it’s compiled to a Java class, you can add your own extensions to that class.
+In a sense, you’ve added your own method to the `String` class. Even though `String` isn’t part of your code, and you may not even have the source code to that class, you can still extend it with the methods you need in your project. It doesn't even matter whether `String` is written in Java, Kotlin, or some other JVM language, such as Groovy, or even whether it is marked as `final`, preventing subclassing. As long as it’s compiled to a Java class, you can add your own extensions to that class.
 
-In the body of an extension function, you use this the same way you would use it in a method. And, as in a regular method, you can omit it:
+In the body of an extension function, you use `this` the same way you would use it in a method. And, as in a regular method, you can omit it:
 
 ```kotlin
 package strings
@@ -425,18 +425,18 @@ fun String.lastChar(): Char = get(length - 1)
 
 In the extension function, you can directly access the methods and properties of the class you’re extending, as in methods defined in the class itself. Note that extension functions don’t allow you to break encapsulation. Unlike methods defined in the class, extension functions don’t have access to private or protected members of the class.
 
-Later we’ll use the term method for both members of the class and extensions functions. For instance, we can say that in the body of the extension function you can call any method on the receiver, meaning you can call both members and extension functions. On the call site, extension functions are indistinguishable from members, and often it doesn’t matter whether the particular method is a member or an extension.
+Later we’ll use the term method for both members of the class and extensions functions. For instance, we can say that in the body of the extension function you can call any method on the receiver, meaning you can call both members and extension functions. On the call site, extension functions are indistinguishable from members, and often it doesn't matter whether the particular method is a member or an extension.
 
 ### 3.3.1 Imports and extension functions
 
-When you define an extension function, it doesn’t automatically become available across your entire project. Instead, it needs to be imported, just like any other class or function. This helps avoid accidental name conflicts. Kotlin allows you to import individual functions using the same syntax you use for classes:
+When you define an extension function, it doesn't automatically become available across your entire project. Instead, it needs to be imported, just like any other class or function. This helps avoid accidental name conflicts. Kotlin allows you to import individual functions using the same syntax you use for classes:
 
 ```kotlin
 import strings.lastChar
 
 val c = "Kotlin".lastChar()
 ```
-Of course, * imports work as well:
+Of course, `*` imports work as well:
 
 ```kotlin
 import strings.*
@@ -453,9 +453,9 @@ val c = "Kotlin".last()
 ```
 Changing a name on import is useful when you have several functions with the same name in different packages and you want to use them in the same file. For regular classes or functions, you have another choice in this situation: You can use a fully qualified name to refer to the class or function (and whether you can import a class or function at all also depends on its visibility modifier, as you’ll see in 4.1.3.) For extension functions, the syntax requires you to use the short name, so the `as` keyword in an import statement is the only way to resolve the conflict.
 
-3.3.2 Calling extension functions from Java
+### 3.3.2 Calling extension functions from Java
 
-Under the hood, an extension function is a static method that accepts the receiver object as its first argument. Calling it doesn’t involve creating adapter objects or any other runtime overhead.
+Under the hood, an extension function is a static method that accepts the receiver object as its first argument. Calling it doesn't involve creating adapter objects or any other runtime overhead.
 
 That makes using extension functions from Java pretty easy: you call the static method and pass the receiver object instance. Just as with other top-level functions, the name of the Java class containing the method is determined from the name of the file where the function is declared. Let’s say it was declared in a StringUtil.kt file:
 
@@ -464,13 +464,13 @@ That makes using extension functions from Java pretty easy: you call the static 
 char c = StringUtilKt.lastChar("Java");
 ```
 
-This extension function is declared as a top-level function, so it’s compiled to a static method. You can import the lastChar method statically from Java, simplifying the use to just lastChar("Java"). This code is somewhat less readable than the Kotlin version, but it’s idiomatic from the Java point of view.
+This extension function is declared as a top-level function, so it’s compiled to a static method. You can import the `lastChar` method statically from Java, simplifying the use to just `lastChar("Java")`. This code is somewhat less readable than the Kotlin version, but it’s idiomatic from the Java point of view.
 
 ### 3.3.3 Utility functions as extensions
 
-Now you can write the final version of the joinToString function. This is almost exactly what you’ll find in the Kotlin standard library.
+Now you can write the final version of the `joinToString` function. This is almost exactly what you’ll find in the Kotlin standard library.
 
-Listing 3.5. Declaring joinToString() as an extension
+::: info Listing 3.5. Declaring `joinToString()` as an extension
 
 ```kotlin
 fun <T> Collection<T>.joinToString(
@@ -501,8 +501,9 @@ fun main() {
     // (1; 2; 3)
 }
 ```
+:::
 
-You make it an extension to a collection of elements, and you provide default values for all the arguments. Now you can invoke joinToString like a member of a class:
+You make it an extension to a collection of elements, and you provide default values for all the arguments. Now you can invoke `joinToString` like a member of a class:
 
 ```kotlin
 fun main() {
@@ -512,7 +513,7 @@ fun main() {
 }
 ```
 
-Because extension functions are effectively syntactic sugar over static method calls, you can use a more specific type as a receiver type, not only a class. Let’s say you want to have a join function that can be invoked only on collections of strings.
+Because extension functions are effectively syntactic sugar over static method calls, you can use a more specific type as a receiver type, not only a class. Let’s say you want to have a `join` function that can be invoked only on collections of strings.
 
 ```kotlin
 fun Collection<String>.join(
@@ -545,7 +546,7 @@ The static nature of extensions also means that extension functions can’t be o
 
 Method overriding in Kotlin works as usual for member functions, but you can’t override an extension function. Let’s say you have two classes, `View` and `Button`. `Button` is a subclass of `View`, and overrides the `click` function from the superclass. To implement this, you mark `View` and `click` with the `open` modifier to allow overriding, and use the `override` modifier to provide an an implementation in the subclass (we’ll take a closer look at this syntax in 4.1.1, and learn more about the syntax for instantiating subclasses in 4.2.1).
 
-Listing 3.6. Overriding a member function
+::: info Listing 3.6. Overriding a member function
 
 ```kotlin
 open class View {
@@ -556,8 +557,9 @@ class Button: View() {
     override fun click() = println("Button clicked")
 }
 ```
+:::
 
-If you declare a variable of type View, you can store a value of type Button in that variable, because Button is a subtype of View. If you call a regular method, such as click, on this variable, and that method is overridden in the Button class, the overridden implementation from the Button class will be used:
+If you declare a variable of type `View`, you can store a value of type `Button` in that variable, because `Button` is a subtype of `View`. If you call a regular method, such as `click`, on this variable, and that method is overridden in the `Button` class, the overridden implementation from the `Button` class will be used:
 
 ```kotlin
 fun main() {
@@ -567,17 +569,18 @@ fun main() {
 }
 ```
 
-But it doesn’t work that way for extensions.Extension functions aren’t a part of the class; they’re declared externally to it, as shown in 3.2.
+But it doesn't work that way for extensions.Extension functions aren’t a part of the class; they’re declared externally to it, as shown in 3.2.
 
-Figure 3.2. The `View.showOff()` and `Button.showOff()` extension functions are defined outside the `View` and `Button` classes.
+::: info Figure 3.2. The `View.showOff()` and `Button.showOff()` extension functions are defined outside the `View` and `Button` classes.
+
 ![img_10.png](img/0img_10.png)
-
+:::
 
 Even though you can define extension functions with the same name and parameter types for a base class and its subclass, the function that’s called depends on the declared static type of the variable, determined at compile time, not on the runtime type of the value stored in that variable.
 
-The following example shows two showOff extension functions declared on the View and Button classes.When you call showOff on a variable of type View, the corresponding extension is called, even though the actual type of the value is Button:
+The following example shows two `showOff` extension functions declared on the `View` and `Button` classes.When you call `showOff` on a variable of type `View`, the corresponding extension is called, even though the actual type of the value is `Button`:
 
-Listing 3.7. No overriding for extension functions
+::: info Listing 3.7. No overriding for extension functions
 
 ```kotlin
 fun View.showOff() = println("I'm a view!")
@@ -589,6 +592,7 @@ fun main() {
     // I'm a view!
 }
 ```
+:::
 
 It might help to recall that an extension function is compiled to a static function in Java with the receiver as the first argument.Java would choose the function the same way:
 
@@ -603,31 +607,32 @@ class Demo {
 }
 ```
 
-As you can see, overriding doesn’t apply to extension functions: Kotlin resolves them statically.
+As you can see, overriding doesn't apply to extension functions: Kotlin resolves them statically.
 
-Note
+::: tip Note
+
 If the class has a member function with the same signature as an extension function, the member function always takes precedence. You should keep this in mind when extending the API of classes: if you add a member function with the same signature as an extension function that a client of your class has defined, and they then recompile their code, it will change its meaning and start referring to the new member function. Your IDE will also warn you that the extension function is shadowed by a member function.
+:::
 
 We’ve discussed how to provide additional methods for external classes. Now let’s see how to do the same with properties.
 
 ### 3.3.5 Extension properties
 
-You’ve already gotten to know the syntax for declaring Kotlin properties in 2.2.1, and just like extension functions, you can also specify extension properties.These allow you to extend classes with APIs that can be accessed using the property syntax, rather than the function syntax. Even though they’re called properties , they can’t have any state, because there’s no proper place to store it: it’s not possible to add extra fields to existing instances of Java objects.As a result, extension properties always have to define custom
+You’ve already gotten to know the syntax for declaring Kotlin properties in 2.2.1, and just like extension functions, you can also specify extension properties.These allow you to extend classes with APIs that can be accessed using the property syntax, rather than the function syntax. Even though they’re called properties , they can’t have any state, because there’s no proper place to store it: it’s not possible to add extra fields to existing instances of Java objects.As a result, extension properties always have to define custom accessors like the ones you learned about in 2.2.2.Still, they provide a shorter, more concise calling convention, which can still come in handy sometimes.
 
-accessors like the ones you learned about in 2.2.2.Still, they provide a shorter, more concise calling convention, which can still come in handy sometimes.
+In the previous section, you defined a function `lastChar()`. Now let’s convert it into a property—allowing you to call `"myText".lastChar` instead of `"myText.lastChar()`.
 
-In the previous section, you defined a function lastChar(). Now let’s convert it into a property—allowing you to call "myText".lastChar instead of "myText.lastChar().
-
-Listing 3.8. Declaring an extension property
+::: info Listing 3.8. Declaring an extension property
 
 ```kotlin
 val String.lastChar: Char
     get() = this.get(length - 1)
 ```
+:::
 
 You can see that, just as with functions, an extension property looks like a regular property with a receiver type added. The getter must always be defined, because there’s no backing field and therefore no default getter implementation. Initializers aren’t allowed for the same reason: there’s nowhere to store the value specified as the initializer.
 
-If you define the same property on a StringBuilder, you can make it a var, because the contents of a StringBuilder can be modified.
+If you define the same property on a `StringBuilder`, you can make it a `var`, because the contents of a `StringBuilder` can be modified.
 
 Listing 3.9. Declaring a mutable extension property
 
@@ -652,9 +657,8 @@ fun main() {
 }
 ```
 
-Note that when you need to access an extension property from Java, you have
+Note that when you need to access an extension property from Java, you have to invoke its getter explicitly: `StringUtilKt.getLastChar("Java")`.
 
-to invoke its getter explicitly: StringUtilKt.getLastChar("Java").
 We’ve discussed the concept of extensions in general. Now let’s return to the topic of collections and look at a few more library functions that help you handle them, as well as language features that come up in those functions.
 
 ## 3.4 Working with collections: varargs, infix calls, and library support
@@ -681,11 +685,9 @@ fun main() {
 }
 ```
 
-We were interested in how it works: why it’s possible to do so many things with collections in Kotlin out of the box, even though they’re instances of the
+We were interested in how it works: why it’s possible to do so many things with collections in Kotlin out of the box, even though they’re instances of the Java library classes. Now the answer should be clear: the `last` and `sum` functions are declared as extension functions, and are always imported by default in your Kotlin files!
 
-Java library classes. Now the answer should be clear: the last and sum functions are declared as extension functions, and are always imported by default in your Kotlin files!
-
-The last function is no more complex than lastChar for String, discussed in the previous section: it’s an extension on the List class. For sum, we show a simplified declaration (the real library function works not only for Int numbers, but for any number types):
+The `last` function is no more complex than `lastChar` for `String`, discussed in the previous section: it’s an extension on the List class. For `sum`, we show a simplified declaration (the real library function works not only for `Int` numbers, but for any number types):
 
 ```kotlin
 fun <T> List<T>.last(): T { /* returns the last element */ }
@@ -710,9 +712,9 @@ If you look up how this function is declared in the standard library, you’ll f
 fun listOf<T>(vararg values: T): List<T> { /* implementation */ }
 ```
 
-This method makes use of a language feature that allows you to pass an arbitrary number of values to a method by packing them in an array: varargs. Kotlin’s varargs are similar to those in Java, but the syntax is slightly different: instead of three dots after the type, Kotlin uses the vararg modifier on the parameter.
+This method makes use of a language feature that allows you to pass an arbitrary number of values to a method by packing them in an array: varargs. Kotlin’s varargs are similar to those in Java, but the syntax is slightly different: instead of three dots after the type, Kotlin uses the `vararg` modifier on the parameter.
 
-One other difference between Kotlin and Java is the syntax of calling the function when the arguments you need to pass are already packed in an array. In Java, you pass the array as is, whereas Kotlin requires you to explicitly unpack the array, so that every array element becomes a separate argument to the function being called. This feature is called a spread operator, and using it is as simple as putting the * character before the corresponding argument.In this snippet, you’re "spreading" the args array received by the main function to be used as variable arguments for the listOf function:
+One other difference between Kotlin and Java is the syntax of calling the function when the arguments you need to pass are already packed in an array. In Java, you pass the array as is, whereas Kotlin requires you to explicitly unpack the array, so that every array element becomes a separate argument to the function being called. This feature is called a spread operator, and using it is as simple as putting the `*` character before the corresponding argument.In this snippet, you’re "spreading" the `args` array received by the `main` function to be used as variable arguments for the `listOf` function:
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -727,13 +729,13 @@ Now let’s move on to maps. We’ll briefly discuss another way to improve the 
 
 ### 3.4.3 Working with pairs: infix calls and destructuring declarations
 
-To create maps, you use the mapOf function:
+To create maps, you use the `mapOf` function:
 
 ```kotlin
 val map = mapOf(1 to "one", 7 to "seven", 53 to "fifty-three")
 ```
 
-This is a good time to provide another explanation we promised you at the beginning of the chapter. The word to in this line of code isn’t a built-in construct, but rather a method invocation of a special kind, called an infix call.
+This is a good time to provide another explanation we promised you at the beginning of the chapter. The word `to` in this line of code isn’t a built-in construct, but rather a method invocation of a special kind, called an infix call.
 
 In an infix call, the method name is placed immediately between the target object name and the parameter, with no extra separators. The following two calls are equivalent:
 
@@ -742,15 +744,15 @@ In an infix call, the method name is placed immediately between the target objec
 1 to "one"
 ```
 
-Infix calls can be used with regular methods and extension functions that have exactly one required parameter. To allow a function to be called using the infix notation, you need to mark it with the infix modifier. Here’s a simplified version of the declaration of the to function:
+Infix calls can be used with regular methods and extension functions that have exactly one required parameter. To allow a function to be called using the `infix` notation, you need to mark it with the infix modifier. Here’s a simplified version of the declaration of the `to` function:
 
 ```kotlin
 infix fun Any.to(other: Any) = Pair(this, other)
 ```
 
-The to function returns an instance of Pair, which is a Kotlin standard library class that, unsurprisingly, represents a pair of elements. The actual declarations of Pair and to use generics, but we’re omitting them here to keep things simple.
+The `to` function returns an instance of `Pair`, which is a Kotlin standard library class that, unsurprisingly, represents a pair of elements. The actual declarations of `Pair` and `to` use generics, but we’re omitting them here to keep things simple.
 
-Note that you can initialize two variables with the contents of a Pair directly:
+Note that you can initialize two variables with the contents of a `Pair` directly:
 
 ```kotlin
 val (number, name) = 1 to "one"
@@ -758,11 +760,12 @@ val (number, name) = 1 to "one"
 
 This feature is called a destructuring declaration. 3.3 illustrates how it works with pairs.
 
-Figure 3.3. You create a pair using the to function and unpack it with a destructuring declaration.
+::: info Figure 3.3. You create a pair using the to function and unpack it with a destructuring declaration.
 
 ![img_11.png](img/0img_11.png)
+:::
 
-The destructuring declaration feature isn’t limited to pairs. For example, you can also initialize two variables, key and value, with the contents of a map entry (something you’ve already seen very briefly in 2.25).
+The destructuring declaration feature isn’t limited to pairs. For example, you can also initialize two variables, `key` and `value`, with the contents of a map entry (something you’ve already seen very briefly in 2.25).
 
 This also works with loops, as you’ve seen in the implementation of `joinToString`, which uses the `withIndex` function:
 
@@ -780,7 +783,7 @@ The `to` function is an extension function. You can create a pair of any element
 fun <K, V> mapOf(vararg values: Pair<K, V>): Map<K, V>
 ```
 
-Like listOf, mapOf accepts a variable number of arguments, but this time they should be pairs of keys and values. Even though the creation of a new map may look like a special construct in Kotlin, it’s a regular function with a concise syntax.
+Like `listOf`, `mapOf` accepts a variable number of arguments, but this time they should be pairs of keys and values. Even though the creation of a new map may look like a special construct in Kotlin, it’s a regular function with a concise syntax.
 
 Next, let’s discuss how extensions simplify dealing with strings and regular expressions.
 
@@ -820,15 +823,13 @@ Note that you can specify character arguments instead and write `"12.345- 6.A".s
 
 ### 3.5.2 Regular expressions and triple-quoted strings
 
-Let’s look at another example with two different implementations: the first one will use extensions on String, and the second will work with regular expressions. Your task will be to parse a file’s full path name into its
-
-components: a directory, a filename, and an extension. The Kotlin standard library contains functions to get the substring before (or after) the first (or the last) occurrence of the given delimiter. Here’s how you can use them to solve this task (also see 3.4).
+Let’s look at another example with two different implementations: the first one will use extensions on `String`, and the second will work with regular expressions. Your task will be to parse a file’s full path name into its components: a directory, a filename, and an extension. The Kotlin standard library contains functions to get the substring before (or after) the first (or the last) occurrence of the given delimiter. Here’s how you can use them to solve this task (also see 3.4).
 
 Figure 3.4. Splitting a path into a directory, a filename, and a file extension by using the substringBeforeLast and substringAfterLast functions
 ![img_12.png](img/0img_12.png)
 
 
-Listing 3.10. Using String extensions for parsing paths
+::: info Listing 3.10. Using `String` extensions for parsing paths
 
 ```kotlin
 fun parsePath(path: String) {
@@ -846,12 +847,13 @@ fun main() {
     // Dir: /Users/yole/kotlin-book, name: chapter, ext: adoc
 }
 ```
+:::
 
 The substring before the last slash symbol of the file path is the `path` to an enclosing directory, the substring after the last dot is a file extension, and the filename goes between them.
 
 Kotlin makes it easier to work with strings without resorting to regular expressions, which are powerful but also sometimes hard to understand after they’ve been written. If you do want to use regular expressions, the Kotlin standard library can help. Here’s how the same task can be done using regular expressions:
 
-Listing 3.11. Using regular expressions for parsing paths
+::: info Listing 3.11. Using regular expressions for parsing paths
 
 ```kotlin
 fun parsePathRegex(path: String) {
@@ -868,6 +870,7 @@ fun main() {
     // Dir: /Users/yole/kotlin-book, name: chapter, ext: adoc
 }
 ```
+:::
 
 In this example, the regular expression is written in a triple-quoted string. In such a string, you don’t need to escape any characters, including the backslash, so you can encode a regular expression matching a literal dot with
 `\.` rather than `\\.` as you’d write in an ordinary string literal (see 3.5).
@@ -956,7 +959,7 @@ Kotlin gives you a cleaner solution: you can nest the functions you’ve extract
 
 Let’s see how to use local functions to fix a fairly common case of code duplication. In 3.12, a function saves a user to a database, and you need to make sure the user object contains valid data.
 
-Listing 3.12. A function with repetitive code
+::: info Listing 3.12. A function with repetitive code
 
 ```kotlin
 class User(val id: Int, val name: String, val address: String)
@@ -980,11 +983,12 @@ fun main() {
     // java.lang.IllegalArgumentException: Can't save user 1: empty Name
 }
 ```
+:::
 
 The amount of duplicated code here is fairly small, and you probably won’t want to have a full-blown method in your class that handles one special case of validating a user. But if you put the validation code into a local function, you can get rid of the duplication and still maintain a clear code structure.
 Here’s how it works.
 
-Listing 3.13. Extracting a local function to avoid repetition
+::: info Listing 3.13. Extracting a local function to avoid repetition
 
 ```kotlin
 class User(val id: Int, val name: String, val address: String)
@@ -1006,10 +1010,11 @@ fun saveUser(user: User) {
     // Save user to the database
 }
 ```
+:::
 
-This looks better. The validation logic isn’t duplicated, but it’s still confined to the scope of the validate function.As the project evolves, you can easily add more validations if you need to add other fields to User. But having to pass the User object to the validation function is somewhat ugly. The good news is that it’s entirely unnecessary, because local functions have access to all parameters and variables of the enclosing function. Let’s take advantage of that and get rid of the extra User parameter.
+This looks better. The validation logic isn’t duplicated, but it’s still confined to the scope of the `validate` function.As the project evolves, you can easily add more validations if you need to add other fields to `User`. But having to pass the `User` object to the validation function is somewhat ugly. The good news is that it’s entirely unnecessary, because local functions have access to all parameters and variables of the enclosing function. Let’s take advantage of that and get rid of the extra `User` parameter.
 
-Listing 3.14. Accessing outer function parameters in a local function
+::: info Listing 3.14. Accessing outer function parameters in a local function
 
 ```kotlin
 class User(val id: Int, val name: String, val address: String)
@@ -1029,10 +1034,11 @@ fun saveUser(user: User) {
     // Save user to the database
 }
 ```
+:::
 
-To improve this example even further, you can move the validation logic into an extension function of the User class.
+To improve this example even further, you can move the validation logic into an extension function of the `User` class.
 
-Listing 3.15. Extracting the logic into an extension function
+::: info Listing 3.15. Extracting the logic into an extension function
 
 ```kotlin
 class User(val id: Int, val name: String, val address: String)
@@ -1055,10 +1061,11 @@ fun saveUser(user: User) {
     // Save user to the database
 }
 ```
+:::
 
 Extracting a piece of code into an extension function turns out to be surprisingly useful. Even though User is a part of your codebase and not a library class, you don’t want to put this logic into a method of User, because it’s not relevant to any other places where User is used. If you follow this approach the API of the class contains only the essential methods used everywhere, so the class remains small and easy to wrap your head around. On the other hand, functions that primarily deal with a single object and don’t need access to its private data can access its members without extra qualification, as in 3.15.
 
-Extension functions can also be declared as local functions, so you could go even further and put User.validateBeforeSave as a local function in saveUser. But deeply nested local functions are usually fairly hard to read; so, as a general rule, we don’t recommend using more than one level of nesting.
+Extension functions can also be declared as local functions, so you could go even further and put `User.validateBeforeSave` as a local function in `saveUser`. But deeply nested local functions are usually fairly hard to read; so, as a general rule, we don’t recommend using more than one level of nesting.
 
 Having looked at all the cool things you can do with functions, in the next chapter we’ll look at what you can do with classes.
 

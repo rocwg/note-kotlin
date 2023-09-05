@@ -56,7 +56,11 @@ ABR = qkt
 ::: code-group
 
 ```html [ABR = ashow]
-<u>$SELECTION$</u><ShowS>$END$</ShowS>
+<u>$SELECTION$</u><ShowS>`$END$`</ShowS>
+```
+
+```html [ABR = bshow]
+<u>$END$</u><ShowS>`$SELECTION$`</ShowS>
 ```
 
 ```html [ABR = zshow]

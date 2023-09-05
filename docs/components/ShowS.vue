@@ -9,6 +9,6 @@ function toggleText() {
 </script>
 
 <template>
-    <span @click="toggleText">🍉</span>
+    <span @click="toggleText">🎈</span>
     <span v-if="showText"><slot></slot></span>
 </template>
