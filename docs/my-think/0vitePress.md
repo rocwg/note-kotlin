@@ -8,6 +8,15 @@
 
 :::
 
+## 零 vitePress 的一些用法
+
+### （1）nav
+
+### （2）sidebar
+
+
+
+
 ## 一 实时模板 live template
 
 ```shell

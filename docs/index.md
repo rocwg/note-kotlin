@@ -8,8 +8,8 @@ hero:
   tagline: My great project tagline
   actions:
     - theme: brand
-      text: kotlin in action
-      link: /tool-kotlin/01-Kotlin-what-and-why
+      text: VitePress
+      link: /my-think/0vitePress
     - theme: alt
       text: View on GitHub
       link: https://github.com/vuejs/vitepress

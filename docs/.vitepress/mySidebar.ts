@@ -2,7 +2,7 @@
 // items: DefaultTheme.SidebarItem[]
 
 export const myThink = [
-    { text: 'VitePress 使用心得', link: '0vitepress' },
+    { text: 'VitePress 使用心得', link: '0vitePress' },
     { text: '计划', link: '00' },
     { text: 'ENV', link: '01env' },
 ]
@@ -40,6 +40,11 @@ export const toolPython = [
 ]
 
 export const toolKotlin = [
+    { text: 'FxGl', link: 'FxGl' },
+    { text: 'KMP', link: 'KMP' },
+]
+
+export const bookKinA = [
     {
         text: 'PART 1: Introducing kotlin',
         collapsed: false,
@@ -74,6 +79,39 @@ export const toolKotlin = [
     }
 ]
 
+export const bookBlender = [
+    { text: '00', link: '00' },
+    {
+        text: 'Getting Started',
+        items: [
+            { text: 'G0-AboutBlender', link: 'G0-AboutBlender' },
+            { text: 'G1-Installing', link: 'G1-Installing' },
+            { text: 'G2-Configuring', link: 'G2-Configuring' },
+            { text: 'G3-HelpSystem', link: 'G3-HelpSystem' },
+        ]
+    },
+    {
+        text: 'Sections',
+        items: [
+            { text: 'S0-UserInterface', link: 'S0-UserInterface' },
+            { text: 'S1-Editors', link: 'S1-Editors' },
+            { text: 'S2-Scenes&Objects', link: 'S2-Scenes&Objects' },
+            { text: 'S3-Modeling', link: 'S3-Modeling' },
+            { text: 'S4-Sculpting&Painting', link: 'S4-Sculpting&Painting' },
+            { text: 'S5-GreasePencil', link: 'S5-GreasePencil' },
+            { text: 'S6-Animation&Rigging', link: 'S6-Animation&Rigging' },
+            { text: 'S7-Physics', link: 'S7-Physics' },
+            { text: 'S8-Rendering', link: 'S8-Rendering' },
+            { text: 'S9-Compositing', link: 'S9-Compositing' },
+            { text: 'S10-MotionTracking&Masking', link: 'S10-MotionTracking&Masking' },
+            { text: 'S11-VideoEditing', link: 'S11-VideoEditing' },
+            { text: 'S12-Assets-Files-DataSystem', link: 'S12-Assets-Files-DataSystem' },
+            { text: 'S13-Add-ons', link: 'S13-Add-ons' },
+            { text: 'S14-Advanced', link: 'S14-Advanced' },
+            { text: 'S15-Troubleshooting_Glossary_ManualIndex', link: 'S15-Troubleshooting_Glossary_ManualIndex' },
+        ]
+    },
+]
 
 
 // 这种方式重命名不能同步到相关调用的地方。
