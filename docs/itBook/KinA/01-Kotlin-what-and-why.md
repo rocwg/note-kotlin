@@ -140,7 +140,7 @@ But Kotlin works in other contexts as well. You can create cross-platforms apps 
 
 Next, let's look at the key qualities of Kotlin as a programming language.
 
-### 1.2.2 Static typing makes Kotlin performant, reliable, and maintainable
+### 1.2.2 <u>静态类型</u><ShowS>`Static typing makes Kotlin performant, reliable, and maintainable`</ShowS>
 
 Statically typed programming languages come with a number of advantages, such as performance, reliability, maintainability, and tool support. The key point behind a statically typed language is that the type of every expression in a program is known at compile time. Kotlin is a statically typed programming language: The Kotlin compiler can validate that the methods and fields you're trying to access on an object actually exist. This helps eliminate an entire class of bugs—rather than crash at runtime, if a field is missing or the return type of a function call isn't as expected, you will already see these problems at compile time, allowing you to fix them earlier in the development cycle.
 
@@ -167,8 +167,9 @@ If you look at the specifics of Kotlin's type system, you'll find many familiar 
 Something that may stand out to you is Kotlin's support for nullable types, which lets you write more reliable programs by detecting possible null pointer exceptions at compile time, rather than experience them in the form of crashes at runtime. We'll come back to nullable types later in 7 and discuss them in detail in 7, where we'll also contrast them with other approaches for null values you might be familiar with.
 Kotlin's type system also has first-class support for function types. To see what this is about, let's look at the main ideas of functional programming and see how it's supported in Kotlin.
 
-### 1.2.3 Combining functional and object-oriented makes Kotlin safe and flexible
-As a multi-paradigm programming language, Kotlin combines the object- oriented approach with the functional programming style. The key concepts of functional programming are as follows:
+### 1.2.3 <u>函数式 & 面向对象</u><ShowS>`Combining functional and object-oriented makes Kotlin safe and flexible`</ShowS>
+
+As a multi-paradigm programming language, Kotlin combines the object-oriented approach with the functional programming style. The key concepts of functional programming are as follows:
 
 - First-class functions—You work with functions (pieces of behavior) as values. You can store them in variables, pass them as parameters, or return them from other functions.
 - Immutability—You work with immutable objects, which guarantees that their state can't change after their creation.
@@ -204,7 +205,7 @@ The Kotlin standard library defines functions like filter, map and sortedBy for 
 
 When writing code in Kotlin, you can combine both object-oriented and functional approaches and use the tools that are most appropriate for the problem you're solving: You get the full power of functional-style programming in Kotlin, and when you need it, you can work with mutable data and write functions with side effects, all without jumping through extra hoops. And, of course, working with frameworks that are based on interfaces and class hierarchies is just as easy as you would expect it to be.
 
-### 1.2.4 Concurrent and asynchronous code becomes natural and structured with coroutines
+### 1.2.4 <u>协程</u><ShowS>`Concurrent and asynchronous code becomes natural and structured with coroutines`</ShowS>
 
 Whether you're building an application running on a server, a desktop machine, or a mobile phone, concurrency, running multiple pieces of your code at the same time, is a topic that's almost unavoidable.
 
@@ -252,7 +253,21 @@ Together with abstractions like cold and hot flows, and channels that facilitate
 
 The entire third part of this book will be dedicated to learning ins and outs of coroutines, and understanding how you can best apply them for your use cases.
 
+<ShowL>
+<template v-slot:hide>
+<div class="custom-show-hide">
+
 ### 1.2.5 Kotlin can be used for any purpose: it's free, open source, and open to contributions
+
+</div>
+</template>
+<template v-slot:show>
+
+### 1.2.5 Kotlin 可用于任何目的：它是免费的、开源的，并且欢迎贡献
+
+</template>
+</ShowL>
+
 The Kotlin language, including the compiler, libraries, and all related tooling, is entirely open source and free to use for any purpose. It's available under the Apache 2 license; development happens in the open on GitHub (http://github.com/jetbrains/kotlin). There are many ways to contribute to the development of Kotlin and its community:
 
 - The project welcomes code contributions for new features and fixes around the Kotlin compiler and its associated tooling.
@@ -279,9 +294,35 @@ Developers have been building these kinds of applications on the JVM for many ye
 
 In this environment especially, Kotlin profits from its seamless interoperability with existing Java code. Regardless of whether you're writing a new component or migrating the code of an existing service to Kotlin, Kotlin will fit right in. You won't run into problems when you need to extend Java classes in Kotlin or annotate the methods and fields of a class in a certain way. And the benefit is that the code of your system will be more compact, more reliable, and easier to maintain.
 
-Another big advantage of using Kotlin is better reliability for your application. Kotlin's type system, with its precise tracking of null values, makes the problem of null pointer exceptions much less pressing. Most of the code that would lead to a NullPointerException at runtime in Java fails to compile in Kotlin, ensuring that you fix the error before the application gets to the production environment.
+<ShowL>
+<template v-slot:hide>
+<div class="custom-show-hide">
+
+Another big advantage of using Kotlin is better reliability for your application. Kotlin's type system, with its precise tracking of `null` values, makes the problem of `null` pointer exceptions much less pressing. Most of the code that would lead to a `NullPointerException` at runtime in Java fails to compile in Kotlin, ensuring that you fix the error before the application gets to the production environment.
+
+</div>
+</template>
+<template v-slot:show>
+
+使用 Kotlin 的另一大优势是应用程序具有更好的可靠性。 Kotlin 的类型系统凭借其对“null”值的精确跟踪，使得“null”指针异常问题不再那么紧迫。大多数在 Java 运行时导致“NullPointerException”的代码无法在 Kotlin 中编译，确保您在应用程序进入生产环境之前修复错误。
+
+</template>
+</ShowL>
+
+<ShowL>
+<template v-slot:hide>
+<div class="custom-show-hide">
 
 Modern frameworks, such as Spring (https://spring.io/), provide first-class support for Kotlin out of the box. Beyond the seamless interoperability, these frameworks include additional extensions and make use of techniques which that make it feel as if they were designed for Kotlin in the first place.
+
+</div>
+</template>
+<template v-slot:show>
+
+现代框架，例如 Spring (https:spring.io)，为 Kotlin 提供一流的开箱即用支持。除了无缝的互操作性之外，这些框架还包括额外的扩展和使用的技术，这些技术让人感觉它们最初是为 Kotlin 设计的。
+
+</template>
+</ShowL>
 
 In this example, you're defining a simple Spring Boot application, that serves a list of `Greeting` objects, consisting of an ID and some text, as JSON via HTTP. Concepts from the Spring framework transfer directly to Kotlin: you use the same annotations (`@SpringBootApplication`, `@RestController`, `@GetMapping`) as you would when using Java:
 

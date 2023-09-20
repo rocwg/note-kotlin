@@ -2,29 +2,45 @@
 
 ::: tip This chapter covers
 
-- Declaring functions, variables, classes, enums, and properties Control structures in Kotlin
+- Declaring functions, variables, classes, enums, and properties
+- Control structures in Kotlin
 - Smart casts
 - Throwing and handling exceptions
 
 :::
 
-::: details 在本章中，您将学习编写第一个可运行的 Kotlin 程序所需的 Kotlin 语言基础知识。其中包括您在整个 Kotlin 程序中遇到的基本构建块，例如变量和函数。您还将熟悉 Kotlin 中通过枚举表示数据的不同方式，以及类及其属性。
+<ShowL>
+<template v-slot:hide>
+<div class="custom-show-hide">
 
 In this chapter, you'll learn the basics of the Kotlin language required to write your first working Kotlin programs. These include basic building blocks that you encounter all throughout Kotlin programs, like variables and functions. You'll also get acquainted with different ways of representing data in Kotlin, via enum, as well as classes and their properties.
 
-:::
-
-::: details 您将在本章中学习的不同控制结构将为您提供在程序中使用条件逻辑以及使用循环进行迭代所需的工具，并将了解与 Java 等其他语言相比，这些结构有何特殊之处。
-
 The different control structures you'll learn throughout this chapter will give you the tools needed to use conditional logic in your programs, as well as iterate using loops, and will learn what makes these constructs special when compared to other languages like Java.
-
-:::
 
 We'll also introduce the basic mechanics of types in Kotlin, starting with the concept of a _smart cast_, an operation that combines a type check and a cast into one operation. You'll see how this helps you remove redundancy from your code without sacrificing safety. We'll also briefly talk about exception handling, and Kotlin's philosophy behind it.
 
 By the end of this chapter, you'll already be able to combine these basic bits and pieces of the Kotlin language to write your own working Kotlin code, even if it might not be the most _idiomatic_.
 
-::: info What's "idiomatic Kotlin"?
+</div>
+</template>
+<template v-slot:show>
+
+在本章中，您将学习编写第一个可运行的 Kotlin 程序所需的 Kotlin 语言基础知识。其中包括您在整个 Kotlin 程序中遇到的基本构建块，例如变量和函数。您还将熟悉在 Kotlin 中通过枚举表示数据的不同方式，以及类及其属性。
+
+本章中您将学到的不同控制结构将为您提供在程序中使用条件逻辑以及使用循环进行迭代所需的工具，并将了解与 Java 等其他语言相比，这些结构有何特殊之处。
+
+我们还将介绍 Kotlin 中类型的基本机制，从“智能转换”的概念开始，这是一种将类型检查和转换合并为一个操作的操作。您将看到这如何帮助您在不牺牲安全性的情况下消除代码中的冗余。我们还将简要讨论异常处理及其背后的 Kotlin 哲学。
+
+到本章结束时，您已经能够结合 Kotlin 语言的这些基本部分来编写您自己的工作 Kotlin 代码，即使它可能不是最 **_惯用的_**。
+
+</template>
+</ShowL>
+
+::: info WHAT'S "IDIOMATIC KOTLIN"?
+
+<ShowL>
+<template v-slot:hide>
+<div class="custom-show-hide">
 
 When discussing Kotlin code, a certain phrase often reoccurs: idiomatic Kotlin. You'll certainly hear this phrase throughout this book, but you might also hear it when talking to your colleagues, when attending community events, or at conferences. Clearly, it's worth understanding what is meant by it.
 
@@ -32,9 +48,22 @@ Simply said, idiomatic Kotlin is how a "native Kotlin speaker" writes code, usin
 
 Like any skill, learning to write idiomatic Kotlin takes time and practice. As you progress through this book, inspect the provided code samples, and write your own code, you will gradually develop an intuition to what idiomatic Kotlin code looks and feels like, and will gain the ability to independently apply these learnings in your own code.
 
+</div>
+</template>
+<template v-slot:show>
+
+在讨论 Kotlin 代码时，经常会重复出现某个短语：idiomatic Kotlin。您肯定会在本书中听到这句话，但您也可能在与同事交谈、参加社区活动或会议时听到它。显然，理解它的含义是值得的。
+
+简单地说，惯用的 Kotlin 是“Kotlin 母语人士”在适当的情况下使用语言功能和语法糖编写代码的方式。此类代码由习语组成 - 可识别的结构，用于解决您试图以“Kotlin 方式”解决的问题。惯用代码符合社区普遍接受的编程风格，并遵循语言设计者的建议。
+
+与任何技能一样，学习编写惯用的 Kotlin 需要时间和练习。当您继续阅读本书、检查提供的代码示例并编写自己的代码时，您将逐渐对惯用的 Kotlin 代码的外观和感觉产生直觉，并将获得在自己的代码中独立应用这些知识的能力。
+
+</template>
+</ShowL>
+
 :::
 
-## 2.1 Basic elements: functions and variables
+## 2.1 <u>函数 & 变量</u><ShowS>`Basic elements: functions and variables`</ShowS>
 
 This section introduces you to the basic elements that every Kotlin program consists of: functions and variables. You'll write your very first Kotlin program, see how Kotlin lets you omit many type declarations and how it encourages you to avoid using mutable data where possible—and why that's a good thing.
 
