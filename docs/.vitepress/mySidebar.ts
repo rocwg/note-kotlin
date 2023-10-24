@@ -15,7 +15,8 @@ export const workJava = [
         text: 'spring',
         items: [
             { text: 'springBoot3', link: 'spring/springBoot3' },
-            { text: 'Thread', link: 'spring/Thread' },
+            { text: 'java-thread', link: 'spring/java-thread' },
+            { text: 'java-stream', link: 'spring/java-stream' },
         ]
     },
     {
