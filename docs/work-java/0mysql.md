@@ -57,3 +57,26 @@ SELECT TIMESTAMPDIFF(MONTH, '2023-09-08', '2023-08-20'); --  0
 ```
 
 :::
+
+
+## 插入
+
+::: code-group
+
+```java
+   @Transactional(rollbackFor = Exception.class)
+    public void insertBatchRoc(List<CardPackPlan> plans, int batchSize) {
+        if (CollectionUtils.isEmpty(plans)) return;
+        Lists.partition(plans, batchSize).forEach(subPart -> baseMapper.insertBatchRoc(subPart));
+    }
+```
+
+```sql
+insert into XX_plan (create_time, update_time, msisdn, client_pack_id, period_start_time, period_end_time,
+                     period_sort, status, period_pack_usage, period_can_usage, remark)
+values (now(), now(), ?, ?, ?, ?, ?, ?, ?, ?, ?),
+       (now(), now(), ?, ?, ?, ?, ?, ?, ?, ?, ?),
+    18493412326(Long), 159(Long), 2023-11-01 00:00:00.0(Timestamp), 2023-11-30 00:00:00.0(Timestamp), 26(Integer), 1(Byte), 5.00(BigDecimal), 5.00(BigDecimal), ceshi Roc：正常(String),
+    18493412326(Long), 159(Long), 2023-12-01 00:00:00.0(Timestamp), 2023-12-31 00:00:00.0(Timestamp), 27(Integer), 1(Byte), 5.00(BigDecimal), 5.00(BigDecimal), ceshi Roc：正常(String),
+```
+:::

@@ -2,9 +2,14 @@
 // items: DefaultTheme.SidebarItem[]
 
 export const myThink = [
+    {
+        text: '2023',
+        items: [
+            { text: '2023年11月', link: '2023/2023年11月' },
+        ]
+    },
+    { text: 'TODO', link: '00' },
     { text: 'VitePress 使用心得', link: '0vitePress' },
-    { text: '计划', link: '00' },
-    { text: 'ENV', link: '01env' },
 ]
 
 export const workJava = [
@@ -53,22 +58,23 @@ export const bookKinA = [
         items: [
             { text: '1 kotlin: what and why', link: '01-Kotlin-what-and-why' },
             { text: '2 Kotlin basics', link: '02-Kotlin-basics' },
-            { text: '03-Defining-and-calling-functions', link: '03-Defining-and-calling-functions' },
-            { text: '04-Classes-objects-and-interfaces', link: '04-Classes-objects-and-interfaces' },
-            { text: '05-Programming-with-lambdas', link: '05-Programming-with-lambdas' },
-            { text: '06-Working-with-collections-and-sequences', link: '06-Working-with-collections-and-sequences' },
-            { text: '07-Working-with-nullable-values', link: '07-Working-with-nullable-values' },
-            { text: '08-BasicTypes-collections-and-arrays', link: '08-BasicTypes-collections-and-arrays' }
+            { text: '3 Defining and calling functions', link: '03-Defining-and-calling-functions' },
+            { text: '4 Classes objects and interfaces', link: '04-Classes-objects-and-interfaces' },
+            { text: '5 Programming with lambdas', link: '05-Programming-with-lambdas' },
+            { text: '6 Working with collections and sequences', link: '06-Working-with-collections-and-sequences' },
+            { text: '7 Working with nullable values', link: '07-Working-with-nullable-values' },
+            { text: '8 BasicTypes collections and arrays', link: '08-BasicTypes-collections-and-arrays' }
         ]
     },
     {
         text: 'PART 2: Embracing kotlin',
         collapsed: false,
         items: [
-            { text: '09-Operator-overloading-and-other-conventions', link: '09-Operator-overloading-and-other-conventions' },
-            { text: '10-Higher_order-functions-lambdas-as-parameters-and-returnValues', link: '10-Higher_order-functions-lambdas-as-parameters-and-returnValues' },
-            { text: '11-Generics', link: '11-Generics' },
-            { text: '12-Annotations-and-reflection', link: '12-Annotations-and-reflection' },
+            { text: '9 Operator overloading and other conventions', link: '09-Operator-overloading-and-other-conventions' },
+            { text: '10 Higher order functions lambdas as parameters and returnValues', link: '10-Higher_order-functions-lambdas-as-parameters-and-returnValues' },
+            { text: '11 Generics', link: '11_Generics' },
+            { text: '12 Annotations and reflection', link: '12_Annotations_and_reflection.md' },
+            { text: '13 DSL construction', link: '13_DSL_construction.md' },
         ]
     },
     {
