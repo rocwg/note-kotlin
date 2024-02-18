@@ -10,6 +10,12 @@
 
 ## 零 vitePress 的一些用法
 
+[vitePress](https://vitepress.dev/zh/guide/getting-started).
+
+> 关于xxx
+> npm, pnpm, yarn, bun
+> 选择太多了！！
+
 ### （1）nav
 
 ### （2）sidebar

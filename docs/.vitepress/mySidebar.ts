@@ -78,11 +78,23 @@ export const bookKinA = [
         ]
     },
     {
+        text: 'PART 3: Concurrent programming with coroutines and flows',
+        collapsed: false,
+        items: [
+            { text: '14 coroutines', link: '14_coroutines' },
+            { text: '15 structured concurrency', link: '15_structured_concurrency' },
+            { text: '16 flows', link: '16_flows' },
+            { text: '17 flow operators', link: '17_flow_operators' },
+            { text: '18 error handling and testing', link: '18_error_handling_and_testing' },
+        ]
+    },
+    {
         text: 'APPENDIXES',
         collapsed: false,
         items: [
             { text: 'A: Building kotlin projects', link: 'Appendix-A' },
             { text: 'B: Documenting kotlin code', link: 'Appendix-B' },
+            // { text: 'C: The kotlin ecosystem', link: 'Appendix-C' },
         ]
     }
 ]

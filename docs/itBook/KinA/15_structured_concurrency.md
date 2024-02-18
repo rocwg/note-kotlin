@@ -751,3 +751,4 @@ Ch sicidgsnsu outeisnorc, riconoteu enoctxst, tueionocr oescsp, zqn gor ncpotce 
 - You can invoke cancellation yourself using functions like `cancel` or `withTimeoutOrNull`. Many existing frameworks can also cancel coroutines for you.
 - Marking a function with the `suspend` modifier is not enough to support cancellation. However, Kotlin coroutines provides mechanisms that support you in building cancellable suspending functions: They are functions like `ensureActive` or `yield`, and the `isActive` property.
 - Frameworks use coroutine scopes to help tie your coroutines to the lifecycle of the application, e.g., the time a viewmodel is shown on screen, or a request handler is executed.
+

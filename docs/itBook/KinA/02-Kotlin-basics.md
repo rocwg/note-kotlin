@@ -2,7 +2,7 @@
 
 ::: tip This chapter covers
 
-- Declaring functions, variables, classes, enums, and properties
+- <u>声明函数、变量、类、枚举和属性</u><ShowS>`Declaring functions, variables, classes, enums, and properties`</ShowS>
 - Control structures in Kotlin
 - Smart casts
 - Throwing and handling exceptions
@@ -65,7 +65,16 @@ Like any skill, learning to write idiomatic Kotlin takes time and practice. As y
 
 ## 2.1 <u>函数 & 变量</u><ShowS>`Basic elements: functions and variables`</ShowS>
 
+<ShowL>
+<template v-slot:hide>
+<div class="custom-show-hide">
 This section introduces you to the basic elements that every Kotlin program consists of: functions and variables. You'll write your very first Kotlin program, see how Kotlin lets you omit many type declarations and how it encourages you to avoid using mutable data where possible—and why that's a good thing.
+</div>
+</template>
+<template v-slot:show>
+本节向您介绍每个 Kotlin 程序的基本元素：函数和变量。您将编写第一个 Kotlin 程序，了解 Kotlin 如何让您省略许多类型声明，以及它如何鼓励您尽可能避免使用可变数据，以及为什么这是一件好事。
+</template>
+</ShowL>
 
 ### 2.1.1 Writing your first Kotlin program: Hello, world!
 
@@ -77,7 +86,7 @@ Let's start our journey into the world of Kotlin with a classical example: a pro
 
 :::
 
-We can observe a number of features and parts of the language syntax in this simple code snippet already:
+<u>在这个简单的代码片段中，我们已经可以观察到语言语法的许多功能和部分：</u><ShowS>`We can observe a number of features and parts of the language syntax in this simple code snippet already:`</ShowS>
 
 - The `fun` keyword is used to declare a function. Programming in Kotlin is lots of fun, indeed!
 - The function can be declared at the top level of any Kotlin file; you don't need to put it in a class.
